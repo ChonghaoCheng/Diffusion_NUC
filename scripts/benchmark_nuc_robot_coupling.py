@@ -65,7 +65,18 @@ def main() -> None:
         robot_cfg["model"], site_name=robot_cfg["site_name"],
         tool_axis_index=robot_cfg["tool_axis_index"], tool_axis_sign=robot_cfg["tool_axis_sign"],
     )
-    all_rows = []
+    checkpoint_path = args.output / "candidate_results.partial.jsonl"
+    all_rows = load_jsonl(checkpoint_path) if checkpoint_path.exists() else []
+    if any(
+        row.get("repository_commit") != commit
+        or row.get("experiment_config_hash") != config_hash
+        for row in all_rows
+    ):
+        raise RuntimeError("partial E06 checkpoint does not match the current commit/config")
+    completed = {
+        (row["surface_id"], row["placement_id"], row["skeleton_id"]): row
+        for row in all_rows
+    }
     scene_rows = []
     experiment_start = perf_counter()
     for surface_number, surface_id in enumerate(config["surfaces"]):
@@ -115,6 +126,15 @@ def main() -> None:
             edge_pose_cache = {}
             scene_candidate_rows = []
             for index, skeleton in enumerate(refined):
+                identity = (surface_id, placement_id, f"S{index:02d}")
+                if identity in completed:
+                    row = completed[identity]
+                    scene_candidate_rows.append(row)
+                    print(
+                        f"{surface_id:<10} {placement_id:<6} S{index:02d} resumed",
+                        flush=True,
+                    )
+                    continue
                 planner_start = perf_counter()
                 lift = minimum_cost_nuc_lift(
                     robot, surface, skeleton, catalog, transform, edge_pose_cache,
@@ -151,6 +171,9 @@ def main() -> None:
                 )
                 scene_candidate_rows.append(row)
                 all_rows.append(row)
+                with checkpoint_path.open("a") as checkpoint:
+                    checkpoint.write(json.dumps(row, sort_keys=True) + "\n")
+                    checkpoint.flush()
                 print(
                     f"{surface_id:<10} {placement_id:<6} S{index:02d} "
                     f"NUC={row['E_NUC']:.4f} lift={row['lift_found']} "
@@ -177,6 +200,7 @@ def main() -> None:
     }, indent=2) + "\n")
     make_plots(all_rows, scene_rows, args.output)
     (args.output / "README.md").write_text(render_report(summary, scene_rows))
+    checkpoint_path.unlink(missing_ok=True)
     print(json.dumps(summary, indent=2))
 
 
@@ -341,6 +365,10 @@ def save_witness(path: Path, lift) -> None:
 
 def write_jsonl(path: Path, rows) -> None:
     path.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in rows))
+
+
+def load_jsonl(path: Path):
+    return [json.loads(line) for line in path.read_text().splitlines() if line]
 
 
 def write_csv(path: Path, rows) -> None:
