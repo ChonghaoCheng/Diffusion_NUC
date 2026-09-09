@@ -9,7 +9,9 @@ import numpy as np
 from diffusion_coverage.surface.surface_instance import SurfaceInstance
 
 
-ExpansionPolicy = Literal["upstream_first", "reverse_order", "seeded_random"]
+ExpansionPolicy = Literal[
+    "upstream_first", "reverse_order", "seeded_random", "frontier_random"
+]
 
 
 @dataclass(frozen=True)
@@ -55,10 +57,10 @@ def generate_nuc_skeleton(
     contact model from the associated paper.
     """
 
-    if policy not in {"upstream_first", "reverse_order", "seeded_random"}:
+    if policy not in {"upstream_first", "reverse_order", "seeded_random", "frontier_random"}:
         raise ValueError(f"unknown NUC expansion policy: {policy}")
-    if policy == "seeded_random" and seed is None:
-        raise ValueError("seeded_random requires an explicit seed")
+    if policy in {"seeded_random", "frontier_random"} and seed is None:
+        raise ValueError(f"{policy} requires an explicit seed")
     vertices, faces = _extract_mesh(mesh)
     valid_faces = np.flatnonzero(np.all(faces >= 0, axis=1))
     if not len(valid_faces):
@@ -77,7 +79,13 @@ def generate_nuc_skeleton(
     tree_edges: list[tuple[int, int, int]] = []
 
     while queue:
-        node = queue.popleft()
+        if policy == "frontier_random" and len(queue) > 1:
+            selected = int(rng.integers(len(queue)))
+            queue.rotate(-selected)
+            node = queue.popleft()
+            queue.rotate(selected)
+        else:
+            node = queue.popleft()
         edge_candidates = _uncovered_neighbours(
             faces, node.face, adjacency, covered, len(vertices)
         )

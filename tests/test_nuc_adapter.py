@@ -37,7 +37,10 @@ def test_upstream_first_matches_compiled_reference():
 
 def test_all_policies_preserve_structural_contract():
     surface = make_saddle(nx=4, ny=4, samples_per_face=1)
-    for policy, seed in (("upstream_first", None), ("reverse_order", None), ("seeded_random", 7)):
+    for policy, seed in (
+        ("upstream_first", None), ("reverse_order", None),
+        ("seeded_random", 7), ("frontier_random", 7),
+    ):
         skeleton = generate_nuc_skeleton(surface, policy=policy, seed=seed)
         validate_nuc_skeleton(surface.vertices, surface.faces, skeleton)
         assert len(skeleton.visited_faces) == surface.num_faces
@@ -51,6 +54,14 @@ def test_seeded_random_policy_is_deterministic_and_records_decisions():
     assert np.array_equal(first.topological_path, second.topological_path)
     assert first.expansion_decisions == second.expansion_decisions
     assert first.seed == 19
+
+
+def test_frontier_random_policy_is_deterministic():
+    surface = make_saddle(nx=5, ny=5, samples_per_face=1)
+    first = generate_nuc_skeleton(surface, policy="frontier_random", seed=23)
+    second = generate_nuc_skeleton(surface, policy="frontier_random", seed=23)
+    assert np.array_equal(first.topological_path, second.topological_path)
+    assert first.expansion_decisions == second.expansion_decisions
 
 
 def test_variant_generator_returns_unique_valid_skeletons():

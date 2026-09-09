@@ -213,10 +213,18 @@ def generate_variants(surface, count: int, seed: int):
     variants, times, fingerprints = [], [], set()
     jobs = [("upstream_first", None), ("reverse_order", None)]
     next_seed = seed
+    random_attempts = 0
     while len(variants) < count:
-        policy, value = jobs.pop(0) if jobs else ("seeded_random", next_seed)
-        if policy == "seeded_random":
+        if jobs:
+            policy, value = jobs.pop(0)
+        else:
+            policy = "seeded_random" if random_attempts < 1000 else "frontier_random"
+            value = next_seed
+            random_attempts += 1
+        if policy in {"seeded_random", "frontier_random"}:
             next_seed += 1
+        if random_attempts > 5000:
+            raise RuntimeError(f"only {len(variants)} unique legal NUC skeletons were found")
         start = perf_counter()
         candidate = generate_nuc_skeleton(surface, policy=policy, seed=value)
         elapsed = perf_counter() - start
