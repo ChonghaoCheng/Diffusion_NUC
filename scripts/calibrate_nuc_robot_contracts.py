@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -12,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
+os.environ.setdefault("MPLCONFIGDIR", "/data/chocheng/.cache/matplotlib")
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -85,7 +87,12 @@ def main() -> None:
     (args.output / "config.json").write_text(json.dumps(frozen, indent=2) + "\n")
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     write_csv(args.output / "raw.csv", rows)
-    plot_coverage(coverage_rows, args.output / "coverage_resolution.png")
+    plot_coverage(
+        coverage_rows,
+        args.output / "coverage_resolution.png",
+        normal_samples_per_face=coverage_cfg["normal_samples_per_face"],
+        reference_path_spacing=coverage_cfg["reference_path_sample_spacing_m"],
+    )
     plot_q(q_rows, args.output / "q_resolution.png")
     (args.output / "README.md").write_text(
         "# NUC robot contract calibration v1\n\n"
@@ -269,13 +276,27 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
-def plot_coverage(rows: list[dict[str, object]], path: Path) -> None:
+def plot_coverage(
+    rows: list[dict[str, object]],
+    path: Path,
+    *,
+    normal_samples_per_face: int,
+    reference_path_spacing: float,
+) -> None:
     figure, axes = plt.subplots(1, 2, figsize=(10, 4))
     for surface in sorted({str(row["surface_id"]) for row in rows}):
-        selected = [row for row in rows if row["surface_id"] == surface and int(row["samples_per_face"]) == 4]
+        selected = [
+            row for row in rows
+            if row["surface_id"] == surface
+            and int(row["samples_per_face"]) == normal_samples_per_face
+        ]
         selected.sort(key=lambda row: float(row["path_sample_spacing"]), reverse=True)
         axes[0].plot([row["path_sample_spacing"] for row in selected], [row["E_NUC"] for row in selected], marker="o", label=surface)
-        selected = [row for row in rows if row["surface_id"] == surface and np.isclose(float(row["path_sample_spacing"]), 0.001)]
+        selected = [
+            row for row in rows
+            if row["surface_id"] == surface
+            and np.isclose(float(row["path_sample_spacing"]), reference_path_spacing)
+        ]
         selected.sort(key=lambda row: int(row["samples_per_face"]))
         axes[1].plot([row["samples_per_face"] for row in selected], [row["E_NUC"] for row in selected], marker="o", label=surface)
     axes[0].set_xlabel("Path sample spacing [m]")

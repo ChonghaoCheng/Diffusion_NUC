@@ -13,8 +13,8 @@
   },
   "coverage": {
     "footprint_radius_m": 0.008,
-    "normal_samples_per_face": 4,
-    "reference_samples_per_face": 12,
+    "normal_samples_per_face": 48,
+    "reference_samples_per_face": 96,
     "normal_path_sample_spacing_m": 0.002,
     "reference_path_sample_spacing_m": 0.001
   },
@@ -33,7 +33,7 @@
     }
   },
   "calibration": {
-    "coverage_samples_per_face": [1, 4, 12],
+    "coverage_samples_per_face": [12, 48, 96],
     "coverage_path_spacings_m": [0.004, 0.002, 0.001],
     "q_interpolation_steps_rad": [0.1, 0.05, 0.025, 0.0125],
     "q_position_stability_m": 0.0001,
