@@ -1,0 +1,32 @@
+# Python caches and environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Packaging and coverage output
+build/
+dist/
+.coverage
+htmlcov/
+
+# Experiment artifacts and model weights
+results/
+runs/
+logs/
+ara/
+*.pt
+*.pth
+*.ckpt
+*.npz
+events.out.tfevents.*
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+*~

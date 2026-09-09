@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diffusion-coverage"
+version = "0.1.0"
+description = "Phase 1 prototype for maximal-continuity graph coverage solvers"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.23"]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+learning = [
+    "torch>=2.5,<2.6",
+    "matplotlib>=3.9,<4",
+    "tensorboard>=2.19,<3",
+    "tqdm>=4.67,<5",
+]
+robotics = ["mujoco>=3.3,<4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
