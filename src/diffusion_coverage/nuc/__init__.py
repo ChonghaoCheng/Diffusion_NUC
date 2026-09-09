@@ -6,6 +6,7 @@ from diffusion_coverage.nuc.adapter import (
 )
 from diffusion_coverage.nuc.upstream import run_upstream_reference
 from diffusion_coverage.nuc.robot_lift import (
+    NUCContinuationLayerTrace,
     NUCIKCatalog,
     NUCLiftResult,
     NUCTransitionWitness,
@@ -19,6 +20,7 @@ __all__ = [
     "generate_nuc_skeleton_variants",
     "validate_nuc_skeleton",
     "run_upstream_reference",
+    "NUCContinuationLayerTrace",
     "NUCIKCatalog",
     "NUCLiftResult",
     "NUCTransitionWitness",

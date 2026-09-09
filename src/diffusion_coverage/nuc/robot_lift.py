@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from dataclasses import dataclass, field
 from time import perf_counter
 from typing import Any
@@ -35,6 +36,29 @@ class NUCIKCatalog:
     candidates: tuple[tuple[IKCandidate, ...], ...]
     enumeration_time: float
     metadata: dict[str, Any] = field(default_factory=dict)
+    raw_candidate_counts: tuple[int, ...] = ()
+    collision_safe_candidate_counts: tuple[int, ...] = ()
+
+
+@dataclass(frozen=True)
+class NUCContinuationLayerTrace:
+    pose_index: int
+    source_code: int | None
+    target_code: int
+    normalized_progress: float
+    candidate_count_before_safety: int | None
+    candidate_count_after_joint_limits: int | None
+    candidate_count_after_collision: int | None
+    candidate_count_after_sigma: int
+    propagated_incoming_edges: int
+    valid_outgoing_edges: int
+    beam_width_before_pruning: int
+    beam_width_after_pruning: int
+    minimum_sigma_min_5: float | None
+    maximum_sigma_min_5: float | None
+    minimum_joint_limit_margin: float | None
+    surface_location: tuple[float, float, float]
+    desired_tool_axis: tuple[float, float, float]
 
 
 @dataclass(frozen=True)
@@ -63,6 +87,7 @@ def build_nuc_ik_catalog(
     max_candidates: int,
     orientation_cone_samples: int,
     seed: int,
+    collect_diagnostics: bool = False,
 ) -> NUCIKCatalog:
     """Enumerate one shared safe IK layer per NUC subfacet code."""
 
@@ -77,15 +102,30 @@ def build_nuc_ik_catalog(
     positions, axes = transform_surface_pose_path(points, normals, transform_base_from_surface)
     rng = np.random.default_rng(seed)
     layers = []
+    raw_counts: list[int] = []
+    collision_safe_counts: list[int] = []
     start = perf_counter()
     for position, axis in zip(positions, axes):
-        raw = robot.enumerate_ik(
+        raw_rng = None
+        if collect_diagnostics:
+            raw_rng = np.random.default_rng()
+            raw_rng.bit_generator.state = copy.deepcopy(rng.bit_generator.state)
+        collision_safe = robot.enumerate_ik(
             position, axis, random_restarts=random_restarts, rng=rng,
             axis_tolerance=axis_tolerance, minimum_manipulability=0.0,
             max_candidates=max_candidates, orientation_cone_samples=orientation_cone_samples,
         )
+        if raw_rng is not None:
+            raw = robot.enumerate_ik(
+                position, axis, random_restarts=random_restarts, rng=raw_rng,
+                axis_tolerance=axis_tolerance, minimum_manipulability=0.0,
+                require_collision_free=False, max_candidates=max_candidates,
+                orientation_cone_samples=orientation_cone_samples,
+            )
+            raw_counts.append(len(raw))
+            collision_safe_counts.append(len(collision_safe))
         layers.append(tuple(
-            candidate for candidate in raw
+            candidate for candidate in collision_safe
             if evaluate_task_kinematics_5d(
                 robot, candidate.q, characteristic_length=characteristic_length
             ).sigma_min_5 >= sigma_safe
@@ -93,7 +133,11 @@ def build_nuc_ik_catalog(
     return NUCIKCatalog(
         positions, axes, tuple(layers), perf_counter() - start,
         {"random_restarts": random_restarts, "max_candidates": max_candidates,
-         "orientation_cone_samples": orientation_cone_samples, "sigma_safe": sigma_safe},
+         "orientation_cone_samples": orientation_cone_samples, "sigma_safe": sigma_safe,
+         "characteristic_length": characteristic_length,
+         "surface_positions": points,
+         "collect_diagnostics": collect_diagnostics},
+        tuple(raw_counts), tuple(collision_safe_counts),
     )
 
 
@@ -114,6 +158,7 @@ def minimum_cost_nuc_lift(
     position_tolerance: float,
     max_target_matches: int = 3,
     max_active_branches: int = 6,
+    collect_trace: bool = False,
 ) -> NUCLiftResult:
     """Minimize witness L_q over a layered graph of propagated IK branches.
 
@@ -124,15 +169,19 @@ def minimum_cost_nuc_lift(
     """
 
     codes = np.asarray(skeleton.topological_path, dtype=np.int64)
+    traces: list[NUCContinuationLayerTrace] = []
     if len(codes) < 2 or not catalog.candidates[int(codes[0])]:
-        return _failed_lift(0, 0.0)
+        code = int(codes[0]) if len(codes) else -1
+        if collect_trace and len(codes):
+            traces.append(_catalog_layer_trace(catalog, code, 0, len(codes), None, 0, 0, 0, 0, robot))
+        return _failed_lift(0, 0.0, failed_pose_index=0, layer_trace=traces)
     states = [
         (candidate.q.copy(), 0.0, [])
         for candidate in catalog.candidates[int(codes[0])]
     ][:max_active_branches]
     evaluated = 0
     elapsed = 0.0
-    for source_code, target_code in zip(codes[:-1], codes[1:]):
+    for transition_index, (source_code, target_code) in enumerate(zip(codes[:-1], codes[1:])):
         key = (int(source_code), int(target_code))
         if key not in transition_cache:
             chord = float(np.linalg.norm(catalog.positions[int(source_code)] - catalog.positions[int(target_code)]))
@@ -178,11 +227,20 @@ def minimum_cost_nuc_lift(
                 (transition.q_path[-1].copy(), source_cost + witness.joint_length, history + [witness])
             )
         elapsed += perf_counter() - start
-        states = _deduplicate_states(next_states, max_active_branches)
+        retained = _deduplicate_states(next_states, max_active_branches)
+        if collect_trace:
+            traces.append(_catalog_layer_trace(
+                catalog, int(target_code), transition_index + 1, len(codes), int(source_code),
+                len(states), len(next_states), len(next_states), len(retained), robot,
+                propagated_states=retained,
+            ))
+        states = retained
         if not states:
             return _failed_lift(
                 evaluated, elapsed,
                 failed_transition=[int(source_code), int(target_code)],
+                failed_pose_index=transition_index + 1,
+                layer_trace=traces,
             )
     _, _, selected = min(states, key=lambda item: item[1])
     q_path = np.concatenate([selected[0].q] + [item.q[1:] for item in selected[1:]])
@@ -193,7 +251,51 @@ def minimum_cost_nuc_lift(
         [selected[0].desired_axes] + [item.desired_axes[1:] for item in selected[1:]]
     )
     joint_length = compute_joint_execution_cost((q_path,)).weighted_joint_length
-    return NUCLiftResult(True, q_path, positions, axes, joint_length, None, evaluated, elapsed)
+    return NUCLiftResult(
+        True, q_path, positions, axes, joint_length, None, evaluated, elapsed,
+        {"layer_trace": traces} if collect_trace else {},
+    )
+
+
+def _catalog_layer_trace(
+    catalog: NUCIKCatalog,
+    target_code: int,
+    pose_index: int,
+    pose_count: int,
+    source_code: int | None,
+    incoming: int,
+    outgoing: int,
+    beam_before: int,
+    beam_after: int,
+    robot: UR5eKinematics,
+    *,
+    propagated_states: list[tuple[np.ndarray, float, list[NUCTransitionWitness]]] | None = None,
+) -> NUCContinuationLayerTrace:
+    safe = catalog.candidates[target_code]
+    raw = None if not catalog.raw_candidate_counts else catalog.raw_candidate_counts[target_code]
+    collision = None if not catalog.collision_safe_candidate_counts else catalog.collision_safe_candidate_counts[target_code]
+    q_values = [state[0] for state in propagated_states] if propagated_states else [item.q for item in safe]
+    task = [evaluate_task_kinematics_5d(robot, q, characteristic_length=float(catalog.metadata["characteristic_length"])) for q in q_values]
+    configurations = [robot.evaluate_configuration(q) for q in q_values]
+    return NUCContinuationLayerTrace(
+        pose_index=pose_index,
+        source_code=source_code,
+        target_code=target_code,
+        normalized_progress=pose_index / max(pose_count - 1, 1),
+        candidate_count_before_safety=raw,
+        candidate_count_after_joint_limits=raw,
+        candidate_count_after_collision=collision,
+        candidate_count_after_sigma=len(safe),
+        propagated_incoming_edges=incoming,
+        valid_outgoing_edges=outgoing,
+        beam_width_before_pruning=beam_before,
+        beam_width_after_pruning=beam_after,
+        minimum_sigma_min_5=None if not task else min(item.sigma_min_5 for item in task),
+        maximum_sigma_min_5=None if not task else max(item.sigma_min_5 for item in task),
+        minimum_joint_limit_margin=None if not configurations else min(item.joint_limit_margin for item in configurations),
+        surface_location=tuple(float(value) for value in catalog.metadata["surface_positions"][target_code]),
+        desired_tool_axis=tuple(float(value) for value in catalog.axes[target_code]),
+    )
 
 
 def _deduplicate_states(
