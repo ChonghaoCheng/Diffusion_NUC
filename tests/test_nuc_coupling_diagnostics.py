@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from diffusion_coverage.diagnostics.continuation import classify_continuation_failure
+from diffusion_coverage.diagnostics.continuation import FROZEN_ADMISSION_KEYS, classify_continuation_failure, require_unchanged_admission_contract
 from diffusion_coverage.diagnostics.cost_decomposition import classify_transition_commonality, decompose_transition_costs
 from diffusion_coverage.diagnostics.execution_metric import local_task_increment, predicted_local_execution_length
 from diffusion_coverage.diagnostics.structure import compare_skeletons
@@ -79,7 +79,7 @@ def test_near_singular_metric_is_stable_above_threshold():
 
 
 def layer(raw, safe, incoming, outgoing):
-    return NUCContinuationLayerTrace(1,0,1,.5,raw,raw,raw,safe,incoming,outgoing,outgoing,outgoing,None,None,None,(0.,0.,0.),(0.,0.,1.))
+    return NUCContinuationLayerTrace(1,0,1,.5,raw,raw,raw,raw,safe,incoming,outgoing,outgoing,outgoing,None,None,None,(0.,0.,0.),(0.,0.,1.))
 
 
 def test_failure_classifier_distinguishes_empty_transition_and_recovery():
@@ -88,3 +88,15 @@ def test_failure_classifier_distinguishes_empty_transition_and_recovery():
     transition=layer(2,2,2,0)
     assert classify_continuation_failure(transition) == "transition_graph_empty"
     assert classify_continuation_failure(transition,strong_search_recovered=True) == "beam_or_search_exhaustion"
+
+
+def test_strong_search_cannot_change_frozen_admission_contract():
+    contract={key:float(index) for index,key in enumerate(FROZEN_ADMISSION_KEYS)}
+    require_unchanged_admission_contract(contract,dict(contract))
+    changed=dict(contract); changed["sigma_safe"] += .01
+    try:
+        require_unchanged_admission_contract(contract,changed)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("a changed admission threshold was accepted")

@@ -58,6 +58,7 @@ def main() -> None:
             "surface_id": row["surface_id"], "placement_id": row["placement_id"], "skeleton_id": row["skeleton_id"],
             "overall_pass": row["overall_pass"], "E_NUC": row["E_NUC"], "L_q": float(row["L_q"]), "L_G": float(np.sum(predicted)),
             "L_q_over_L_G": float(np.sum(actual) / np.sum(predicted)),
+            "archive_abs_error": abs(float(row["L_q"]) - float(np.sum(actual))),
             "local_pearson": pearson(np.asarray(predicted), np.asarray(actual)),
             "local_spearman": spearman(np.asarray(predicted), np.asarray(actual)),
         }

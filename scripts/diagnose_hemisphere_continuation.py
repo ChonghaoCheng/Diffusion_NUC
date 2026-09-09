@@ -17,7 +17,7 @@ os.environ.setdefault("MPLCONFIGDIR", "/data/chocheng/.cache/matplotlib")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from diffusion_coverage.diagnostics.continuation import classify_continuation_failure
+from diffusion_coverage.diagnostics.continuation import classify_continuation_failure, require_unchanged_admission_contract
 from diffusion_coverage.diagnostics.e06_artifacts import load_e06_contract, make_e06_surface, regenerate_e06_variants
 from diffusion_coverage.nuc import build_nuc_ik_catalog, minimum_cost_nuc_lift
 from diffusion_coverage.robot.strict_execution import check_strict_coverage_execution
@@ -35,6 +35,8 @@ def main() -> None:
     args=parser.parse_args(); args.output.mkdir(parents=True,exist_ok=True)
     archived,rows,_=load_e06_contract(ROOT); config,frozen,placements=archived["config"],archived["frozen_contract"],archived["placements"]
     assert_default_contract(config,frozen)
+    admission={"characteristic_length_m":float(config["robot"]["characteristic_length_m"]),"sigma_safe":float(frozen["sigma_safe"]),"delta_NUC":float(frozen["delta_NUC"]),"q_interpolation_step_rad":float(frozen["q_interpolation_step_rad"]),"axis_tolerance_degrees":float(config["robot"]["axis_tolerance_degrees"]),"position_tolerance_m":float(config["robot"]["position_tolerance_m"]),"coverage_path_sample_spacing_m":float(frozen["coverage_path_sample_spacing_m"])}
+    require_unchanged_admission_contract(admission,dict(admission))
     surface_id="hemisphere"; surface_number=list(config["surfaces"]).index(surface_id)
     surface=make_e06_surface(config,surface_id,int(frozen["coverage_samples_per_face"]))
     variants=regenerate_e06_variants(surface,20,int(config["seed"])+100000*surface_number,int(config["e06"]["local_refinement_iterations"]))

@@ -76,6 +76,7 @@ def main() -> None:
                 "L_q_within_parent": aggregates["within"], "L_q_cross_parent": aggregates["cross"],
                 "L_q_common": aggregates["common"], "L_q_variable": aggregates["variable"],
                 "eta_cross": aggregates["cross"] / total, "eta_var": aggregates["variable"] / total,
+                "archive_abs_error": abs(sum(item.joint_length for item in costs) - total),
             }
             for threshold, value in threshold_cost.items():
                 record[f"C_{threshold:.2f}"] = value / total
@@ -84,7 +85,15 @@ def main() -> None:
             "common_directed_transitions": len(common), "variable_directed_transitions": len(variable),
             "median_eta_var": float(np.median([row["eta_var"] for row in surface_candidates])),
             "median_eta_cross": float(np.median([row["eta_cross"] for row in surface_candidates])),
+            "max_archive_abs_error": float(max(row["archive_abs_error"] for row in surface_candidates)),
             **{f"median_C_{threshold:.2f}": float(np.median([row[f"C_{threshold:.2f}"] for row in surface_candidates])) for threshold in (0.50, 0.75, 0.90, 1.00)},
+            "scene_component_spreads": {
+                placement: {
+                    key: float((max(row[key] for row in surface_candidates if row["placement_id"] == placement) - min(row[key] for row in surface_candidates if row["placement_id"] == placement)) / min(row[key] for row in surface_candidates if row["placement_id"] == placement))
+                    for key in ("L_q_total", "L_q_common", "L_q_variable", "L_q_cross_parent")
+                }
+                for placement in sorted({row["placement_id"] for row in surface_candidates})
+            },
         }
         plot_surface_commonality(args.output, surface_id, surface, variants[0], canonical_task_poses(surface, variants[0], np.eye(4))[0], common, variable)
     write_rows(args.output / "transition_costs.jsonl", transition_rows)

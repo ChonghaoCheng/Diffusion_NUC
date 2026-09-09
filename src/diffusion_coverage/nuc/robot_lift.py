@@ -47,6 +47,7 @@ class NUCContinuationLayerTrace:
     target_code: int
     normalized_progress: float
     candidate_count_before_safety: int | None
+    candidate_count_after_axis_tolerance: int | None
     candidate_count_after_joint_limits: int | None
     candidate_count_after_collision: int | None
     candidate_count_after_sigma: int
@@ -283,6 +284,7 @@ def _catalog_layer_trace(
         target_code=target_code,
         normalized_progress=pose_index / max(pose_count - 1, 1),
         candidate_count_before_safety=raw,
+        candidate_count_after_axis_tolerance=raw,
         candidate_count_after_joint_limits=raw,
         candidate_count_after_collision=collision,
         candidate_count_after_sigma=len(safe),
