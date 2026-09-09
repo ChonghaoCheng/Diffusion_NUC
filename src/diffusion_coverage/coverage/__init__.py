@@ -11,6 +11,7 @@ from diffusion_coverage.coverage.dataset import (
     surface_from_teacher_archive,
 )
 from diffusion_coverage.coverage.evaluator import evaluate_coverage
+from diffusion_coverage.coverage.nuc_evaluator import NUCCoverageMetrics, evaluate_nuc_coverage
 from diffusion_coverage.coverage.objective import constrained_coverage_key
 from diffusion_coverage.coverage.patterns import (
     densify_parameter_polyline,
@@ -67,6 +68,8 @@ __all__ = [
     "StructuredTeacherConfig",
     "StructuredTeacherResult",
     "evaluate_coverage",
+    "evaluate_nuc_coverage",
+    "NUCCoverageMetrics",
     "constrained_coverage_key",
     "densify_parameter_polyline",
     "decode_raster_parameter_controls",
