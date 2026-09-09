@@ -102,7 +102,7 @@ def minimum_cost_nuc_lift(
     skeleton: NUCSkeleton,
     catalog: NUCIKCatalog,
     transform_base_from_surface: np.ndarray,
-    transition_cache: dict[tuple[int, int], dict[tuple[int, int], NUCTransitionWitness]],
+    transition_cache: dict[tuple[int, int], tuple[np.ndarray, np.ndarray]],
     *,
     axis_tolerance: float,
     characteristic_length: float,
@@ -111,61 +111,73 @@ def minimum_cost_nuc_lift(
     maximum_joint_step: float,
     position_tolerance: float,
     max_target_matches: int = 3,
+    max_active_branches: int = 6,
 ) -> NUCLiftResult:
-    """Minimize witness L_q over the enumerated layered candidate graph."""
+    """Minimize witness L_q over a layered graph of propagated IK branches.
+
+    Independently enumerated endpoint IK samples are deliberately not forced as
+    transition endpoints: doing so creates numerical disconnections when the valid
+    continuation lands between endpoint samples. Every admitted initial branch is
+    propagated, deduplicated, and retained under one fixed beam budget.
+    """
 
     codes = np.asarray(skeleton.topological_path, dtype=np.int64)
     if len(codes) < 2 or not catalog.candidates[int(codes[0])]:
         return _failed_lift(0, 0.0)
-    costs = np.zeros(len(catalog.candidates[int(codes[0])]), dtype=np.float64)
-    parents: list[np.ndarray] = []
-    selected_by_target: list[list[NUCTransitionWitness | None]] = []
+    states = [
+        (candidate.q.copy(), 0.0, [])
+        for candidate in catalog.candidates[int(codes[0])]
+    ][:max_active_branches]
     evaluated = 0
     elapsed = 0.0
     for source_code, target_code in zip(codes[:-1], codes[1:]):
         key = (int(source_code), int(target_code))
         if key not in transition_cache:
-            start = perf_counter()
-            transition_cache[key], edge_evaluated = _enumerate_transition(
-                robot, surface, catalog, *key, transform_base_from_surface,
-                axis_tolerance=axis_tolerance,
-                characteristic_length=characteristic_length,
-                sigma_safe=sigma_safe,
-                task_edge_samples=task_edge_samples,
-                maximum_joint_step=maximum_joint_step,
-                position_tolerance=position_tolerance,
-                max_target_matches=max_target_matches,
+            transition_cache[key] = _projected_edge(
+                surface, *key, catalog, transform_base_from_surface, task_edge_samples
             )
-            elapsed += perf_counter() - start
-            evaluated += edge_evaluated
-        mapping = transition_cache[key]
-        target_count = len(catalog.candidates[int(target_code)])
-        next_costs = np.full(target_count, np.inf)
-        next_parents = np.full(target_count, -1, dtype=np.int64)
-        next_selected: list[NUCTransitionWitness | None] = [None] * target_count
-        for (source_index, target_index), witness in mapping.items():
-            value = costs[source_index] + witness.joint_length
-            if value < next_costs[target_index]:
-                next_costs[target_index] = value
-                next_parents[target_index] = source_index
-                next_selected[target_index] = witness
-        if not np.any(np.isfinite(next_costs)):
+        positions, axes = transition_cache[key]
+        next_states = []
+        start = perf_counter()
+        for source_q, source_cost, history in states:
+            transition = robot.continue_task_transition(
+                source_q,
+                positions,
+                axes,
+                maximum_joint_step=maximum_joint_step,
+                minimum_manipulability=0.0,
+                position_tolerance=position_tolerance,
+                axis_tolerance=axis_tolerance,
+            )
+            evaluated += 1
+            if not transition.feasible:
+                continue
+            if any(
+                evaluate_task_kinematics_5d(
+                    robot, value, characteristic_length=characteristic_length
+                ).sigma_min_5 < sigma_safe
+                for value in transition.q_path
+            ):
+                continue
+            witness = NUCTransitionWitness(
+                q=transition.q_path.astype(np.float64, copy=False),
+                desired_positions=positions,
+                desired_axes=axes,
+                joint_length=compute_joint_execution_cost(
+                    (transition.q_path,)
+                ).weighted_joint_length,
+            )
+            next_states.append(
+                (transition.q_path[-1].copy(), source_cost + witness.joint_length, history + [witness])
+            )
+        elapsed += perf_counter() - start
+        states = _deduplicate_states(next_states, max_active_branches)
+        if not states:
             return _failed_lift(
                 evaluated, elapsed,
                 failed_transition=[int(source_code), int(target_code)],
             )
-        costs = next_costs
-        parents.append(next_parents)
-        selected_by_target.append(next_selected)
-    target_index = int(np.argmin(costs))
-    selected = []
-    for layer in range(len(parents) - 1, -1, -1):
-        witness = selected_by_target[layer][target_index]
-        if witness is None:
-            raise RuntimeError("finite DP cost has no continuation witness")
-        selected.append(witness)
-        target_index = int(parents[layer][target_index])
-    selected.reverse()
+    _, _, selected = min(states, key=lambda item: item[1])
     q_path = np.concatenate([selected[0].q] + [item.q[1:] for item in selected[1:]])
     positions = np.concatenate(
         [selected[0].desired_positions] + [item.desired_positions[1:] for item in selected[1:]]
@@ -175,6 +187,20 @@ def minimum_cost_nuc_lift(
     )
     joint_length = compute_joint_execution_cost((q_path,)).weighted_joint_length
     return NUCLiftResult(True, q_path, positions, axes, joint_length, None, evaluated, elapsed)
+
+
+def _deduplicate_states(
+    states: list[tuple[np.ndarray, float, list[NUCTransitionWitness]]],
+    maximum: int,
+) -> list[tuple[np.ndarray, float, list[NUCTransitionWitness]]]:
+    retained = []
+    for state in sorted(states, key=lambda item: item[1]):
+        if any(np.linalg.norm(state[0] - other[0]) < 5e-2 for other in retained):
+            continue
+        retained.append(state)
+        if len(retained) == maximum:
+            break
+    return retained
 
 
 def _failed_lift(evaluated: int, elapsed: float, **metadata: Any) -> NUCLiftResult:
