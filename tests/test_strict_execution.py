@@ -18,7 +18,10 @@ MODEL = Path(
 )
 
 
-def home_contract(*, sigma_safe: float = 0.05, footprint_radius: float = 0.2):
+def home_contract(
+    *, sigma_safe: float = 0.05, footprint_radius: float = 0.2,
+    nuc_error_tolerance: float | None = None,
+):
     robot = UR5eKinematics(MODEL)
     q = np.repeat(robot.home[None, :], 3, axis=0)
     position, axis = robot.forward(robot.home)
@@ -42,6 +45,7 @@ def home_contract(*, sigma_safe: float = 0.05, footprint_radius: float = 0.2):
         missed_tolerance=0.01,
         repeat_tolerance=0.01,
         interpolation_joint_step=0.02,
+        nuc_error_tolerance=nuc_error_tolerance,
     )
     return result
 
@@ -72,6 +76,14 @@ def test_strict_checker_reports_coverage_failure_independently():
     assert not result.coverage_pass
     assert not result.overall_pass
     assert "coverage_miss" in result.failure_reasons
+
+
+@pytest.mark.skipif(not MODEL.exists(), reason="local UR5e Menagerie model is unavailable")
+def test_strict_checker_enforces_combined_nuc_threshold():
+    result = home_contract(nuc_error_tolerance=-1.0)
+    assert result.kinematics_pass
+    assert not result.coverage_pass
+    assert "coverage_nuc" in result.failure_reasons
 
 
 @pytest.mark.skipif(not MODEL.exists(), reason="local UR5e Menagerie model is unavailable")

@@ -21,6 +21,7 @@ STRICT_FAILURE_REASONS = {
     "missing_surface_path",
     "coverage_miss",
     "coverage_repeat",
+    "coverage_nuc",
     "numerical_check_failure",
 }
 
@@ -60,6 +61,7 @@ def check_strict_coverage_execution(
     missed_tolerance: float,
     repeat_tolerance: float,
     interpolation_joint_step: float,
+    nuc_error_tolerance: float | None = None,
     coverage_path_sample_spacing: float | None = None,
     weight_matrix: np.ndarray | None = None,
 ) -> StrictCoverageExecutionResult:
@@ -159,6 +161,11 @@ def check_strict_coverage_execution(
                 failures.append("coverage_miss")
             if coverage_metrics.repeat_error > repeat_tolerance:
                 failures.append("coverage_repeat")
+            if (
+                nuc_error_tolerance is not None
+                and coverage_metrics.nuc_error > nuc_error_tolerance
+            ):
+                failures.append("coverage_nuc")
         except (ValueError, FloatingPointError, np.linalg.LinAlgError):
             failures.append("numerical_check_failure")
     else:
@@ -166,7 +173,7 @@ def check_strict_coverage_execution(
 
     failures = list(dict.fromkeys(failures))
     coverage_pass = coverage_metrics is not None and not (
-        {"coverage_miss", "coverage_repeat", "missing_surface_path", "numerical_check_failure"}
+        {"coverage_miss", "coverage_repeat", "coverage_nuc", "missing_surface_path", "numerical_check_failure"}
         & set(failures)
     )
     timing_pass = None

@@ -7,6 +7,7 @@ from typing import Any
 import numpy as np
 
 from diffusion_coverage.nuc.adapter import NUCSkeleton
+from diffusion_coverage.coverage.evaluator import _length_and_sources
 from diffusion_coverage.robot.execution_cost import compute_joint_execution_cost
 from diffusion_coverage.robot.task_kinematics import evaluate_task_kinematics_5d
 from diffusion_coverage.robot.ur5e_mujoco import (
@@ -108,6 +109,7 @@ def minimum_cost_nuc_lift(
     characteristic_length: float,
     sigma_safe: float,
     task_edge_samples: int,
+    surface_path_spacing: float,
     maximum_joint_step: float,
     position_tolerance: float,
     max_target_matches: int = 3,
@@ -133,8 +135,13 @@ def minimum_cost_nuc_lift(
     for source_code, target_code in zip(codes[:-1], codes[1:]):
         key = (int(source_code), int(target_code))
         if key not in transition_cache:
+            chord = float(np.linalg.norm(catalog.positions[int(source_code)] - catalog.positions[int(target_code)]))
+            edge_spacing = min(
+                surface_path_spacing,
+                chord / max(task_edge_samples - 1, 1),
+            )
             transition_cache[key] = _projected_edge(
-                surface, *key, catalog, transform_base_from_surface, task_edge_samples
+                surface, *key, catalog, transform_base_from_surface, edge_spacing
             )
         positions, axes = transition_cache[key]
         next_states = []
@@ -210,88 +217,20 @@ def _failed_lift(evaluated: int, elapsed: float, **metadata: Any) -> NUCLiftResu
     )
 
 
-def _enumerate_transition(
-    robot: UR5eKinematics,
-    surface: SurfaceInstance,
-    catalog: NUCIKCatalog,
-    source_code: int,
-    target_code: int,
-    transform: np.ndarray,
-    *,
-    axis_tolerance: float,
-    characteristic_length: float,
-    sigma_safe: float,
-    task_edge_samples: int,
-    maximum_joint_step: float,
-    position_tolerance: float,
-    max_target_matches: int,
-) -> tuple[dict[tuple[int, int], NUCTransitionWitness], int]:
-    positions, axes = _projected_edge(
-        surface, source_code, target_code, catalog, transform, task_edge_samples
-    )
-    result = {}
-    evaluated = 0
-    targets = catalog.candidates[target_code]
-    for source_index, source in enumerate(catalog.candidates[source_code]):
-        prefix = robot.continue_task_transition(
-            source.q, positions[:-1], axes[:-1], maximum_joint_step=maximum_joint_step,
-            minimum_manipulability=0.0, position_tolerance=position_tolerance,
-            axis_tolerance=axis_tolerance,
-        )
-        evaluated += 1
-        if not prefix.feasible:
-            continue
-        distances = np.asarray([
-            np.max(np.abs(target.q - prefix.q_path[-1])) for target in targets
-        ])
-        for target_index in np.argsort(distances, kind="stable")[:max_target_matches]:
-            evaluated += 1
-            fractions = np.linspace(0.0, 1.0, 3)
-            final_positions = (1.0 - fractions[:, None]) * positions[-2] + fractions[:, None] * positions[-1]
-            final_axes = (1.0 - fractions[:, None]) * axes[-2] + fractions[:, None] * axes[-1]
-            final_axes /= np.linalg.norm(final_axes, axis=1, keepdims=True)
-            final = robot.check_task_transition(
-                prefix.q_path[-1], targets[int(target_index)].q,
-                final_positions, final_axes,
-                maximum_joint_step=maximum_joint_step, minimum_manipulability=0.0,
-                position_tolerance=position_tolerance, axis_tolerance=axis_tolerance,
-                allow_equivalent_end=False, check_endpoints=False,
-            )
-            if not final.feasible:
-                continue
-            q = np.concatenate((prefix.q_path, final.q_path[1:]))
-            desired_positions = np.concatenate((positions[:-1], final_positions[1:]))
-            desired_axes = np.concatenate((axes[:-1], final_axes[1:]))
-            if any(
-                evaluate_task_kinematics_5d(
-                    robot, value, characteristic_length=characteristic_length
-                ).sigma_min_5 < sigma_safe
-                for value in q
-            ):
-                continue
-            result[(source_index, int(target_index))] = NUCTransitionWitness(
-                q=q.astype(np.float64, copy=False),
-                desired_positions=desired_positions,
-                desired_axes=desired_axes,
-                joint_length=compute_joint_execution_cost((q,)).weighted_joint_length,
-            )
-    return result, evaluated
-
-
 def _projected_edge(
     surface: SurfaceInstance,
     source_code: int,
     target_code: int,
     catalog: NUCIKCatalog,
     transform: np.ndarray,
-    samples: int,
+    max_spacing: float,
 ) -> tuple[np.ndarray, np.ndarray]:
     rotation = transform[:3, :3]
     translation = transform[:3, 3]
     endpoints_surface = (catalog.positions[[source_code, target_code]] - translation) @ rotation
-    fractions = np.linspace(0.0, 1.0, samples)[:, None]
-    raw = (1.0 - fractions) * endpoints_surface[0] + fractions * endpoints_surface[1]
-    projection = project_points(surface, raw)
+    endpoint_projection = project_points(surface, endpoints_surface)
+    _, path = _length_and_sources(surface, endpoint_projection, max_spacing=max_spacing)
+    projection = project_points(surface, path)
     normals = interpolate_vertex_normals(
         surface.vertices, surface.faces, surface.face_normals, surface.face_areas,
         projection.face_indices, projection.barycentric,
