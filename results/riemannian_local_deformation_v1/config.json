@@ -1,0 +1,54 @@
+{
+  "experiment": "E06-R2: Fixed-topology local Riemannian deformation validation",
+  "seed": 20260912,
+  "parent_code_commit": "50aca4cf7011e5bf9ae5ff5576166f374081af61",
+  "source_anchor_hash": "4fdc4cbdc76d2efa767627b271a5754d89453de0c73ddd3fa4556978849db79b",
+  "scenes": {
+    "saddle": {"P_low": "T17", "P_mid": "T21", "P_high": "T10"},
+    "hemisphere": {"P_low": "T30", "P_mid": "T27", "P_high": "T33"}
+  },
+  "window": {
+    "count_per_scene": 10,
+    "length_m": 0.048,
+    "num_control_points": 7,
+    "fixed_control_indices": [0, 1, 5, 6],
+    "free_control_indices": [2, 3, 4],
+    "maximum_control_displacement_m": 0.002,
+    "retraction_maximum_step_m": 0.00025,
+    "maximum_turn_degrees": 45.0,
+    "turn_increase_allowance_degrees": 15.0
+  },
+  "optimizer": {
+    "candidate_evaluations": 60,
+    "maximum_accepted_iterations": 12,
+    "proposal_radii_m": [0.002, 0.001, 0.0005],
+    "evaluations_per_radius": 20,
+    "improvement_tolerance": 1e-10
+  },
+  "robot_contract": {
+    "characteristic_length_m": 0.1,
+    "sigma_safe": 0.07237417172157597,
+    "maximum_dense_q_step_rad": 0.05,
+    "axis_tolerance_degrees": 10.0,
+    "position_tolerance_m": 0.003,
+    "construction_position_tolerance_m": 0.0015,
+    "maximum_continuation_joint_step_rad": 0.1,
+    "maximum_terminal_q_mismatch_rad": 0.05,
+    "weight_matrix": "identity"
+  },
+  "admission": {
+    "maximum_relative_surface_length_change": 0.02,
+    "delta_NUC": 0.0297927413,
+    "maximum_relative_surface_length_change_sensitivity": 0.01,
+    "maximum_terminal_q_mismatch_sensitivity_rad": 0.025
+  },
+  "metric": {"finite_difference_step_m": 0.00001},
+  "statistics": {"bootstrap_samples": 10000, "bootstrap_seed": 20260912},
+  "gate": {
+    "minimum_medium_high_M2_win_fraction": 0.75,
+    "minimum_medium_high_median_incremental_benefit": 0.05,
+    "minimum_medium_high_median_riemannian_improvement": 0.08,
+    "minimum_anisotropy_spearman": 0.4,
+    "require_sensitivity_robustness": true
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "by_level": {
+    "P_high": {
+      "M2_win_fraction": 0.55,
+      "count": 20,
+      "iqr_A_R": [
+        -2.8079369848335416e-06,
+        0.004938713796816135
+      ],
+      "median_A_R": 5.6726064770010534e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.00262034526255483
+      ],
+      "median_Delta_E": 0.022219836116026882,
+      "median_Delta_R": 0.027030994914883335,
+      "median_surface_change_E": 0.01654752205867159,
+      "median_surface_change_R": 0.014106023147945197,
+      "median_terminal_E": 0.00013606198426152627,
+      "median_terminal_R": 0.00012837645996999214
+    },
+    "P_low": {
+      "M2_win_fraction": 0.55,
+      "count": 20,
+      "iqr_A_R": [
+        0.0,
+        0.0003892022124232632
+      ],
+      "median_A_R": 2.967471132617411e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.0002431506762006646
+      ],
+      "median_Delta_E": 0.014590972042276697,
+      "median_Delta_R": 0.015915287107218474,
+      "median_surface_change_E": 0.016643830242386505,
+      "median_surface_change_R": 0.015433603136070936,
+      "median_terminal_E": 0.0001450844853975175,
+      "median_terminal_R": 0.00015613961103305707
+    },
+    "P_mid": {
+      "M2_win_fraction": 0.5,
+      "count": 20,
+      "iqr_A_R": [
+        -3.4072307787278745e-05,
+        0.0025182335800264
+      ],
+      "median_A_R": 1.6470640600623962e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.0015065883681934702
+      ],
+      "median_Delta_E": 0.014368475758580017,
+      "median_Delta_R": 0.01855217130884959,
+      "median_surface_change_E": 0.014488076274817534,
+      "median_surface_change_R": 0.013435891940132599,
+      "median_terminal_E": 0.00011688388513153569,
+      "median_terminal_R": 8.94747103901139e-05
+    }
+  },
+  "by_surface": {
+    "hemisphere": {
+      "M2_win_fraction": 0.6,
+      "count": 30,
+      "iqr_A_R": [
+        0.0,
+        0.0019908431691807236
+      ],
+      "median_A_R": 0.0001425659158943767,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.000516764842196234
+      ],
+      "median_Delta_E": 0.012838315755228851,
+      "median_Delta_R": 0.01690403570126539,
+      "median_surface_change_E": 0.015646609460402975,
+      "median_surface_change_R": 0.013280956763606445,
+      "median_terminal_E": 0.00033692483325298284,
+      "median_terminal_R": 0.00023085228084351872
+    },
+    "saddle": {
+      "M2_win_fraction": 0.4666666666666667,
+      "count": 30,
+      "iqr_A_R": [
+        0.0,
+        0.0007180924163173496
+      ],
+      "median_A_R": 0.0,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        4.786169603819123e-05
+      ],
+      "median_Delta_E": 0.016990019555598913,
+      "median_Delta_R": 0.022563122972290517,
+      "median_surface_change_E": 0.017661741710157768,
+      "median_surface_change_R": 0.01566306800625125,
+      "median_terminal_E": 6.544178489531483e-05,
+      "median_terminal_R": 6.418439664868103e-05
+    }
+  },
+  "candidate_admission": {
+    "M1": {
+      "admission_rate": 0.6608333333333334,
+      "admitted": 2379,
+      "evaluations": 3600
+    },
+    "M2": {
+      "admission_rate": 0.6458333333333334,
+      "admitted": 2325,
+      "evaluations": 3600
+    }
+  },
+  "controls": {
+    "baseline_window_length_range_m": [
+      0.04639454254829021,
+      0.04988796696232318
+    ],
+    "equal_candidate_budget": true,
+    "maximum_absolute_E_NUC_change": 0.002370832895023045,
+    "maximum_absolute_E_miss_change": 0.0011474249691539873,
+    "maximum_absolute_E_rep_change": 0.002370832895023075,
+    "maximum_baseline_reconstruction_error": 0.0,
+    "maximum_surface_length_change": 0.019995568434329827,
+    "maximum_terminal_q_mismatch": 0.0017153150007529483,
+    "minimum_sigma_after": 0.3172386405219124,
+    "spearman_A_R_vs_joint_margin0": -0.059756539417108505,
+    "spearman_A_R_vs_sigma0": 0.003942757163225221
+  },
+  "decision": "NO-GO",
+  "experiment": "E06-R2: Fixed-topology local Riemannian deformation validation",
+  "gate_checks": {
+    "M2_win_fraction": false,
+    "anisotropy_interaction": true,
+    "median_incremental_benefit": false,
+    "median_riemannian_improvement": false,
+    "sensitivity_robustness": false
+  },
+  "optimizer_diagnostics": {
+    "M2_admitted_candidate_LG_Lq_pearson": 0.9929629677670386,
+    "M2_admitted_candidate_LG_Lq_spearman": 0.9857684211146633,
+    "interpretation": "The best-actual values are diagnostic candidate-set oracles, not method outputs; neither objective may rank them first.",
+    "median_best_evaluated_actual_Lq_reduction_M1": 0.04573265527064448,
+    "median_best_evaluated_actual_Lq_reduction_M2": 0.045799167469187496
+  },
+  "primary": {
+    "all": {
+      "M2_win_fraction": 0.5333333333333333,
+      "count": 60,
+      "iqr_A_R": [
+        0.0,
+        0.0011474868362226238
+      ],
+      "median_A_R": 3.8949639757566296e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.00019673057045176134
+      ],
+      "median_Delta_E": 0.015503005369287726,
+      "median_Delta_R": 0.019601112011734798,
+      "median_surface_change_E": 0.01628458896232007,
+      "median_surface_change_R": 0.014258038233337485,
+      "median_terminal_E": 0.00012632269580803435,
+      "median_terminal_R": 0.0001314210394720572
+    },
+    "anisotropy_spearman": 0.17722833262781174,
+    "medium_high": {
+      "M2_win_fraction": 0.525,
+      "count": 40,
+      "iqr_A_R": [
+        -2.8079369848335416e-06,
+        0.0032659608393452834
+      ],
+      "median_A_R": 4.0257116199792116e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.000361757578683522
+      ],
+      "median_Delta_E": 0.01614598401409722,
+      "median_Delta_R": 0.02334916501928847,
+      "median_surface_change_E": 0.016278150716239025,
+      "median_surface_change_R": 0.013561982108691499,
+      "median_terminal_E": 0.00011688388513153569,
+      "median_terminal_R": 0.00012213747064215852
+    },
+    "regression_alpha": -0.001718079040938654,
+    "regression_beta": 0.004121316370739014,
+    "regression_beta_bootstrap_95ci": [
+      0.0008710657163369061,
+      0.008220106818366244
+    ],
+    "regression_r_squared": 0.09579427169275899
+  },
+  "sensitivity": {
+    "remove_lowest_sigma_quartile": {
+      "M2_win_fraction": 0.5333333333333333,
+      "count": 30,
+      "iqr_A_R": [
+        -1.8835962874014928e-05,
+        0.0022141706291659855
+      ],
+      "median_A_R": 4.0257116199792116e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.00024654864331784965
+      ],
+      "median_Delta_E": 0.01614598401409722,
+      "median_Delta_R": 0.024254920549321227,
+      "median_surface_change_E": 0.016919028616245516,
+      "median_surface_change_R": 0.013891316415239748,
+      "median_terminal_E": 0.00010413365345041115,
+      "median_terminal_R": 9.345192633536392e-05
+    },
+    "surface_length_mismatch_le_1pct": {
+      "M2_win_fraction": 0.2,
+      "count": 10,
+      "iqr_A_R": [
+        0.0,
+        0.0
+      ],
+      "median_A_R": 0.0,
+      "median_A_R_bootstrap_95ci": [
+        -1.2557308582676618e-05,
+        2.3786475599168154e-05
+      ],
+      "median_Delta_E": 0.0024736502771663883,
+      "median_Delta_R": 0.0024610929685837117,
+      "median_surface_change_E": 0.0019464021776594688,
+      "median_surface_change_R": 0.001644591256888827,
+      "median_terminal_E": 0.00011745928953077467,
+      "median_terminal_R": 0.00011745928953077467
+    },
+    "terminal_mismatch_le_0p025": {
+      "M2_win_fraction": 0.525,
+      "count": 40,
+      "iqr_A_R": [
+        -2.8079369848335416e-06,
+        0.0032659608393452834
+      ],
+      "median_A_R": 4.0257116199792116e-05,
+      "median_A_R_bootstrap_95ci": [
+        0.0,
+        0.000361757578683522
+      ],
+      "median_Delta_E": 0.01614598401409722,
+      "median_Delta_R": 0.02334916501928847,
+      "median_surface_change_E": 0.016278150716239025,
+      "median_surface_change_R": 0.013561982108691499,
+      "median_terminal_E": 0.00011688388513153569,
+      "median_terminal_R": 0.00012213747064215852
+    }
+  },
+  "statistical_unit": "window",
+  "windows": 60
+}

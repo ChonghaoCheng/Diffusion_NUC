@@ -1,0 +1,4 @@
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_riemannian_local_deformation.py --stage freeze-windows
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_riemannian_local_deformation.py --stage run --jobs 16
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/summarize_riemannian_local_deformation.py
+/data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q

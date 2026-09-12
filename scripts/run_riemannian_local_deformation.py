@@ -80,6 +80,7 @@ def main():
     frozen = json.loads(frozen_path.read_text())
     if not frozen.get("frozen_before_deformation_results"):
         raise RuntimeError("windows were not frozen before deformation")
+    write_json(args.output / "config.json", config)
     run_all(config, scenes, frozen, archived, args.output, args.jobs, set(args.window_id))
 
 
