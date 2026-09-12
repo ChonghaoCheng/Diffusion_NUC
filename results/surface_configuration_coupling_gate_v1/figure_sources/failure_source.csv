@@ -1,0 +1,8 @@
+count,formulation,reason
+60,F1,success
+403,F2,surface_length
+403,F3,surface_length
+529,F2,success
+529,F3,success
+508,F2,surface_topology_or_turn
+508,F3,surface_topology_or_turn

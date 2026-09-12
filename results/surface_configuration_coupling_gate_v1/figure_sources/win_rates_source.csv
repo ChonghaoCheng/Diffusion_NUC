@@ -1,0 +1,10 @@
+comparison,fraction,level
+F3<F1,0.95,P_low
+F3<F2,0.55,P_low
+F3<both,0.55,P_low
+F3<F1,0.85,P_mid
+F3<F2,0.45,P_mid
+F3<both,0.45,P_mid
+F3<F1,0.9,P_high
+F3<F2,0.45,P_high
+F3<both,0.45,P_high

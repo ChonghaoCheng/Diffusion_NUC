@@ -1,0 +1,4 @@
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_surface_configuration_coupling_gate.py --stage freeze-candidates
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_surface_configuration_coupling_gate.py --stage run --jobs 16
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/summarize_surface_configuration_coupling_gate.py
+/data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q
