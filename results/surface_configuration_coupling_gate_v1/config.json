@@ -1,0 +1,53 @@
+{
+  "admission": {
+    "delta_NUC": 0.0297927413,
+    "maximum_relative_surface_length_change": 0.02,
+    "maximum_relative_surface_length_change_sensitivity": 0.01,
+    "maximum_terminal_q_mismatch_sensitivity_rad": 0.025
+  },
+  "experiment": "E06-J: Surface--Configuration Coupling Capacity Gate",
+  "gate": {
+    "minimum_medium_high_F3_beats_both_fraction": 0.7,
+    "minimum_medium_high_median_B_joint": 0.05,
+    "minimum_medium_high_median_Delta_joint": 0.08,
+    "require_sensitivity_persistence": true
+  },
+  "metric_diagnostics": {
+    "finite_difference_step_m": 1e-05,
+    "samples": 15
+  },
+  "parent_code_commit": "72c40e5466487b0eaf0c6daad78b5a72d1a17880",
+  "q_search": {
+    "beam_width": 8,
+    "ik_max_iterations": 80,
+    "null_offsets_rad": [
+      -0.12,
+      0.0,
+      0.12
+    ],
+    "state_deduplication_rad": 0.01
+  },
+  "robot_contract": {
+    "axis_tolerance_degrees": 10.0,
+    "characteristic_length_m": 0.1,
+    "construction_position_tolerance_m": 0.0015,
+    "maximum_continuation_joint_step_rad": 0.1,
+    "maximum_dense_q_step_rad": 0.05,
+    "maximum_terminal_q_mismatch_rad": 0.05,
+    "position_tolerance_m": 0.003,
+    "sigma_safe": 0.07237417172157597,
+    "weight_matrix": "identity"
+  },
+  "seed": 20260912,
+  "source_windows_hash": "9bd7673f4de735ea5e0aedd985e753145741f402f4f9912497815110e11065c5",
+  "statistics": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 20260912
+  },
+  "surface_candidates": {
+    "maximum_control_displacement_m": 0.002,
+    "nonzero_candidates": 24,
+    "retraction_maximum_step_m": 0.00025,
+    "sampler": "scrambled_sobol"
+  }
+}

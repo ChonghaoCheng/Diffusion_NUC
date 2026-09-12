@@ -1,0 +1,3785 @@
+{
+  "content_hash": "9bd7673f4de735ea5e0aedd985e753145741f402f4f9912497815110e11065c5",
+  "experiment": "E06-R2: Fixed-topology local Riemannian deformation validation",
+  "frozen_before_deformation_results": true,
+  "rejected_anchors": {
+    "hemisphere/P_high": [
+      {
+        "anchor_id": "A00",
+        "reason": "insufficient_path_extent",
+        "witness_index": 1
+      },
+      {
+        "anchor_id": "A14",
+        "reason": "insufficient_path_extent",
+        "witness_index": 5595
+      },
+      {
+        "anchor_id": "A03",
+        "reason": "uniform_subselection",
+        "witness_index": 1172
+      },
+      {
+        "anchor_id": "A07",
+        "reason": "uniform_subselection",
+        "witness_index": 2754
+      },
+      {
+        "anchor_id": "A11",
+        "reason": "uniform_subselection",
+        "witness_index": 4423
+      }
+    ],
+    "hemisphere/P_low": [
+      {
+        "anchor_id": "A00",
+        "reason": "insufficient_path_extent",
+        "witness_index": 1
+      },
+      {
+        "anchor_id": "A14",
+        "reason": "insufficient_path_extent",
+        "witness_index": 5595
+      },
+      {
+        "anchor_id": "A03",
+        "reason": "uniform_subselection",
+        "witness_index": 1172
+      },
+      {
+        "anchor_id": "A07",
+        "reason": "uniform_subselection",
+        "witness_index": 2754
+      },
+      {
+        "anchor_id": "A11",
+        "reason": "uniform_subselection",
+        "witness_index": 4423
+      }
+    ],
+    "hemisphere/P_mid": [
+      {
+        "anchor_id": "A00",
+        "reason": "insufficient_path_extent",
+        "witness_index": 1
+      },
+      {
+        "anchor_id": "A14",
+        "reason": "insufficient_path_extent",
+        "witness_index": 5595
+      },
+      {
+        "anchor_id": "A03",
+        "reason": "uniform_subselection",
+        "witness_index": 1172
+      },
+      {
+        "anchor_id": "A07",
+        "reason": "uniform_subselection",
+        "witness_index": 2754
+      },
+      {
+        "anchor_id": "A11",
+        "reason": "uniform_subselection",
+        "witness_index": 4423
+      }
+    ],
+    "saddle/P_high": [
+      {
+        "anchor_id": "A01",
+        "reason": "uniform_subselection",
+        "witness_index": 233
+      },
+      {
+        "anchor_id": "A04",
+        "reason": "uniform_subselection",
+        "witness_index": 904
+      },
+      {
+        "anchor_id": "A07",
+        "reason": "uniform_subselection",
+        "witness_index": 1581
+      },
+      {
+        "anchor_id": "A10",
+        "reason": "uniform_subselection",
+        "witness_index": 2251
+      },
+      {
+        "anchor_id": "A13",
+        "reason": "uniform_subselection",
+        "witness_index": 2922
+      }
+    ],
+    "saddle/P_low": [
+      {
+        "anchor_id": "A01",
+        "reason": "uniform_subselection",
+        "witness_index": 233
+      },
+      {
+        "anchor_id": "A04",
+        "reason": "uniform_subselection",
+        "witness_index": 904
+      },
+      {
+        "anchor_id": "A07",
+        "reason": "uniform_subselection",
+        "witness_index": 1581
+      },
+      {
+        "anchor_id": "A10",
+        "reason": "uniform_subselection",
+        "witness_index": 2251
+      },
+      {
+        "anchor_id": "A13",
+        "reason": "uniform_subselection",
+        "witness_index": 2922
+      }
+    ],
+    "saddle/P_mid": [
+      {
+        "anchor_id": "A01",
+        "reason": "uniform_subselection",
+        "witness_index": 233
+      },
+      {
+        "anchor_id": "A04",
+        "reason": "uniform_subselection",
+        "witness_index": 904
+      },
+      {
+        "anchor_id": "A07",
+        "reason": "uniform_subselection",
+        "witness_index": 1581
+      },
+      {
+        "anchor_id": "A10",
+        "reason": "uniform_subselection",
+        "witness_index": 2251
+      },
+      {
+        "anchor_id": "A13",
+        "reason": "uniform_subselection",
+        "witness_index": 2922
+      }
+    ]
+  },
+  "selection_rule": "eligible E06-R anchors followed by uniform archived baseline arclength selection",
+  "source_anchor_hash": "4fdc4cbdc76d2efa767627b271a5754d89453de0c73ddd3fa4556978849db79b",
+  "windows_by_scene": {
+    "hemisphere/P_high": [
+      {
+        "anchor_id": "A01",
+        "anchor_witness_index": 399,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04722155464923494,
+        "control_indices_global": [
+          387,
+          391,
+          395,
+          399,
+          403,
+          407,
+          411
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.9045420999580989,
+        "minimum_sampled_sigma_min_5": 0.5854500726421165,
+        "placement_id": "T33",
+        "seed": 2843316381,
+        "start_index": 387,
+        "stop_index": 411,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W00",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A02",
+        "anchor_witness_index": 773,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 2.5872686296392104,
+        "baseline_surface_length": 0.046695192286767995,
+        "control_indices_global": [
+          761,
+          765,
+          769,
+          773,
+          777,
+          781,
+          785
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 2.237841272182615,
+        "minimum_sampled_sigma_min_5": 0.6793455756724938,
+        "placement_id": "T33",
+        "seed": 2705860666,
+        "start_index": 761,
+        "stop_index": 785,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W01",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A04",
+        "anchor_witness_index": 1558,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 0.3249353973725388,
+        "baseline_surface_length": 0.04689527986924391,
+        "control_indices_global": [
+          1546,
+          1550,
+          1554,
+          1558,
+          1562,
+          1566,
+          1570
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.7761434563940621,
+        "minimum_sampled_sigma_min_5": 0.6675831868573664,
+        "placement_id": "T33",
+        "seed": 569072330,
+        "start_index": 1546,
+        "stop_index": 1570,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W02",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A05",
+        "anchor_witness_index": 1969,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.047221554649236275,
+        "control_indices_global": [
+          1957,
+          1961,
+          1965,
+          1969,
+          1973,
+          1977,
+          1981
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.6298695385162436,
+        "minimum_sampled_sigma_min_5": 0.5743146232703965,
+        "placement_id": "T33",
+        "seed": 1607568890,
+        "start_index": 1957,
+        "stop_index": 1981,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W03",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A06",
+        "anchor_witness_index": 2355,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592638688632,
+        "baseline_surface_length": 0.048525869821515855,
+        "control_indices_global": [
+          2342,
+          2346,
+          2351,
+          2355,
+          2360,
+          2364,
+          2368
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          18,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.592661923495375,
+        "minimum_sampled_sigma_min_5": 0.5914497740990833,
+        "placement_id": "T33",
+        "seed": 3740014194,
+        "start_index": 2342,
+        "stop_index": 2368,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W04",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A08",
+        "anchor_witness_index": 3140,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 2.043469010831585,
+        "baseline_surface_length": 0.04746786887097798,
+        "control_indices_global": [
+          3127,
+          3131,
+          3136,
+          3140,
+          3144,
+          3148,
+          3152
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1393848495149372,
+        "minimum_sampled_sigma_min_5": 0.5581539558003847,
+        "placement_id": "T33",
+        "seed": 527276216,
+        "start_index": 3127,
+        "stop_index": 3152,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W05",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A09",
+        "anchor_witness_index": 3614,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04717838001607699,
+        "control_indices_global": [
+          3601,
+          3605,
+          3610,
+          3614,
+          3618,
+          3622,
+          3626
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.0612649883959913,
+        "minimum_sampled_sigma_min_5": 0.6216180198845163,
+        "placement_id": "T33",
+        "seed": 198093798,
+        "start_index": 3601,
+        "stop_index": 3626,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W06",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A10",
+        "anchor_witness_index": 4000,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.049534456837115215,
+        "control_indices_global": [
+          3987,
+          3991,
+          3996,
+          4000,
+          4004,
+          4009,
+          4013
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 0.6523018970121672,
+        "minimum_sampled_sigma_min_5": 0.4865908150140858,
+        "placement_id": "T33",
+        "seed": 2700492221,
+        "start_index": 3987,
+        "stop_index": 4013,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W07",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A12",
+        "anchor_witness_index": 4797,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 2.462892746202215,
+        "baseline_surface_length": 0.04800248872226831,
+        "control_indices_global": [
+          4784,
+          4788,
+          4792,
+          4797,
+          4801,
+          4806,
+          4810
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.129741661014671,
+        "minimum_sampled_sigma_min_5": 0.5191552533998949,
+        "placement_id": "T33",
+        "seed": 2043473275,
+        "start_index": 4784,
+        "stop_index": 4810,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W08",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      },
+      {
+        "anchor_id": "A13",
+        "anchor_witness_index": 5208,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 2.0434690108316373,
+        "baseline_surface_length": 0.04783016136062024,
+        "control_indices_global": [
+          5195,
+          5199,
+          5204,
+          5208,
+          5213,
+          5217,
+          5221
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          18,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4462787190325106,
+        "minimum_sampled_sigma_min_5": 0.570393704982447,
+        "placement_id": "T33",
+        "seed": 4150105815,
+        "start_index": 5195,
+        "stop_index": 5221,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7488141934268288,
+            -0.6621513874495287,
+            -0.02885903361501018,
+            -0.1724224489276433
+          ],
+          [
+            0.6618921455656462,
+            0.7448488579224839,
+            0.08425536475546619,
+            0.4842991121938843
+          ],
+          [
+            -0.03429418844401118,
+            -0.08219318067963785,
+            0.9960261992983573,
+            0.31117371928064286
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_high_W09",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T33.npz"
+      }
+    ],
+    "hemisphere/P_low": [
+      {
+        "anchor_id": "A01",
+        "anchor_witness_index": 399,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04722155464923494,
+        "control_indices_global": [
+          387,
+          391,
+          395,
+          399,
+          403,
+          407,
+          411
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 2.1772067036241807,
+        "minimum_sampled_sigma_min_5": 1.058844240830019,
+        "placement_id": "T30",
+        "seed": 3896240715,
+        "start_index": 387,
+        "stop_index": 411,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W00",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A02",
+        "anchor_witness_index": 773,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 2.5872686296391967,
+        "baseline_surface_length": 0.04669519228676866,
+        "control_indices_global": [
+          761,
+          765,
+          769,
+          773,
+          777,
+          781,
+          785
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.9487410009407324,
+        "minimum_sampled_sigma_min_5": 1.0598429190448218,
+        "placement_id": "T30",
+        "seed": 2868423055,
+        "start_index": 761,
+        "stop_index": 785,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W01",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A04",
+        "anchor_witness_index": 1558,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 0.32493539737248833,
+        "baseline_surface_length": 0.04689527986924391,
+        "control_indices_global": [
+          1546,
+          1550,
+          1554,
+          1558,
+          1562,
+          1566,
+          1570
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4848349427977323,
+        "minimum_sampled_sigma_min_5": 0.8708518563601764,
+        "placement_id": "T30",
+        "seed": 610812187,
+        "start_index": 1546,
+        "stop_index": 1570,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W02",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A05",
+        "anchor_witness_index": 1969,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.047221554649236275,
+        "control_indices_global": [
+          1957,
+          1961,
+          1965,
+          1969,
+          1973,
+          1977,
+          1981
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.3324740835855895,
+        "minimum_sampled_sigma_min_5": 0.7176204276157885,
+        "placement_id": "T30",
+        "seed": 1991925206,
+        "start_index": 1957,
+        "stop_index": 1981,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W03",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A06",
+        "anchor_witness_index": 2355,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.048525869821515855,
+        "control_indices_global": [
+          2342,
+          2346,
+          2351,
+          2355,
+          2360,
+          2364,
+          2368
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          18,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.3067658557769752,
+        "minimum_sampled_sigma_min_5": 0.7769589545564974,
+        "placement_id": "T30",
+        "seed": 2232948222,
+        "start_index": 2342,
+        "stop_index": 2368,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W04",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A08",
+        "anchor_witness_index": 3140,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 2.0434690108315876,
+        "baseline_surface_length": 0.04746786887097798,
+        "control_indices_global": [
+          3127,
+          3131,
+          3136,
+          3140,
+          3144,
+          3148,
+          3152
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 0.9295391324442019,
+        "minimum_sampled_sigma_min_5": 0.6977379621560936,
+        "placement_id": "T30",
+        "seed": 3318837655,
+        "start_index": 3127,
+        "stop_index": 3152,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W05",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A09",
+        "anchor_witness_index": 3614,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04717838001607699,
+        "control_indices_global": [
+          3601,
+          3605,
+          3610,
+          3614,
+          3618,
+          3622,
+          3626
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 0.9078143619821772,
+        "minimum_sampled_sigma_min_5": 0.7744546606932676,
+        "placement_id": "T30",
+        "seed": 2260078184,
+        "start_index": 3601,
+        "stop_index": 3626,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W06",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A10",
+        "anchor_witness_index": 4000,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.049534456837115215,
+        "control_indices_global": [
+          3987,
+          3991,
+          3996,
+          4000,
+          4004,
+          4009,
+          4013
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 0.5663887974241133,
+        "minimum_sampled_sigma_min_5": 0.5269783548149777,
+        "placement_id": "T30",
+        "seed": 1836836198,
+        "start_index": 3987,
+        "stop_index": 4013,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W07",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A12",
+        "anchor_witness_index": 4797,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 2.4628927462022188,
+        "baseline_surface_length": 0.04800248872226831,
+        "control_indices_global": [
+          4784,
+          4788,
+          4792,
+          4797,
+          4801,
+          4806,
+          4810
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1570389201131503,
+        "minimum_sampled_sigma_min_5": 0.6513913137996061,
+        "placement_id": "T30",
+        "seed": 2616495900,
+        "start_index": 4784,
+        "stop_index": 4810,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W08",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      },
+      {
+        "anchor_id": "A13",
+        "anchor_witness_index": 5208,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 2.043469010831564,
+        "baseline_surface_length": 0.04783016136062024,
+        "control_indices_global": [
+          5195,
+          5199,
+          5204,
+          5208,
+          5213,
+          5217,
+          5221
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          18,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4485522737077132,
+        "minimum_sampled_sigma_min_5": 0.8958725313360815,
+        "placement_id": "T30",
+        "seed": 2614840436,
+        "start_index": 5195,
+        "stop_index": 5221,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.6143607495461008,
+            -0.7852077914932624,
+            -0.07752156858208294,
+            -0.13883415467981453
+          ],
+          [
+            0.7888417598023638,
+            0.6091272962603828,
+            0.08180840386186393,
+            0.47644545760784823
+          ],
+          [
+            -0.017016092649695006,
+            -0.11141212289867478,
+            0.993628598351591,
+            0.26747123150924484
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_low_W09",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T30.npz"
+      }
+    ],
+    "hemisphere/P_mid": [
+      {
+        "anchor_id": "A01",
+        "anchor_witness_index": 399,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.047221554649235165,
+        "control_indices_global": [
+          387,
+          391,
+          395,
+          399,
+          403,
+          407,
+          411
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 2.1850468223404502,
+        "minimum_sampled_sigma_min_5": 0.7517985704497259,
+        "placement_id": "T27",
+        "seed": 463009600,
+        "start_index": 387,
+        "stop_index": 411,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W00",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A02",
+        "anchor_witness_index": 773,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 2.5872686296392207,
+        "baseline_surface_length": 0.046695192286769105,
+        "control_indices_global": [
+          761,
+          765,
+          769,
+          773,
+          777,
+          781,
+          785
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 2.0848787688619206,
+        "minimum_sampled_sigma_min_5": 0.6663234382700965,
+        "placement_id": "T27",
+        "seed": 1496584071,
+        "start_index": 761,
+        "stop_index": 785,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W01",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A04",
+        "anchor_witness_index": 1558,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 0.32493539737252203,
+        "baseline_surface_length": 0.04689527986924347,
+        "control_indices_global": [
+          1546,
+          1550,
+          1554,
+          1558,
+          1562,
+          1566,
+          1570
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.603111048040289,
+        "minimum_sampled_sigma_min_5": 0.37195656667848076,
+        "placement_id": "T27",
+        "seed": 1635921777,
+        "start_index": 1546,
+        "stop_index": 1570,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W02",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A05",
+        "anchor_witness_index": 1969,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.047221554649236275,
+        "control_indices_global": [
+          1957,
+          1961,
+          1965,
+          1969,
+          1973,
+          1977,
+          1981
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.392418688058595,
+        "minimum_sampled_sigma_min_5": 0.3172386405219124,
+        "placement_id": "T27",
+        "seed": 2998074402,
+        "start_index": 1957,
+        "stop_index": 1981,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W03",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A06",
+        "anchor_witness_index": 2355,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.048525869821515855,
+        "control_indices_global": [
+          2342,
+          2346,
+          2351,
+          2355,
+          2360,
+          2364,
+          2368
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          18,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4098404598239735,
+        "minimum_sampled_sigma_min_5": 0.45977119983830944,
+        "placement_id": "T27",
+        "seed": 3285306209,
+        "start_index": 2342,
+        "stop_index": 2368,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W04",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A08",
+        "anchor_witness_index": 3140,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 2.0434690108316262,
+        "baseline_surface_length": 0.04746786887097798,
+        "control_indices_global": [
+          3127,
+          3131,
+          3136,
+          3140,
+          3144,
+          3148,
+          3152
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.0993084409292782,
+        "minimum_sampled_sigma_min_5": 0.6244154157366328,
+        "placement_id": "T27",
+        "seed": 1529759656,
+        "start_index": 3127,
+        "stop_index": 3152,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W05",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A09",
+        "anchor_witness_index": 3614,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04717838001607699,
+        "control_indices_global": [
+          3601,
+          3605,
+          3610,
+          3614,
+          3618,
+          3622,
+          3626
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.0700958830037943,
+        "minimum_sampled_sigma_min_5": 0.6830788492262143,
+        "placement_id": "T27",
+        "seed": 45583770,
+        "start_index": 3601,
+        "stop_index": 3626,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W06",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A10",
+        "anchor_witness_index": 4000,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592638688632,
+        "baseline_surface_length": 0.049534456837115215,
+        "control_indices_global": [
+          3987,
+          3991,
+          3996,
+          4000,
+          4004,
+          4009,
+          4013
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 0.6324847654131154,
+        "minimum_sampled_sigma_min_5": 0.47741215319063124,
+        "placement_id": "T27",
+        "seed": 956825158,
+        "start_index": 3987,
+        "stop_index": 4013,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W07",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A12",
+        "anchor_witness_index": 4797,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 2.4628927462022343,
+        "baseline_surface_length": 0.04800248872226831,
+        "control_indices_global": [
+          4784,
+          4788,
+          4792,
+          4797,
+          4801,
+          4806,
+          4810
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2783003779503583,
+        "minimum_sampled_sigma_min_5": 0.5661041480536562,
+        "placement_id": "T27",
+        "seed": 1708301460,
+        "start_index": 4784,
+        "stop_index": 4810,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W08",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      },
+      {
+        "anchor_id": "A13",
+        "anchor_witness_index": 5208,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 2.0434690108316023,
+        "baseline_surface_length": 0.04783016136062024,
+        "control_indices_global": [
+          5195,
+          5199,
+          5204,
+          5208,
+          5213,
+          5217,
+          5221
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          18,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.5698958834355534,
+        "minimum_sampled_sigma_min_5": 0.6793872837854112,
+        "placement_id": "T27",
+        "seed": 3787849343,
+        "start_index": 5195,
+        "stop_index": 5221,
+        "surface_id": "hemisphere",
+        "transform_base_from_surface": [
+          [
+            0.7209541095413957,
+            -0.6920204689487627,
+            -0.036508115417093354,
+            -0.16459344112199387
+          ],
+          [
+            0.681025362927107,
+            0.697785639083825,
+            0.2220352605744875,
+            0.45916926159109356
+          ],
+          [
+            -0.128178106497855,
+            -0.18494018612598212,
+            0.9743549150952704,
+            0.3045590618062725
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "hemisphere_P_mid_W09",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/hemisphere_T27.npz"
+      }
+    ],
+    "saddle/P_high": [
+      {
+        "anchor_id": "A00",
+        "anchor_witness_index": 22,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04904004029692825,
+        "control_indices_global": [
+          9,
+          13,
+          18,
+          22,
+          26,
+          31,
+          35
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1445390724858653,
+        "minimum_sampled_sigma_min_5": 0.971606758235575,
+        "placement_id": "T10",
+        "seed": 815827559,
+        "start_index": 9,
+        "stop_index": 35,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W00",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A02",
+        "anchor_witness_index": 466,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 0.31245032816606244,
+        "baseline_surface_length": 0.04681015811407374,
+        "control_indices_global": [
+          454,
+          458,
+          462,
+          466,
+          470,
+          474,
+          478
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.367597565349377,
+        "minimum_sampled_sigma_min_5": 0.8850530010156977,
+        "placement_id": "T10",
+        "seed": 2365458650,
+        "start_index": 454,
+        "stop_index": 478,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W01",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A03",
+        "anchor_witness_index": 685,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 1.8868234569955982,
+        "baseline_surface_length": 0.04816480038405513,
+        "control_indices_global": [
+          673,
+          677,
+          681,
+          685,
+          690,
+          694,
+          698
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4223072892793676,
+        "minimum_sampled_sigma_min_5": 0.8725099218322305,
+        "placement_id": "T10",
+        "seed": 1026558328,
+        "start_index": 673,
+        "stop_index": 698,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W02",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A05",
+        "anchor_witness_index": 1136,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 3.141592638688632,
+        "baseline_surface_length": 0.04745132947362629,
+        "control_indices_global": [
+          1123,
+          1127,
+          1131,
+          1136,
+          1140,
+          1144,
+          1149
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          21,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2256808946758166,
+        "minimum_sampled_sigma_min_5": 0.9849266375977735,
+        "placement_id": "T10",
+        "seed": 322532585,
+        "start_index": 1123,
+        "stop_index": 1149,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W03",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A06",
+        "anchor_witness_index": 1355,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 1.6534592434341948,
+        "baseline_surface_length": 0.04816421901077739,
+        "control_indices_global": [
+          1342,
+          1346,
+          1351,
+          1355,
+          1359,
+          1363,
+          1367
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.6305947525472728,
+        "minimum_sampled_sigma_min_5": 0.74244364068826,
+        "placement_id": "T10",
+        "seed": 1266084123,
+        "start_index": 1342,
+        "stop_index": 1367,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W04",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A08",
+        "anchor_witness_index": 1807,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 1.888845545689304,
+        "baseline_surface_length": 0.04922316724771436,
+        "control_indices_global": [
+          1794,
+          1798,
+          1803,
+          1807,
+          1811,
+          1816,
+          1820
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4341468633470447,
+        "minimum_sampled_sigma_min_5": 0.9013516924245791,
+        "placement_id": "T10",
+        "seed": 2888652898,
+        "start_index": 1794,
+        "stop_index": 1820,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W05",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A09",
+        "anchor_witness_index": 2033,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 2.5087455164184176,
+        "baseline_surface_length": 0.04639454254829056,
+        "control_indices_global": [
+          2021,
+          2025,
+          2029,
+          2033,
+          2037,
+          2041,
+          2045
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.471254607689331,
+        "minimum_sampled_sigma_min_5": 0.7961584692853454,
+        "placement_id": "T10",
+        "seed": 4223337948,
+        "start_index": 2021,
+        "stop_index": 2045,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W06",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A11",
+        "anchor_witness_index": 2477,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 2.5166919972575945,
+        "baseline_surface_length": 0.04988796696232711,
+        "control_indices_global": [
+          2464,
+          2468,
+          2473,
+          2477,
+          2481,
+          2486,
+          2490
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.383659327807206,
+        "minimum_sampled_sigma_min_5": 0.7470501671124065,
+        "placement_id": "T10",
+        "seed": 1242132893,
+        "start_index": 2464,
+        "stop_index": 2490,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W07",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A12",
+        "anchor_witness_index": 2696,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 1.9172115021778757,
+        "baseline_surface_length": 0.04833539204434256,
+        "control_indices_global": [
+          2683,
+          2687,
+          2692,
+          2696,
+          2700,
+          2705,
+          2709
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1814011105928017,
+        "minimum_sampled_sigma_min_5": 0.9479296332243635,
+        "placement_id": "T10",
+        "seed": 2110523628,
+        "start_index": 2683,
+        "stop_index": 2709,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W08",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      },
+      {
+        "anchor_id": "A14",
+        "anchor_witness_index": 3147,
+        "anisotropy_level": "P_high",
+        "baseline_maximum_turn_rad": 1.937143379582646,
+        "baseline_surface_length": 0.04915920156702125,
+        "control_indices_global": [
+          3134,
+          3138,
+          3143,
+          3147,
+          3151,
+          3156,
+          3160
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.0968997578732935,
+        "minimum_sampled_sigma_min_5": 0.9338323877661007,
+        "placement_id": "T10",
+        "seed": 3657392332,
+        "start_index": 3134,
+        "stop_index": 3160,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9126969170206128,
+            0.3680168735098451,
+            -0.17761733719743503,
+            -0.18879808042937607
+          ],
+          [
+            -0.290324965627743,
+            0.8898668002920339,
+            0.3519211446777069,
+            0.44882189590251403
+          ],
+          [
+            0.28756869091456827,
+            -0.2696305964649716,
+            0.9190231713377119,
+            0.5004623008944005
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_high_W09",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T10.npz"
+      }
+    ],
+    "saddle/P_low": [
+      {
+        "anchor_id": "A00",
+        "anchor_witness_index": 22,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.049040040296928405,
+        "control_indices_global": [
+          9,
+          13,
+          18,
+          22,
+          26,
+          31,
+          35
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1621252727827844,
+        "minimum_sampled_sigma_min_5": 0.6998427461263814,
+        "placement_id": "T17",
+        "seed": 662501298,
+        "start_index": 9,
+        "stop_index": 35,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W00",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A02",
+        "anchor_witness_index": 466,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 0.31245032816606677,
+        "baseline_surface_length": 0.04681015811407385,
+        "control_indices_global": [
+          454,
+          458,
+          462,
+          466,
+          470,
+          474,
+          478
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2909945793110658,
+        "minimum_sampled_sigma_min_5": 0.7582479249695921,
+        "placement_id": "T17",
+        "seed": 1187861258,
+        "start_index": 454,
+        "stop_index": 478,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W01",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A03",
+        "anchor_witness_index": 685,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 1.886823456995562,
+        "baseline_surface_length": 0.048164800384054685,
+        "control_indices_global": [
+          673,
+          677,
+          681,
+          685,
+          690,
+          694,
+          698
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.329861426928038,
+        "minimum_sampled_sigma_min_5": 0.7480518951182208,
+        "placement_id": "T17",
+        "seed": 689014817,
+        "start_index": 673,
+        "stop_index": 698,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W02",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A05",
+        "anchor_witness_index": 1136,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04745132947362629,
+        "control_indices_global": [
+          1123,
+          1127,
+          1131,
+          1136,
+          1140,
+          1144,
+          1149
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          21,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.217987484690168,
+        "minimum_sampled_sigma_min_5": 0.7060677776917007,
+        "placement_id": "T17",
+        "seed": 2760975393,
+        "start_index": 1123,
+        "stop_index": 1149,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W03",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A06",
+        "anchor_witness_index": 1355,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 1.6534592434342095,
+        "baseline_surface_length": 0.04816421901077694,
+        "control_indices_global": [
+          1342,
+          1346,
+          1351,
+          1355,
+          1359,
+          1363,
+          1367
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4862495864849508,
+        "minimum_sampled_sigma_min_5": 0.7350489770401544,
+        "placement_id": "T17",
+        "seed": 2136216690,
+        "start_index": 1342,
+        "stop_index": 1367,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W04",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A08",
+        "anchor_witness_index": 1807,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 1.8888455456892954,
+        "baseline_surface_length": 0.04922316724771436,
+        "control_indices_global": [
+          1794,
+          1798,
+          1803,
+          1807,
+          1811,
+          1816,
+          1820
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4093645857808161,
+        "minimum_sampled_sigma_min_5": 0.687004879472587,
+        "placement_id": "T17",
+        "seed": 1943713193,
+        "start_index": 1794,
+        "stop_index": 1820,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W05",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A09",
+        "anchor_witness_index": 2033,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 2.5087455164183705,
+        "baseline_surface_length": 0.04639454254829101,
+        "control_indices_global": [
+          2021,
+          2025,
+          2029,
+          2033,
+          2037,
+          2041,
+          2045
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.419477636662327,
+        "minimum_sampled_sigma_min_5": 0.6277823629239384,
+        "placement_id": "T17",
+        "seed": 490218592,
+        "start_index": 2021,
+        "stop_index": 2045,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W06",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A11",
+        "anchor_witness_index": 2477,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 2.516691997257581,
+        "baseline_surface_length": 0.04988796696232889,
+        "control_indices_global": [
+          2464,
+          2468,
+          2473,
+          2477,
+          2481,
+          2486,
+          2490
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2247856438847764,
+        "minimum_sampled_sigma_min_5": 0.6193849363675556,
+        "placement_id": "T17",
+        "seed": 3536855645,
+        "start_index": 2464,
+        "stop_index": 2490,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W07",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A12",
+        "anchor_witness_index": 2696,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 1.9172115021778469,
+        "baseline_surface_length": 0.04833539204434256,
+        "control_indices_global": [
+          2683,
+          2687,
+          2692,
+          2696,
+          2700,
+          2705,
+          2709
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1253515528694908,
+        "minimum_sampled_sigma_min_5": 0.690885987320492,
+        "placement_id": "T17",
+        "seed": 1709041215,
+        "start_index": 2683,
+        "stop_index": 2709,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W08",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      },
+      {
+        "anchor_id": "A14",
+        "anchor_witness_index": 3147,
+        "anisotropy_level": "P_low",
+        "baseline_maximum_turn_rad": 1.9371433795826511,
+        "baseline_surface_length": 0.04915920156702125,
+        "control_indices_global": [
+          3134,
+          3138,
+          3143,
+          3147,
+          3151,
+          3156,
+          3160
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.1031353686550078,
+        "minimum_sampled_sigma_min_5": 0.6879336773759819,
+        "placement_id": "T17",
+        "seed": 1045507811,
+        "start_index": 3134,
+        "stop_index": 3160,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.8415466622876572,
+            0.5351708845073592,
+            0.07342574186288318,
+            -0.25904553781835493
+          ],
+          [
+            -0.536042636757402,
+            0.8105435317417206,
+            0.23596074828206118,
+            0.4411113898057322
+          ],
+          [
+            0.06676456223683173,
+            -0.23793130842171487,
+            0.9689846158232105,
+            0.3848938864434732
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_low_W09",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz"
+      }
+    ],
+    "saddle/P_mid": [
+      {
+        "anchor_id": "A00",
+        "anchor_witness_index": 22,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.0490400402969282,
+        "control_indices_global": [
+          9,
+          13,
+          18,
+          22,
+          26,
+          31,
+          35
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 0.9774170712093069,
+        "minimum_sampled_sigma_min_5": 0.9238665518014387,
+        "placement_id": "T21",
+        "seed": 94497320,
+        "start_index": 9,
+        "stop_index": 35,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W00",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A02",
+        "anchor_witness_index": 466,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 0.3124503281660899,
+        "baseline_surface_length": 0.04681015811407385,
+        "control_indices_global": [
+          454,
+          458,
+          462,
+          466,
+          470,
+          474,
+          478
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2302117089119298,
+        "minimum_sampled_sigma_min_5": 0.9342723920401035,
+        "placement_id": "T21",
+        "seed": 399396167,
+        "start_index": 454,
+        "stop_index": 478,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W01",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A03",
+        "anchor_witness_index": 685,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 1.886823456995582,
+        "baseline_surface_length": 0.048164800384054685,
+        "control_indices_global": [
+          673,
+          677,
+          681,
+          685,
+          690,
+          694,
+          698
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2812621362065117,
+        "minimum_sampled_sigma_min_5": 0.9425036532607383,
+        "placement_id": "T21",
+        "seed": 799178932,
+        "start_index": 673,
+        "stop_index": 698,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W02",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A05",
+        "anchor_witness_index": 1136,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 3.141592653589793,
+        "baseline_surface_length": 0.04745132947362629,
+        "control_indices_global": [
+          1123,
+          1127,
+          1131,
+          1136,
+          1140,
+          1144,
+          1149
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          21,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.064887732724129,
+        "minimum_sampled_sigma_min_5": 0.9368206098046347,
+        "placement_id": "T21",
+        "seed": 1714759110,
+        "start_index": 1123,
+        "stop_index": 1149,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W03",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A06",
+        "anchor_witness_index": 1355,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 1.653459243434217,
+        "baseline_surface_length": 0.0481642190107765,
+        "control_indices_global": [
+          1342,
+          1346,
+          1351,
+          1355,
+          1359,
+          1363,
+          1367
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "minimum_absolute_joint_margin_rad": 1.4827200314936944,
+        "minimum_sampled_sigma_min_5": 0.7914448197422833,
+        "placement_id": "T21",
+        "seed": 3775413919,
+        "start_index": 1342,
+        "stop_index": 1367,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W04",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A08",
+        "anchor_witness_index": 1807,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 1.888845545689318,
+        "baseline_surface_length": 0.04922316724771436,
+        "control_indices_global": [
+          1794,
+          1798,
+          1803,
+          1807,
+          1811,
+          1816,
+          1820
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2832103701762732,
+        "minimum_sampled_sigma_min_5": 1.0041484256249082,
+        "placement_id": "T21",
+        "seed": 4251324157,
+        "start_index": 1794,
+        "stop_index": 1820,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W05",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A09",
+        "anchor_witness_index": 2033,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 2.5087455164183843,
+        "baseline_surface_length": 0.046394542548289674,
+        "control_indices_global": [
+          2021,
+          2025,
+          2029,
+          2033,
+          2037,
+          2041,
+          2045
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        "minimum_absolute_joint_margin_rad": 1.3114579375753372,
+        "minimum_sampled_sigma_min_5": 0.849221111066726,
+        "placement_id": "T21",
+        "seed": 3390973894,
+        "start_index": 2021,
+        "stop_index": 2045,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W06",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A11",
+        "anchor_witness_index": 2477,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 2.5166919972576007,
+        "baseline_surface_length": 0.049887966962328,
+        "control_indices_global": [
+          2464,
+          2468,
+          2473,
+          2477,
+          2481,
+          2486,
+          2490
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.2197498454471543,
+        "minimum_sampled_sigma_min_5": 0.8370942353738707,
+        "placement_id": "T21",
+        "seed": 2638899308,
+        "start_index": 2464,
+        "stop_index": 2490,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W07",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A12",
+        "anchor_witness_index": 2696,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 1.9172115021778886,
+        "baseline_surface_length": 0.04833539204434256,
+        "control_indices_global": [
+          2683,
+          2687,
+          2692,
+          2696,
+          2700,
+          2705,
+          2709
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 1.0115461070023155,
+        "minimum_sampled_sigma_min_5": 0.9289182609835285,
+        "placement_id": "T21",
+        "seed": 1031376185,
+        "start_index": 2683,
+        "stop_index": 2709,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W08",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      },
+      {
+        "anchor_id": "A14",
+        "anchor_witness_index": 3147,
+        "anisotropy_level": "P_mid",
+        "baseline_maximum_turn_rad": 1.9371433795826578,
+        "baseline_surface_length": 0.04915920156702125,
+        "control_indices_global": [
+          3134,
+          3138,
+          3143,
+          3147,
+          3151,
+          3156,
+          3160
+        ],
+        "control_indices_local": [
+          0,
+          4,
+          9,
+          13,
+          17,
+          22,
+          26
+        ],
+        "minimum_absolute_joint_margin_rad": 0.9192631477420932,
+        "minimum_sampled_sigma_min_5": 0.920932651809882,
+        "placement_id": "T21",
+        "seed": 199081260,
+        "start_index": 3134,
+        "stop_index": 3160,
+        "surface_id": "saddle",
+        "transform_base_from_surface": [
+          [
+            0.9642997981426763,
+            0.144321588687955,
+            -0.22202967896337308,
+            -0.24025520762010621
+          ],
+          [
+            -0.13439802349843688,
+            0.9891542056153088,
+            0.059254778653382065,
+            0.39375023953199223
+          ],
+          [
+            0.22817333451064647,
+            -0.027299021083775476,
+            0.973237737074637,
+            0.5014630140068995
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "window_id": "saddle_P_mid_W09",
+        "witness_file": "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T21.npz"
+      }
+    ]
+  }
+}
