@@ -1,0 +1,62 @@
+{
+  "experiment": "E06-G2: Symmetry-Preserving Global Layout Gate",
+  "seed": 20260912,
+  "parent_code_commit": "c0b29be63d55ad007d2e77381fb111dee6e6790d",
+  "source_code_commit": "78876d52d5313c0e99978700ff3cb7de02e2d0a5",
+  "placements_file": "configs/riemannian_anisotropy_scenes_v1.json",
+  "placement_levels": ["P_low", "P_mid", "P_high"],
+  "surfaces": {
+    "saddle": {
+      "width": 0.24,
+      "height": 0.24,
+      "curvature": 1.5,
+      "reference_nx": 12,
+      "reference_ny": 12,
+      "symmetries": ["identity", "reflect_x", "reflect_y", "rotate_180"]
+    },
+    "hemisphere": {
+      "radius": 0.14,
+      "reference_n_azimuth": 24,
+      "reference_n_polar": 10,
+      "rotation_step_degrees": 15.0,
+      "rotation_count": 24
+    }
+  },
+  "coverage": {
+    "footprint_radius_m": 0.008,
+    "path_sample_spacing_m": 0.002,
+    "invariance_hard_ceiling": 1e-10,
+    "symmetric_barycentric_orbits": 1
+  },
+  "robot_contract": {
+    "characteristic_length_m": 0.1,
+    "sigma_safe": 0.07237417172157597,
+    "maximum_dense_q_step_rad": 0.05,
+    "axis_tolerance_degrees": 10.0,
+    "position_tolerance_m": 0.003,
+    "construction_position_tolerance_m": 0.0015,
+    "maximum_continuation_joint_step_rad": 0.1,
+    "weight_matrix": "identity"
+  },
+  "default_search": {
+    "random_restarts": 8,
+    "max_candidates": 6,
+    "orientation_cone_samples": 5
+  },
+  "strong_search": {
+    "random_restarts": 32,
+    "max_candidates": 24,
+    "orientation_cone_samples": 15,
+    "selection_rule": "rerun every default-failed member in every mixed-success scene"
+  },
+  "gate": {
+    "minimum_hemisphere_scenes_with_10pct_spread": 2,
+    "minimum_scene_spread": 0.10,
+    "minimum_median_canonical_gain": 0.08,
+    "minimum_robust_mixed_success_scenes": 2
+  },
+  "riemannian": {
+    "finite_difference_step_m": 1e-5,
+    "sample_count": 240
+  }
+}

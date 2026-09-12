@@ -1,0 +1,53 @@
+{
+  "canonicalization": "E06 P_easy S00 base-frame target trace -> object frame -> one analytical projection",
+  "code_commit": "c0b29be63d55ad007d2e77381fb111dee6e6790d",
+  "frozen_before_robot_execution": true,
+  "paths": [
+    {
+      "E_NUC": 0.7565340821980036,
+      "E_miss": 0.13163210810861997,
+      "E_rep": 0.6249019740893835,
+      "L_S": 6.013931351976433,
+      "analytical_projection_max_m": 0.00020390625000004086,
+      "canonical_path_hash": "dfd59b447091aeaff80631c22c8666107b122dd297597c00c927793677f70da0",
+      "canonical_sample_count": 3171,
+      "discrete_segment_length": 6.013931351976433,
+      "reference_faces": 576,
+      "reference_samples": 3456,
+      "reference_vertices": 313,
+      "source_artifact": "results/nuc_robot_skeleton_coupling_v1/witnesses/saddle_P_easy_S00.npz",
+      "source_commit": "78876d52d5313c0e99978700ff3cb7de02e2d0a5",
+      "source_policy": "upstream_first",
+      "source_reported_E_NUC": 0.44476383775521366,
+      "source_reported_E_miss": 0.08356718475340269,
+      "source_reported_E_rep": 0.361196653001811,
+      "source_reported_L_S": 6.0129347067723975,
+      "source_sample_count": 3171,
+      "source_skeleton_id": "S00",
+      "surface_id": "saddle"
+    },
+    {
+      "E_NUC": 0.4033100677141819,
+      "E_miss": 0.1799848280214877,
+      "E_rep": 0.22332523969269416,
+      "L_S": 10.490484665190715,
+      "analytical_projection_max_m": 0.006178774803241146,
+      "canonical_path_hash": "989323dd6ebdd3206fcad6f593ad0404d7075517abc48dbe00fc29dfed5b360c",
+      "canonical_sample_count": 6340,
+      "discrete_segment_length": 10.490484665190715,
+      "reference_faces": 456,
+      "reference_samples": 2736,
+      "reference_vertices": 241,
+      "source_artifact": "results/nuc_robot_skeleton_coupling_v1/witnesses/hemisphere_P_easy_S00.npz",
+      "source_commit": "78876d52d5313c0e99978700ff3cb7de02e2d0a5",
+      "source_policy": "upstream_first",
+      "source_reported_E_NUC": 0.49071517835302775,
+      "source_reported_E_miss": 0.1904383188660071,
+      "source_reported_E_rep": 0.30027685948702065,
+      "source_reported_L_S": 10.428527670051029,
+      "source_sample_count": 5597,
+      "source_skeleton_id": "S00",
+      "surface_id": "hemisphere"
+    }
+  ]
+}

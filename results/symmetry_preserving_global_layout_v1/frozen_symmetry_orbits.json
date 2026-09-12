@@ -1,0 +1,794 @@
+{
+  "array_file": "symmetry_orbits.npz",
+  "code_commit": "c0b29be63d55ad007d2e77381fb111dee6e6790d",
+  "frozen_before_robot_execution": true,
+  "invariance_hard_ceiling": 1e-10,
+  "invariance_tolerance": 1e-12,
+  "orbit_hash": "479f4e0497e4ddd771ab7f445c3505aaaa5da4543895cc82296110abbfc4fdd1",
+  "orbits": [
+    {
+      "angle_degrees": 0.0,
+      "array_keys": {
+        "normals": "saddle_S00_normals",
+        "points": "saddle_S00_points"
+      },
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "dfd59b447091aeaff80631c22c8666107b122dd297597c00c927793677f70da0",
+      "surface_id": "saddle",
+      "symmetry_id": "S00",
+      "symmetry_name": "identity"
+    },
+    {
+      "angle_degrees": null,
+      "array_keys": {
+        "normals": "saddle_S01_normals",
+        "points": "saddle_S01_points"
+      },
+      "matrix": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "481b3cecd1169708830f27055a0cc1b4b41f8a0a0d7d6900205629b33f652e86",
+      "surface_id": "saddle",
+      "symmetry_id": "S01",
+      "symmetry_name": "reflect_x"
+    },
+    {
+      "angle_degrees": null,
+      "array_keys": {
+        "normals": "saddle_S02_normals",
+        "points": "saddle_S02_points"
+      },
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "52e0dda227c70c9640338118229d682ad62e12b8dc043c6a584858109c229d55",
+      "surface_id": "saddle",
+      "symmetry_id": "S02",
+      "symmetry_name": "reflect_y"
+    },
+    {
+      "angle_degrees": null,
+      "array_keys": {
+        "normals": "saddle_S03_normals",
+        "points": "saddle_S03_points"
+      },
+      "matrix": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "cd05a248b57b61f5f90e8b96e91726d30bbb49efa5fe94997d4c9912c6a9f9fc",
+      "surface_id": "saddle",
+      "symmetry_id": "S03",
+      "symmetry_name": "rotate_180"
+    },
+    {
+      "angle_degrees": 0.0,
+      "array_keys": {
+        "normals": "hemisphere_H00_normals",
+        "points": "hemisphere_H00_points"
+      },
+      "matrix": [
+        [
+          1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "989323dd6ebdd3206fcad6f593ad0404d7075517abc48dbe00fc29dfed5b360c",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H00",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 15.0,
+      "array_keys": {
+        "normals": "hemisphere_H01_normals",
+        "points": "hemisphere_H01_points"
+      },
+      "matrix": [
+        [
+          0.9659258262890683,
+          -0.25881904510252074,
+          0.0
+        ],
+        [
+          0.25881904510252074,
+          0.9659258262890683,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "438237548ceb6724298606e88643edeb92705c8bcc03ade5e010763427bac955",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H01",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 30.0,
+      "array_keys": {
+        "normals": "hemisphere_H02_normals",
+        "points": "hemisphere_H02_points"
+      },
+      "matrix": [
+        [
+          0.8660254037844387,
+          -0.49999999999999994,
+          0.0
+        ],
+        [
+          0.49999999999999994,
+          0.8660254037844387,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "c9a5c1a3a1c14de34fbf1a398db95e98fd5600729f9c1106d51cfbd81957bece",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H02",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 45.0,
+      "array_keys": {
+        "normals": "hemisphere_H03_normals",
+        "points": "hemisphere_H03_points"
+      },
+      "matrix": [
+        [
+          0.7071067811865476,
+          -0.7071067811865475,
+          0.0
+        ],
+        [
+          0.7071067811865475,
+          0.7071067811865476,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "c8464327f6f4371fe8274c8a08d7437e3e420feb4ad090501d5af8cd5bcdff57",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H03",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 60.0,
+      "array_keys": {
+        "normals": "hemisphere_H04_normals",
+        "points": "hemisphere_H04_points"
+      },
+      "matrix": [
+        [
+          0.5000000000000001,
+          -0.8660254037844386,
+          0.0
+        ],
+        [
+          0.8660254037844386,
+          0.5000000000000001,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "a19964a4eabbf5947fd6c2eaad0af0306c9f91251092aff05bfef92f9aaaca48",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H04",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 75.0,
+      "array_keys": {
+        "normals": "hemisphere_H05_normals",
+        "points": "hemisphere_H05_points"
+      },
+      "matrix": [
+        [
+          0.25881904510252074,
+          -0.9659258262890683,
+          0.0
+        ],
+        [
+          0.9659258262890683,
+          0.25881904510252074,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "1a379ee2c04997d7fc78aef60a73a7e394bf6f4e7219935d0443159f752028f8",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H05",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 90.0,
+      "array_keys": {
+        "normals": "hemisphere_H06_normals",
+        "points": "hemisphere_H06_points"
+      },
+      "matrix": [
+        [
+          6.123233995736766e-17,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          6.123233995736766e-17,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "38eaaaf53094fc58d4364653556af5ff60747c48f4f73141fcc9604312ee37af",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H06",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 105.0,
+      "array_keys": {
+        "normals": "hemisphere_H07_normals",
+        "points": "hemisphere_H07_points"
+      },
+      "matrix": [
+        [
+          -0.25881904510252085,
+          -0.9659258262890683,
+          0.0
+        ],
+        [
+          0.9659258262890683,
+          -0.25881904510252085,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "201568a47f37c09017b0c5737ba05a79afd3f84b5fa1cb619480e761c1624f68",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H07",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 120.0,
+      "array_keys": {
+        "normals": "hemisphere_H08_normals",
+        "points": "hemisphere_H08_points"
+      },
+      "matrix": [
+        [
+          -0.4999999999999998,
+          -0.8660254037844387,
+          0.0
+        ],
+        [
+          0.8660254037844387,
+          -0.4999999999999998,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "c8f1e978684aeca565b0f7bfec5f1632b525a272e5f62e3bbfa18c55004e2986",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H08",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 135.0,
+      "array_keys": {
+        "normals": "hemisphere_H09_normals",
+        "points": "hemisphere_H09_points"
+      },
+      "matrix": [
+        [
+          -0.7071067811865475,
+          -0.7071067811865476,
+          0.0
+        ],
+        [
+          0.7071067811865476,
+          -0.7071067811865475,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "a18333417de6c801ab607e89cc5aba704aa5ba29feddbd3518225e294177ba24",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H09",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 150.0,
+      "array_keys": {
+        "normals": "hemisphere_H10_normals",
+        "points": "hemisphere_H10_points"
+      },
+      "matrix": [
+        [
+          -0.8660254037844387,
+          -0.49999999999999994,
+          0.0
+        ],
+        [
+          0.49999999999999994,
+          -0.8660254037844387,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "1f972508e389bebec794d29f73b8c51f6d2291ea313c8c25b1c12f7556cb772c",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H10",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 165.0,
+      "array_keys": {
+        "normals": "hemisphere_H11_normals",
+        "points": "hemisphere_H11_points"
+      },
+      "matrix": [
+        [
+          -0.9659258262890682,
+          -0.258819045102521,
+          0.0
+        ],
+        [
+          0.258819045102521,
+          -0.9659258262890682,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "58fd815b6c6098b30416aeb9db9837ccd594378c4daa02658b59ab623ab941f1",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H11",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 180.0,
+      "array_keys": {
+        "normals": "hemisphere_H12_normals",
+        "points": "hemisphere_H12_points"
+      },
+      "matrix": [
+        [
+          -1.0,
+          -1.2246467991473532e-16,
+          0.0
+        ],
+        [
+          1.2246467991473532e-16,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "2971aae1168094a8735be67a698d1b1a0284cb5fd9e5b7e2643b4fe7c0ef71e7",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H12",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 195.0,
+      "array_keys": {
+        "normals": "hemisphere_H13_normals",
+        "points": "hemisphere_H13_points"
+      },
+      "matrix": [
+        [
+          -0.9659258262890683,
+          0.2588190451025208,
+          0.0
+        ],
+        [
+          -0.2588190451025208,
+          -0.9659258262890683,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "dd6b07e95c59ef9f1bfcc5602c6c990c8070efb84c1970ff4e0f1af9a26cac6f",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H13",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 210.0,
+      "array_keys": {
+        "normals": "hemisphere_H14_normals",
+        "points": "hemisphere_H14_points"
+      },
+      "matrix": [
+        [
+          -0.8660254037844386,
+          0.5000000000000001,
+          0.0
+        ],
+        [
+          -0.5000000000000001,
+          -0.8660254037844386,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "1ddc63b1093067fdb092e3c67dcfb8735890de4f0c6862d10faf83d346fac2d3",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H14",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 225.0,
+      "array_keys": {
+        "normals": "hemisphere_H15_normals",
+        "points": "hemisphere_H15_points"
+      },
+      "matrix": [
+        [
+          -0.7071067811865477,
+          0.7071067811865475,
+          0.0
+        ],
+        [
+          -0.7071067811865475,
+          -0.7071067811865477,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "c2673d0cafdcec00e9043cde991e1f89fe2c29ed08e1e89ade1016b1b2690fda",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H15",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 240.0,
+      "array_keys": {
+        "normals": "hemisphere_H16_normals",
+        "points": "hemisphere_H16_points"
+      },
+      "matrix": [
+        [
+          -0.5000000000000004,
+          0.8660254037844384,
+          0.0
+        ],
+        [
+          -0.8660254037844384,
+          -0.5000000000000004,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "5200a90ebff60c29878229da7d1922d8e6c4569ea1f43e4125ba7d3e854eacda",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H16",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 255.0,
+      "array_keys": {
+        "normals": "hemisphere_H17_normals",
+        "points": "hemisphere_H17_points"
+      },
+      "matrix": [
+        [
+          -0.25881904510252063,
+          0.9659258262890683,
+          0.0
+        ],
+        [
+          -0.9659258262890683,
+          -0.25881904510252063,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "ca1775ef2c7f36366d234ed722eb5fe8f25b2cfb40344a7edbe0a852add98cf4",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H17",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 270.0,
+      "array_keys": {
+        "normals": "hemisphere_H18_normals",
+        "points": "hemisphere_H18_points"
+      },
+      "matrix": [
+        [
+          -1.8369701987210297e-16,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -1.8369701987210297e-16,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "26a9f09a82042153ddcb0c89f9d7c87f93a3c26e62f9fab5aee12f874a84e761",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H18",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 285.0,
+      "array_keys": {
+        "normals": "hemisphere_H19_normals",
+        "points": "hemisphere_H19_points"
+      },
+      "matrix": [
+        [
+          0.2588190451025203,
+          0.9659258262890684,
+          0.0
+        ],
+        [
+          -0.9659258262890684,
+          0.2588190451025203,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "29449596ecda98a0549d548d6bac0bfd6fc91718913458126ed17b038d1b373b",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H19",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 300.0,
+      "array_keys": {
+        "normals": "hemisphere_H20_normals",
+        "points": "hemisphere_H20_points"
+      },
+      "matrix": [
+        [
+          0.5000000000000001,
+          0.8660254037844386,
+          0.0
+        ],
+        [
+          -0.8660254037844386,
+          0.5000000000000001,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "0d5d39807dba7be919bcec1bc42eefc547b1e39b84de93f359abcfc80d04ea4e",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H20",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 315.0,
+      "array_keys": {
+        "normals": "hemisphere_H21_normals",
+        "points": "hemisphere_H21_points"
+      },
+      "matrix": [
+        [
+          0.7071067811865474,
+          0.7071067811865477,
+          0.0
+        ],
+        [
+          -0.7071067811865477,
+          0.7071067811865474,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "98c4e693cc9cc1d91f86ab288854ac302718aabfa8517e592798fe7f4b32007f",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H21",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 330.0,
+      "array_keys": {
+        "normals": "hemisphere_H22_normals",
+        "points": "hemisphere_H22_points"
+      },
+      "matrix": [
+        [
+          0.8660254037844384,
+          0.5000000000000004,
+          0.0
+        ],
+        [
+          -0.5000000000000004,
+          0.8660254037844384,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "cea30b3ef2955e4434d6abeae97ca53e417424f244de866f8849a681d5f7feff",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H22",
+      "symmetry_name": "rotation_z"
+    },
+    {
+      "angle_degrees": 345.0,
+      "array_keys": {
+        "normals": "hemisphere_H23_normals",
+        "points": "hemisphere_H23_points"
+      },
+      "matrix": [
+        [
+          0.9659258262890683,
+          0.2588190451025207,
+          0.0
+        ],
+        [
+          -0.2588190451025207,
+          0.9659258262890683,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path_hash": "cdbc42467552361ae5c17166c2fea139542c60ec1a4dfb990fcec3eec7f8838b",
+      "surface_id": "hemisphere",
+      "symmetry_id": "H23",
+      "symmetry_name": "rotation_z"
+    }
+  ]
+}
