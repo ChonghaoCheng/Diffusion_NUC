@@ -1,0 +1,31 @@
+{
+  "G1_authorized": false,
+  "apparent_liftability_rescue_scenes": 0,
+  "canonical_verified_scenes": 3,
+  "capacity_interpretation": "coverage-equivalent sets are singleton for saddle and contain no verified witnesses for hemisphere; the gate is negative but cannot establish absence outside this frozen NUC library",
+  "classification": "A_no_demonstrated_admitted_global_layout_headroom",
+  "cost_GO": false,
+  "decision": "NO-GO",
+  "diversity": {
+    "hemisphere": {
+      "candidate_family_diversity_failure": false,
+      "median_ordered_path_distance_m": 0.14698940298218188,
+      "median_tangent_disagreement_degrees": 89.84858859364489
+    },
+    "saddle": {
+      "candidate_family_diversity_failure": false,
+      "median_ordered_path_distance_m": 0.12918923628542484,
+      "median_tangent_disagreement_degrees": 89.95858045349775
+    }
+  },
+  "experiment": "E06-G: Global Coverage-Layout Capacity Gate",
+  "failed_executions": 85,
+  "feasibility_GO": false,
+  "geometry_layouts": 64,
+  "median_Delta_global": 0.0,
+  "scene_layout_executions": 192,
+  "scenes_with_S_q_ge_10pct": 0,
+  "strong_confirmed_rescue_scenes": 0,
+  "strong_sensitivity_pending": false,
+  "verified_executions": 107
+}

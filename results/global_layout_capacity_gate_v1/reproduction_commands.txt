@@ -1,0 +1,5 @@
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/freeze_global_layout_library.py --stage smoke
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/freeze_global_layout_library.py --stage freeze --jobs 12
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_global_layout_capacity_gate.py --jobs 12
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/summarize_global_layout_capacity_gate.py
+/data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q

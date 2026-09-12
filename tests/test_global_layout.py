@@ -14,6 +14,7 @@ from diffusion_coverage.diagnostics.global_layout import (
     make_reference_surface,
     map_physical_root,
     remesh_statistics,
+    require_g1_authorized,
     select_geometry_baseline,
     surface_hash,
     validate_remesh_library,
@@ -96,3 +97,9 @@ def test_g1_gate_contract_is_explicitly_conditional():
     cfg = config()
     assert cfg["gate"]["minimum_scenes_with_10pct_spread"] == 4
     assert cfg["gate"]["minimum_median_geometry_oracle_gain"] == .08
+    try:
+        require_g1_authorized({"decision": "NO-GO", "G1_authorized": False})
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("G1 must refuse a G0 NO-GO")

@@ -237,6 +237,11 @@ def finite_verified_oracle(rows: list[dict[str, Any]]) -> dict[str, Any] | None:
     return None if not eligible else min(eligible, key=lambda row: (float(row["J_q"]), row["layout_id"]))
 
 
+def require_g1_authorized(g0_summary: dict[str, Any]) -> None:
+    if g0_summary.get("decision") != "GO" or not g0_summary.get("G1_authorized", False):
+        raise RuntimeError("G1 is blocked because the frozen G0 gate did not pass")
+
+
 def code_points_from_layout(layout: dict[str, Any]) -> np.ndarray:
     codes = np.asarray(layout["topological_path"], dtype=np.int64)
     ordered = np.asarray(layout["ordered_physical_path"], dtype=np.float64)

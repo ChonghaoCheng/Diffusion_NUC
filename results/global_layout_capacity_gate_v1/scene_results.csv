@@ -1,0 +1,7 @@
+C_q_spread,Delta_global,Delta_global_length,J_IQR,J_max,J_median,J_min,Pearson_L_S_J_q_all_verified,S_q,Spearman_L_S_J_q_all_verified,all_verified_S_q,all_verified_layouts,anisotropy_level,apparent_liftability_rescue,coverage_equivalent_layouts,geometry_J_q,geometry_layout_id,geometry_lift_found,length_matched_layouts,length_oracle_layout_id,oracle_J_q,oracle_layout_id,placement_id,surface_id,verified_equivalent_layouts
+,0.0,0.0,0.0,21.187742155547745,21.187742155547745,21.187742155547745,0.8423169796805596,,0.7991202346041056,0.2828503189482189,32,P_low,False,1,21.187742155547745,R01_M03,True,1,R01_M03,21.187742155547745,R01_M03,T17,saddle,1
+,0.0,0.0,0.0,17.238570243103062,17.238570243103062,17.238570243103062,0.6244909863648359,,0.5286290322580646,0.4996176352933362,31,P_mid,False,1,17.238570243103062,R01_M03,True,1,R01_M03,17.238570243103062,R01_M03,T21,saddle,1
+,0.0,0.0,0.0,19.320793104429292,19.320793104429292,19.320793104429292,0.622701763384679,,0.4459677419354839,0.38928237244684344,31,P_high,False,1,19.320793104429292,R01_M03,True,1,R01_M03,19.320793104429292,R01_M03,T10,saddle,1
+,,,,,,,1.0,,0.9999999999999999,0.030104778904982366,2,P_low,False,8,,R00_M03,False,0,,,,T30,hemisphere,0
+,,,,,,,0.9601111251297696,,0.5844809791708456,0.08420064785977083,11,P_mid,False,8,,R00_M03,False,0,,,,T27,hemisphere,0
+,,,,,,,,,,,0,P_high,False,8,,R00_M03,False,0,,,,T33,hemisphere,0
