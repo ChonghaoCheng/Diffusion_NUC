@@ -1,0 +1,82 @@
+{
+  "experiment": "E06-G: Global Coverage-Layout Capacity Gate",
+  "seed": 20260912,
+  "parent_code_commit": "380f9cd55a3017a759a89b6b93f12606f0c24f86",
+  "surfaces": {
+    "saddle": {
+      "width": 0.24,
+      "height": 0.24,
+      "curvature": 1.5,
+      "planning_nx": 6,
+      "planning_ny": 6,
+      "reference_nx": 12,
+      "reference_ny": 12,
+      "reference_samples_per_face": 12
+    },
+    "hemisphere": {
+      "radius": 0.14,
+      "planning_n_azimuth": 12,
+      "planning_n_polar": 5,
+      "reference_n_azimuth": 24,
+      "reference_n_polar": 10,
+      "reference_samples_per_face": 8
+    }
+  },
+  "placements_file": "configs/riemannian_anisotropy_scenes_v1.json",
+  "placement_levels": ["P_low", "P_mid", "P_high"],
+  "remesh_ids": ["M00", "M01", "M02", "M03"],
+  "root_count": 8,
+  "root_mapping_tolerance_m": 0.006,
+  "remesh_admission": {
+    "maximum_mean_edge_relative_change": 0.10,
+    "maximum_edge_cv_absolute_change": 0.15,
+    "maximum_reference_projection_error_m": 0.0061,
+    "maximum_boundary_analytic_residual_m": 1e-10
+  },
+  "nuc": {
+    "expansion_policy": "upstream_first",
+    "local_refinement_iterations": 4
+  },
+  "coverage": {
+    "footprint_radius_m": 0.008,
+    "path_sample_spacing_m": 0.002,
+    "delta_NUC": 0.0297927413
+  },
+  "robot_contract": {
+    "characteristic_length_m": 0.1,
+    "sigma_safe": 0.07237417172157597,
+    "maximum_dense_q_step_rad": 0.05,
+    "axis_tolerance_degrees": 10.0,
+    "position_tolerance_m": 0.003,
+    "construction_position_tolerance_m": 0.0015,
+    "maximum_continuation_joint_step_rad": 0.1,
+    "weight_matrix": "identity"
+  },
+  "default_search": {
+    "random_restarts": 8,
+    "max_candidates": 6,
+    "orientation_cone_samples": 5,
+    "max_active_branches": 6,
+    "task_edge_samples": 7
+  },
+  "strong_search": {
+    "random_restarts": 32,
+    "max_candidates": 24,
+    "orientation_cone_samples": 5,
+    "max_active_branches": 24,
+    "task_edge_samples": 15,
+    "selection_rule": "per apparent rescue scene, rerun geometry baseline and lowest-default-J_q coverage-equivalent successful alternative"
+  },
+  "diversity": {
+    "aligned_samples": 256,
+    "failure_median_ordered_distance_m": 0.002,
+    "failure_median_tangent_disagreement_degrees": 5.0
+  },
+  "length_match_relative_tolerance": 0.02,
+  "gate": {
+    "minimum_scenes_with_10pct_spread": 4,
+    "minimum_scene_spread": 0.10,
+    "minimum_median_geometry_oracle_gain": 0.08,
+    "minimum_strong_confirmed_rescue_scenes": 2
+  }
+}
