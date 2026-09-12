@@ -1,0 +1,52 @@
+{
+  "experiment": "E06-R: Riemannian Anisotropy Planning-Utility Gate",
+  "seed": 20260912,
+  "parent_code_commit": "1bfa2d3bfaa11df962d6764d14263fa54218402b",
+  "candidate_placements_per_surface": 36,
+  "placement_perturbation": {
+    "translation_max_m": 0.06,
+    "roll_pitch_max_degrees": 10.0,
+    "yaw_max_degrees": 20.0
+  },
+  "robot_contract": {
+    "characteristic_length_m": 0.1,
+    "sigma_safe": 0.07237417172157597,
+    "maximum_dense_q_step_rad": 0.05,
+    "minimum_absolute_joint_margin_rad": 0.02,
+    "axis_tolerance_degrees": 10.0,
+    "position_tolerance_m": 0.003,
+    "construction_position_tolerance_m": 0.0015,
+    "maximum_continuation_joint_step_rad": 0.1,
+    "weight_matrix": "identity"
+  },
+  "metric": {
+    "finite_difference_step_m": 0.00001,
+    "path_samples": 240,
+    "maximum_kappa_R": 1000000.0
+  },
+  "r0": {
+    "random_restarts": 8,
+    "max_candidates": 6,
+    "orientation_cone_samples": 5,
+    "selection_rule": "admissible placements sorted by (median_log_kappa_R,candidate_id): lowest, lower median, highest",
+    "scene_levels": ["P_low", "P_mid", "P_high"]
+  },
+  "r1": {
+    "maximum_anchors_per_scene": 15,
+    "probe_lengths_m": [0.004, 0.008],
+    "surface_curve_maximum_step_m": 0.00025,
+    "minimum_boundary_clearance_m": 0.0085,
+    "minimum_absolute_joint_margin_rad": 0.03,
+    "minimum_sigma_factor": 1.1,
+    "maximum_baseline_turn_degrees": 30.0,
+    "maximum_relative_intrinsic_length_error": 0.02,
+    "maximum_relative_paired_length_mismatch": 0.02
+  },
+  "gate": {
+    "minimum_pooled_spearman": 0.7,
+    "minimum_medium_high_win_fraction": 0.8,
+    "minimum_high_median_R_q": 1.2,
+    "maximum_relative_paired_length_mismatch": 0.02,
+    "require_lowest_sigma_quartile_robustness": true
+  }
+}
