@@ -1,0 +1,18 @@
+{
+  "diversity": {
+    "hemisphere": {
+      "candidate_family_diversity_failure": false,
+      "median_ordered_path_distance_m": 0.14698940298218188,
+      "median_tangent_disagreement_degrees": 89.84858859364489
+    },
+    "saddle": {
+      "candidate_family_diversity_failure": false,
+      "median_ordered_path_distance_m": 0.12918923628542484,
+      "median_tangent_disagreement_degrees": 89.95858045349775
+    }
+  },
+  "layout_count": 64,
+  "library_hash": "ad897a3249e4f39aaac606812e4501ecc7f28046475763b1075c472d94b6bc09",
+  "remesh_hash": "3bb2170272191537772602724db94c3d587c0c55f460d43c46d76cf6783b99b7",
+  "root_hash": "8547418f72c3a46e08f70bfaa06378ac1f8ea884e20801ccd29f6f352ad003dd"
+}

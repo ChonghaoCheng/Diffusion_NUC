@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ProcessPoolExecutor
 import csv
 import hashlib
 import json
@@ -37,6 +38,7 @@ def parse_args():
     parser.add_argument("--stage", required=True, choices=("smoke", "freeze"))
     parser.add_argument("--config", type=Path, default=ROOT / "configs/global_layout_capacity_gate_v1.json")
     parser.add_argument("--output", type=Path, default=ROOT / "results/global_layout_capacity_gate_v1")
+    parser.add_argument("--jobs", type=int, default=12)
     return parser.parse_args()
 
 
@@ -48,7 +50,7 @@ def main():
         smoke_path = args.output / "stage_a_smoke.json"
         if not smoke_path.exists() or not json.loads(smoke_path.read_text()).get("passed"):
             raise RuntimeError("Stage A smoke must pass before freezing E06-G")
-        freeze(config, args.output)
+        freeze(config, args.output, args.jobs)
 
 
 def run_smoke(config, output):
@@ -85,9 +87,10 @@ def run_smoke(config, output):
         raise RuntimeError("Stage A physical/evaluation contract failed")
 
 
-def freeze(config, output):
+def freeze(config, output, jobs):
     all_roots = {}; all_remeshes = {}; layouts = []; diversity = []
     aligned_cache = {}
+    tasks = []
     for surface_id in ("saddle", "hemisphere"):
         reference = make_reference_surface(surface_id, config)
         remeshes = {name: make_planning_remesh(surface_id, name, config) for name in config["remesh_ids"]}
@@ -96,18 +99,24 @@ def freeze(config, output):
         roots = generate_physical_roots(reference, remeshes["M00"], config["root_count"])
         all_roots[surface_id] = {"reference_surface_hash": surface_hash(reference), "roots": roots}
         all_remeshes[surface_id] = remesh_records
-        surface_layouts = []
         for remesh_id, remesh in remeshes.items():
             for root in roots:
-                row, _, _ = generate_layout(reference, remesh, root, config)
-                row.update({"surface_id": surface_id, "remesh_id": remesh_id, "layout_id": f"{root['root_id']}_{remesh_id}"})
-                surface_layouts.append(row)
-                aligned_cache[(surface_id, row["layout_id"])] = aligned_ordered_path(reference, np.asarray(row["ordered_physical_path"]), config["diversity"]["aligned_samples"])
+                tasks.append((surface_id, remesh_id, root, config))
+    if jobs <= 1:
+        layouts = [_generate_layout_job(task) for task in tasks]
+    else:
+        with ProcessPoolExecutor(max_workers=jobs) as pool:
+            layouts = list(pool.map(_generate_layout_job, tasks))
+    layouts.sort(key=lambda row: (row["surface_id"], row["remesh_id"], row["root_id"]))
+    for surface_id in ("saddle", "hemisphere"):
+        reference = make_reference_surface(surface_id, config)
+        surface_layouts = [row for row in layouts if row["surface_id"] == surface_id]
+        for row in surface_layouts:
+            aligned_cache[(surface_id, row["layout_id"])] = aligned_ordered_path(reference, np.asarray(row["ordered_physical_path"]), config["diversity"]["aligned_samples"])
         baseline = select_geometry_baseline(surface_layouts)
         for row in surface_layouts:
             row["geometry_baseline"] = row["layout_id"] == baseline["layout_id"]
             row["canonical_layout"] = row["layout_id"] == "R00_M00"
-        layouts.extend(surface_layouts)
         for i, first in enumerate(surface_layouts):
             for second in surface_layouts[i + 1:]:
                 a = aligned_cache[(surface_id, first["layout_id"])]; b = aligned_cache[(surface_id, second["layout_id"])]
@@ -147,6 +156,15 @@ def freeze(config, output):
     write_csv(output / "layout_diversity.csv", diversity)
     write_json(output / "freeze_summary.json", {"layout_count": len(layouts), "diversity": diversity_status, "root_hash": roots_payload["content_hash"], "remesh_hash": remesh_payload["content_hash"], "library_hash": library_payload["content_hash"]})
     print(json.dumps({"layouts": len(layouts), "diversity": diversity_status, "library_hash": library_payload["content_hash"]}, indent=2))
+
+
+def _generate_layout_job(arguments):
+    surface_id, remesh_id, root, config = arguments
+    reference = make_reference_surface(surface_id, config)
+    remesh = make_planning_remesh(surface_id, remesh_id, config)
+    row, _, _ = generate_layout(reference, remesh, root, config)
+    row.update({"surface_id": surface_id, "remesh_id": remesh_id, "layout_id": f"{root['root_id']}_{remesh_id}"})
+    return row
 
 
 def plot_layouts(reference, rows, path):

@@ -1,0 +1,91 @@
+{
+  "coverage": {
+    "delta_NUC": 0.0297927413,
+    "footprint_radius_m": 0.008,
+    "path_sample_spacing_m": 0.002
+  },
+  "default_search": {
+    "max_active_branches": 6,
+    "max_candidates": 6,
+    "orientation_cone_samples": 5,
+    "random_restarts": 8,
+    "task_edge_samples": 7
+  },
+  "diversity": {
+    "aligned_samples": 256,
+    "failure_median_ordered_distance_m": 0.002,
+    "failure_median_tangent_disagreement_degrees": 5.0
+  },
+  "experiment": "E06-G: Global Coverage-Layout Capacity Gate",
+  "gate": {
+    "minimum_median_geometry_oracle_gain": 0.08,
+    "minimum_scene_spread": 0.1,
+    "minimum_scenes_with_10pct_spread": 4,
+    "minimum_strong_confirmed_rescue_scenes": 2
+  },
+  "length_match_relative_tolerance": 0.02,
+  "nuc": {
+    "expansion_policy": "upstream_first",
+    "local_refinement_iterations": 4
+  },
+  "parent_code_commit": "380f9cd55a3017a759a89b6b93f12606f0c24f86",
+  "placement_levels": [
+    "P_low",
+    "P_mid",
+    "P_high"
+  ],
+  "placements_file": "configs/riemannian_anisotropy_scenes_v1.json",
+  "remesh_admission": {
+    "maximum_boundary_analytic_residual_m": 1e-10,
+    "maximum_edge_cv_absolute_change": 0.15,
+    "maximum_mean_edge_relative_change": 0.1,
+    "maximum_reference_projection_error_m": 0.0061
+  },
+  "remesh_ids": [
+    "M00",
+    "M01",
+    "M02",
+    "M03"
+  ],
+  "robot_contract": {
+    "axis_tolerance_degrees": 10.0,
+    "characteristic_length_m": 0.1,
+    "construction_position_tolerance_m": 0.0015,
+    "maximum_continuation_joint_step_rad": 0.1,
+    "maximum_dense_q_step_rad": 0.05,
+    "position_tolerance_m": 0.003,
+    "sigma_safe": 0.07237417172157597,
+    "weight_matrix": "identity"
+  },
+  "root_count": 8,
+  "root_mapping_tolerance_m": 0.006,
+  "seed": 20260912,
+  "strong_search": {
+    "max_active_branches": 24,
+    "max_candidates": 24,
+    "orientation_cone_samples": 5,
+    "random_restarts": 32,
+    "selection_rule": "per apparent rescue scene, rerun geometry baseline and lowest-default-J_q coverage-equivalent successful alternative",
+    "task_edge_samples": 15
+  },
+  "surfaces": {
+    "hemisphere": {
+      "planning_n_azimuth": 12,
+      "planning_n_polar": 5,
+      "radius": 0.14,
+      "reference_n_azimuth": 24,
+      "reference_n_polar": 10,
+      "reference_samples_per_face": 8
+    },
+    "saddle": {
+      "curvature": 1.5,
+      "height": 0.24,
+      "planning_nx": 6,
+      "planning_ny": 6,
+      "reference_nx": 12,
+      "reference_ny": 12,
+      "reference_samples_per_face": 12,
+      "width": 0.24
+    }
+  }
+}
