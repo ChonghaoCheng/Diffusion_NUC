@@ -39,7 +39,8 @@ def parse_args():
 
 
 def main():
-    args = parse_args(); config = json.loads(args.config.read_text()); library = json.loads(args.library.read_text())
+    args = parse_args(); args.output = args.output.resolve()
+    config = json.loads(args.config.read_text()); library = json.loads(args.library.read_text())
     if not library.get("frozen_before_G0") or len(library.get("layouts", [])) != 64:
         raise RuntimeError("complete 64-layout library must be frozen before G0")
     archived, _, _ = load_e06_contract(ROOT)
