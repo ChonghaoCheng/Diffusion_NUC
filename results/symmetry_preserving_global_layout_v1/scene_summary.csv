@@ -1,0 +1,7 @@
+Delta_sym,J_max,J_median,J_min,S_sym,best_angle_degrees,best_symmetry_id,canonical_J_q,canonical_verified,default_mixed_success,failed_count,median_first_fraction,median_last_fraction,median_middle_fraction,orbit_size,placement_id,placement_level,robust_mixed_success,strong_failed_cases,strong_recoveries,surface_id,verified_count
+0.019382938164857397,25.510100076843756,25.203857198699883,25.01563938447497,0.019766062532691257,,S01,25.510100076843756,True,False,0,0.053626832780329176,0.049498097569794695,0.8968750696498762,4,T17,P_low,False,0,0,saddle,4
+0.0014548825595622546,27.87096899561378,24.60414166828639,22.765169284421606,0.22428120992212933,,S03,22.798338189039843,True,False,0,0.0496533453129694,0.051885261898906083,0.8944266677116822,4,T21,P_mid,False,0,0,saddle,4
+0.004824115835561717,21.4125213849909,21.06705087345628,20.659304659616502,0.036458958216862805,,S03,20.759450654255257,True,False,0,0.050982033797314266,0.04968863550333902,0.8993293306993467,4,T10,P_high,False,0,0,saddle,4
+,,,,,,,,False,False,24,,,,24,T30,P_low,False,0,0,hemisphere,0
+,,,,,,,,False,False,24,,,,24,T27,P_mid,False,0,0,hemisphere,0
+,,,,,,,,False,False,24,,,,24,T33,P_high,False,0,0,hemisphere,0

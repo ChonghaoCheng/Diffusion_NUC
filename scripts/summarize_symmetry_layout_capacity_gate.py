@@ -56,7 +56,17 @@ def main():
         "robust_mixed_success_scenes": robust_mixed, "feasibility_GO": feasibility_go,
         "strong_sensitivity_pending": strong_pending, "decision": decision,
         "riemannian_authorized": decision == "GO",
-        "provisional_outcome": "D" if feasibility_go else ("B_or_C_pending_Riemannian" if cost_go else (None if strong_pending else "A")),
+        "provisional_outcome": "D" if feasibility_go else ("B_or_C_pending_Riemannian" if cost_go else (None if strong_pending else "A_qualified")),
+        "assumption_invalidation": (
+            "analytical normalization moved the inherited hemisphere task trace enough that none of the "
+            "three formerly qualified placements retained a default complete witness; primary hemisphere "
+            "orientation-cost capacity is therefore unobserved, not shown to be small"
+        ),
+        "interpretation": (
+            "no pure-orientation capacity was demonstrated under the frozen contract; Outcome A is only "
+            "the administrative no-go category because the primary orbit lacks verified witnesses and one "
+            "supportive saddle scene has material spread"
+        ),
     }
     write_csv(args.output / "scene_summary.csv", scene_rows)
     write_json(args.output / "capacity_summary.json", summary)
@@ -129,7 +139,7 @@ def render_markdown(summary, scenes):
     lines=["# E06-G2 capacity summary","",f"Decision: **{summary['decision']}**","",f"Default strict witnesses: **{summary['verified_default']}/{summary['orbit_executions']}**.","","| Scene | Verified | S_sym | Delta_sym | Best | Default mixed | Strong recoveries |","|---|---:|---:|---:|---|---|---:|"]
     fmt=lambda value:"n/a" if value is None else f"{value:.3%}"
     for row in scenes: lines.append(f"| {row['surface_id']} {row['placement_level']} | {row['verified_count']}/{row['orbit_size']} | {fmt(row['S_sym'])} | {fmt(row['Delta_sym'])} | {row['best_symmetry_id'] or 'n/a'} | {row['default_mixed_success']} | {row['strong_recoveries']} |")
-    lines.extend(["",f"Cost GO: `{summary['cost_GO']}`; feasibility GO: `{summary['feasibility_GO']}`; Riemannian diagnostic authorized: `{summary['riemannian_authorized']}`.","","This is a finite exact-symmetry orbit under finite numerical continuation budgets, not a planner or global optimum.",""])
+    lines.extend(["",f"Cost GO: `{summary['cost_GO']}`; feasibility GO: `{summary['feasibility_GO']}`; Riemannian diagnostic authorized: `{summary['riemannian_authorized']}`.","",f"Assumption invalidation: {summary['assumption_invalidation']}.","",f"Interpretation: {summary['interpretation']}.","","This is a finite exact-symmetry orbit under finite numerical continuation budgets, not a planner or global optimum.",""])
     return "\n".join(lines)
 
 

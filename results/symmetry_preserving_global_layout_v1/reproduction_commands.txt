@@ -1,0 +1,6 @@
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/freeze_symmetry_layout_library.py
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_symmetry_layout_capacity_gate.py --stage default --jobs 12
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/summarize_symmetry_layout_capacity_gate.py
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_symmetry_layout_capacity_gate.py --stage strong --jobs 12  # only for mixed scenes
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/summarize_symmetry_layout_capacity_gate.py
+/data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q

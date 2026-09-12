@@ -1,0 +1,20 @@
+{
+  "assumption_invalidation": "analytical normalization moved the inherited hemisphere task trace enough that none of the three formerly qualified placements retained a default complete witness; primary hemisphere orientation-cost capacity is therefore unobserved, not shown to be small",
+  "cost_GO": false,
+  "decision": "NO-GO",
+  "default_mixed_success_scenes": 0,
+  "experiment": "E06-G2: Symmetry-Preserving Global Layout Gate",
+  "failed_default": 72,
+  "feasibility_GO": false,
+  "hemisphere_scenes_with_S_sym_ge_10pct": 0,
+  "interpretation": "no pure-orientation capacity was demonstrated under the frozen contract; Outcome A is only the administrative no-go category because the primary orbit lacks verified witnesses and one supportive saddle scene has material spread",
+  "median_hemisphere_Delta_sym": null,
+  "orbit_executions": 84,
+  "provisional_outcome": "A_qualified",
+  "riemannian_authorized": false,
+  "robust_mixed_success_scenes": 0,
+  "strong_cases": 0,
+  "strong_recoveries": 0,
+  "strong_sensitivity_pending": false,
+  "verified_default": 12
+}
