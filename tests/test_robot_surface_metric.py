@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import json
+from pathlib import Path
 
 import numpy as np
+import pytest
 
 from diffusion_coverage.diagnostics.execution_metric import (
     local_task_increment,
@@ -20,6 +23,8 @@ from diffusion_coverage.diagnostics.anisotropy import (
     require_frozen_experiment_inputs,
 )
 from diffusion_coverage.robot.task_kinematics import TaskKinematics5D, orthonormal_axis_basis
+from diffusion_coverage.robot.task_kinematics import evaluate_task_kinematics_5d
+from diffusion_coverage.robot.ur5e_mujoco import UR5eKinematics
 from diffusion_coverage.surface import make_hemisphere, make_saddle
 
 
@@ -90,6 +95,31 @@ def test_surface_metric_local_cost_matches_existing_D3_formula():
     current = np.sqrt(delta_xi @ metric.matrix @ delta_xi)
     assert np.isclose(previous, current, atol=1e-12, rtol=1e-12)
     assert metric.eigenvalues[0] > 0.0
+
+
+def test_archived_E06_path_increment_matches_existing_D3_metric():
+    root = Path(__file__).resolve().parents[1]
+    archive_path = root / "results/nuc_robot_skeleton_coupling_v1/config.json"
+    witness_path = root / "results/nuc_robot_skeleton_coupling_v1/witnesses/saddle_P_easy_S00.npz"
+    if not archive_path.exists() or not witness_path.exists():
+        pytest.skip("archived E06 witness is unavailable")
+    archived = json.loads(archive_path.read_text()); config = archived["config"]
+    robot = UR5eKinematics(config["robot"]["model"])
+    surface = make_saddle(**config["surfaces"]["saddle"], samples_per_face=1)
+    transform = np.asarray(archived["placements"]["surfaces"]["saddle"]["selected"]["P_easy"]["transform_base_from_surface"])
+    witness = np.load(witness_path); index = 800
+    q, positions, axes = witness["q"], witness["desired_positions"], witness["desired_axes"]
+    task = evaluate_task_kinematics_5d(robot, q[index], characteristic_length=0.1)
+    local_point = transform[:3, :3].T @ (positions[index] - transform[:3, 3])
+    contact = estimate_surface_contact_differential(surface, local_point, transform, task.axis_basis, characteristic_length=0.1)
+    metric = compute_robot_surface_metric(task, contact.task_differential, minimum_singular_value=archived["frozen_contract"]["sigma_safe"])
+    delta_xi = contact.tangent_basis.T @ (positions[index + 1] - positions[index])
+    current = float(np.sqrt(delta_xi @ metric.matrix @ delta_xi))
+    previous = predicted_local_execution_length(
+        task.normalized_jacobian_5,
+        local_task_increment(positions[index], axes[index], positions[index + 1], axes[index + 1], task.axis_basis, characteristic_length=0.1),
+    )
+    assert np.isclose(current, previous, rtol=1e-4, atol=1e-9)
 
 
 def test_surface_curve_matches_requested_intrinsic_length():
