@@ -540,8 +540,9 @@ def save_plan(output,scene,k,method,label,parent_path,data):
         sequence.append({"edge_id":int(eid),**item})
     q=np.asarray(qs);u=np.asarray(us);active=np.asarray(activities,dtype=bool);p=np.asarray(positions);a=np.asarray(axes)
     digest=hashlib.sha256();digest.update(q.tobytes());digest.update(u.tobytes());digest.update(active.tobytes());witness_hash=digest.hexdigest()
-    directory=output/"selected_plan_witnesses";directory.mkdir(exist_ok=True);path=directory/f"{scene}_k{k}_{method}.npz"
-    np.savez_compressed(path,q=q,u=u,target_position=p,target_axis=a,activity=active,edge_ids=np.asarray(parent_path),sequence_json=np.asarray(json.dumps(sequence)),cost_decomposition=np.asarray([on,off,entry]),witness_hash=np.asarray(witness_hash))
+    directory=output/"selected_plan_witnesses";directory.mkdir(exist_ok=True);path=directory/f"{witness_hash}.npz"
+    if not path.exists():
+        np.savez_compressed(path,q=q,u=u,target_position=p,target_axis=a,activity=active,edge_ids=np.asarray(parent_path),sequence_json=np.asarray(json.dumps(sequence)),cost_decomposition=np.asarray([on,off,entry]),witness_hash=np.asarray(witness_hash))
     kinds=[x["kind"] for x in sequence];families=[x["family"] for x in sequence if x["kind"]=="source"]
     if any(x=="cross_port" for x in kinds):classification="cross_family_ON_recombination" if len(set(families))>1 else "cross_port_ON_recombination"
     elif any(x=="off_reconfiguration" for x in kinds):classification="OFF_reconfiguration"
