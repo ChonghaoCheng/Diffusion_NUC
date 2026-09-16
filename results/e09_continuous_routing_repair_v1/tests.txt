@@ -1,8 +1,8 @@
 $ /data/chocheng/.venvs/coverage-fm/bin/python -m pytest tests/test_e09_synchronized_motion.py tests/test_e09r1_search.py tests/test_e09_geometry.py tests/test_e09_execution.py tests/test_history_search.py tests/test_completion_bound.py tests/test_ordered_trace_evaluator.py -q
 .............................................                            [100%]
-45 passed in 0.46s
+45 passed in 0.51s
 
-exit=0 elapsed_s=0.648233
+exit=0 elapsed_s=0.725054
 $ /data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q
 ........................................................................ [ 34%]
 ................F..............................................s........ [ 69%]
@@ -15,8 +15,8 @@ _________ test_archived_local_baseline_witness_reconstruction_is_exact _________
         window = frozen["windows_by_scene"]["saddle/P_low"][0]
 >       witness = np.load(ROOT / window["witness_file"])
 
-tests/test_local_deformation.py:96: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_local_deformation.py:96:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz')
 mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -26,13 +26,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -52,10 +52,10 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -73,13 +73,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -91,13 +91,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -108,24 +108,24 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -136,14 +136,14 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -158,9 +158,9 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -175,11 +175,11 @@ _______________ test_common_Jq_matches_archived_F0_slice_exactly _______________
     def test_common_Jq_matches_archived_F0_slice_exactly():
 >       _, q, _, _ = first_window_data()
 
-tests/test_surface_configuration_coupling.py:77: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_surface_configuration_coupling.py:77:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_surface_configuration_coupling.py:34: in first_window_data
     witness = np.load(ROOT / window["witness_file"])
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz')
 mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -189,13 +189,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -215,10 +215,10 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -236,13 +236,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -254,13 +254,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -271,24 +271,24 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -299,14 +299,14 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -321,9 +321,9 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -338,11 +338,11 @@ _______ test_layered_q_replay_keeps_shared_endpoints_and_fixed_task_path _______
     def test_layered_q_replay_keeps_shared_endpoints_and_fixed_task_path():
 >       _, q, positions, axes = first_window_data()
 
-tests/test_surface_configuration_coupling.py:83: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_surface_configuration_coupling.py:83:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_surface_configuration_coupling.py:34: in first_window_data
     witness = np.load(ROOT / window["witness_file"])
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 file = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz')
 mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
@@ -352,13 +352,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
              encoding='ASCII', *, max_header_size=format._MAX_HEADER_SIZE):
         """
         Load arrays or pickled objects from ``.npy``, ``.npz`` or pickled files.
-    
+
         .. warning:: Loading files that contain object arrays uses the ``pickle``
                      module, which is not secure against erroneous or maliciously
                      constructed data. Consider passing ``allow_pickle=False`` to
                      load data that is known not to contain object arrays for the
                      safer handling of untrusted sources.
-    
+
         Parameters
         ----------
         file : file-like object, string, or pathlib.Path
@@ -378,10 +378,10 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             disallowing pickles include security, as loading pickled data can
             execute arbitrary code. If pickles are disallowed, loading object
             arrays will fail. Default: False
-    
+
             .. versionchanged:: 1.16.3
                 Made default False in response to CVE-2019-6446.
-    
+
         fix_imports : bool, optional
             Only useful when loading Python 2 generated pickled files on Python 3,
             which includes npy/npz files containing object arrays. If `fix_imports`
@@ -399,13 +399,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             See :py:func:`ast.literal_eval()` for details.
             This option is ignored when `allow_pickle` is passed.  In that case
             the file is by definition trusted and the limit is unnecessary.
-    
+
         Returns
         -------
         result : array, tuple, dict, etc.
             Data stored in the file. For ``.npz`` files, the returned instance
             of NpzFile class must be closed to avoid leaking file descriptors.
-    
+
         Raises
         ------
         OSError
@@ -417,13 +417,13 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         EOFError
             When calling ``np.load`` multiple times on the same file handle,
             if all data has already been read
-    
+
         See Also
         --------
         save, savez, savez_compressed, loadtxt
         memmap : Create a memory-map to an array stored in a file on disk.
         lib.format.open_memmap : Create or load a memory-mapped ``.npy`` file.
-    
+
         Notes
         -----
         - If the file contains pickle data, then whatever object is stored
@@ -434,24 +434,24 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
           each file in the archive.
         - If the file is a ``.npz`` file, the returned value supports the
           context manager protocol in a similar fashion to the open function::
-    
+
             with load('foo.npz') as data:
                 a = data['a']
-    
+
           The underlying file descriptor is closed when exiting the 'with'
           block.
-    
+
         Examples
         --------
         Store data to disk, and load it again:
-    
+
         >>> np.save('/tmp/123', np.array([[1, 2, 3], [4, 5, 6]]))
         >>> np.load('/tmp/123.npy')
         array([[1, 2, 3],
                [4, 5, 6]])
-    
+
         Store compressed data to disk, and load it again:
-    
+
         >>> a=np.array([[1, 2, 3], [4, 5, 6]])
         >>> b=np.array([1, 2])
         >>> np.savez('/tmp/123.npz', a=a, b=b)
@@ -462,14 +462,14 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
         >>> data['b']
         array([1, 2])
         >>> data.close()
-    
+
         Mem-map the stored array, and then access the second row
         directly from disk:
-    
+
         >>> X = np.load('/tmp/123.npy', mmap_mode='r')
         >>> X[1, :]
         memmap([4, 5, 6])
-    
+
         """
         if encoding not in ('ASCII', 'latin1', 'bytes'):
             # The 'encoding' value for pickle also affects what encoding
@@ -484,9 +484,9 @@ mmap_mode = None, allow_pickle = False, fix_imports = True, encoding = 'ASCII'
             # argument is not exposed, as values other than 'strict'
             # result can similarly silently corrupt numerical data.
             raise ValueError("encoding must be 'ASCII', 'latin1', or 'bytes'")
-    
+
         pickle_kwargs = dict(encoding=encoding, fix_imports=fix_imports)
-    
+
         with contextlib.ExitStack() as stack:
             if hasattr(file, 'read'):
                 fid = file
@@ -501,15 +501,15 @@ ___________ test_theta_zero_exactly_reproduces_frozen_canonical_path ___________
     def test_theta_zero_exactly_reproduces_frozen_canonical_path():
 >       config, canonical, _ = setup()
 
-tests/test_symmetry_layout.py:40: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -531,15 +531,15 @@ _______ test_hemisphere_orbit_is_analytical_closed_and_length_invariant ________
     def test_hemisphere_orbit_is_analytical_closed_and_length_invariant():
 >       config, canonical, reference = setup()
 
-tests/test_symmetry_layout.py:47: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:47:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -561,15 +561,15 @@ ____ test_saddle_symmetries_pass_analytical_surface_boundary_and_mesh_tests ____
     def test_saddle_symmetries_pass_analytical_surface_boundary_and_mesh_tests():
 >       config, canonical, reference = setup("saddle")
 
-tests/test_symmetry_layout.py:60: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:60:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -591,15 +591,15 @@ ___________ test_transported_temporal_coverage_is_exactly_invariant ____________
     def test_transported_temporal_coverage_is_exactly_invariant():
 >       config, canonical, reference = setup()
 
-tests/test_symmetry_layout.py:70: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:70:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -621,15 +621,15 @@ ____________ test_order_topology_and_activity_are_index_preserving _____________
     def test_order_topology_and_activity_are_index_preserving():
 >       config, canonical, _ = setup("saddle")
 
-tests/test_symmetry_layout.py:90: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:90:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -651,15 +651,15 @@ ___________ test_scene_seed_and_budget_do_not_depend_on_orbit_member ___________
     def test_scene_seed_and_budget_do_not_depend_on_orbit_member():
 >       config, _, _ = setup()
 
-tests/test_symmetry_layout.py:97: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:97:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -681,15 +681,15 @@ ________ test_placement_is_external_to_the_object_frame_symmetry_orbit _________
     def test_placement_is_external_to_the_object_frame_symmetry_orbit():
 >       config, _, _ = setup()
 
-tests/test_symmetry_layout.py:104: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_symmetry_layout.py:104:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 tests/test_symmetry_layout.py:30: in setup
     archived, _, _ = load_e06_contract(ROOT)
 src/diffusion_coverage/diagnostics/e06_artifacts.py:18: in load_e06_contract
     archived = json.loads((result / "config.json").read_text())
 /home/chocheng/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py:1027: in read_text
     with self.open(mode='r', encoding=encoding, errors=errors) as f:
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = PosixPath('/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/nuc_robot_skeleton_coupling_v1/config.json')
 mode = 'r', buffering = -1, encoding = 'locale', errors = None, newline = None
@@ -745,6 +745,6 @@ FAILED tests/test_symmetry_layout.py::test_transported_temporal_coverage_is_exac
 FAILED tests/test_symmetry_layout.py::test_order_topology_and_activity_are_index_preserving
 FAILED tests/test_symmetry_layout.py::test_scene_seed_and_budget_do_not_depend_on_orbit_member
 FAILED tests/test_symmetry_layout.py::test_placement_is_external_to_the_object_frame_symmetry_orbit
-10 failed, 196 passed, 1 skipped, 14 warnings in 17.96s
+10 failed, 196 passed, 1 skipped, 14 warnings in 18.47s
 
-exit=1 elapsed_s=18.518940
+exit=1 elapsed_s=19.053985
