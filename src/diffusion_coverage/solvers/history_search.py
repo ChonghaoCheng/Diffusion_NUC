@@ -182,9 +182,16 @@ def search_history_graph(
                 )
                 metrics.completion_bound_seconds += perf_counter() - bound_start
                 metrics.completion_bound_calls += 1
+                if perf_counter() >= start_time + wall_time_s:
+                    # An over-deadline inner calculation cannot justify a prune.
+                    termination = "wall_time"
+                    break
                 cache[key] = bound
             else:
                 metrics.completion_bound_cache_hits += 1
+            if perf_counter() >= start_time + wall_time_s:
+                termination = "wall_time"
+                break
             if bound.future_lower_bound > tolerance:
                 metrics.completion_bound_positive += 1
                 metrics.completion_bound_stronger += 1
@@ -202,6 +209,9 @@ def search_history_graph(
                         "path": list(label.path),
                     }
                 continue
+
+        if termination == "wall_time":
+            break
 
         for edge in outgoing.get(label.node, ()):
             metrics.generated += 1
