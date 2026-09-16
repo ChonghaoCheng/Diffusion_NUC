@@ -362,8 +362,15 @@ def uncertain_episode_bounds(
 def saddle_polyline_length(trace: np.ndarray, curvature: float) -> float:
     if len(trace) < 2:
         return 0.0
-    lower, upper = saddle_pairwise_distance_bounds(trace[:-1], trace[1:], curvature=curvature)
-    return float(np.diag(upper).sum())
+    start = np.asarray(trace[:-1], dtype=np.float64)
+    end = np.asarray(trace[1:], dtype=np.float64)
+    dx = end[:, 0] - start[:, 0]
+    dy = end[:, 1] - start[:, 1]
+    base = dx * dx + dy * dy
+    alpha = 2.0 * curvature * (start[:, 0] * dx - start[:, 1] * dy)
+    beta = 2.0 * curvature * (dx * dx - dy * dy)
+    lengths = _integral_sqrt_quadratic(base, alpha, beta)
+    return float(np.nextafter(lengths, np.inf).sum())
 
 
 def sphere_polyline_length(trace: np.ndarray, radius: float) -> float:
