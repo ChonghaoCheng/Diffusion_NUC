@@ -1,0 +1,7 @@
+{
+  "status": "INVALIDATED_BEFORE_SCIENTIFIC_INTERPRETATION",
+  "tested_code_sha": "9c6f87154f4767ee16c5b4f4deb5af0d25e194fa",
+  "reason": "The fixed-route automaton requeued an unchanged state when the common start already equaled a route start, so F exhausted after six labels without consuming the first macro-arc.",
+  "completed_cells_before_stop": 15,
+  "replacement": "consume the first registered macro-arc directly from a coincident common start and rerun all cells"
+}

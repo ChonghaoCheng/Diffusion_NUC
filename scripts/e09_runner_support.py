@@ -268,14 +268,14 @@ def fixed_route_search(data,start,k,config,*,wall_time,expanded_limit,initial_in
         candidates=[]
         if index==0 and label.node==start:
             route_start=int(data["arc_start"][sequence[0]])
-            if int(data["node_ports"][label.node])==route_start: candidates.append((None,index))
-            candidates.extend((edge,index) for edge in outgoing.get(label.node,()) if meta[edge.edge_id]["kind"]=="entry:"+route)
+            if int(data["node_ports"][label.node])==route_start:
+                candidates.extend((edge,1) for edge in outgoing.get(label.node,()) if meta[edge.edge_id]["geom_arc_id"]==int(sequence[0]))
+            else:
+                candidates.extend((edge,index) for edge in outgoing.get(label.node,()) if meta[edge.edge_id]["kind"]=="entry:"+route)
         elif index<len(sequence):
             candidates.extend((edge,index+1) for edge in outgoing.get(label.node,()) if meta[edge.edge_id]["geom_arc_id"]==int(sequence[index]))
             if k>label.used_on_segments: candidates.extend((edge,index) for edge in outgoing.get(label.node,()) if meta[edge.edge_id]["kind"]=="off_reconfiguration")
         for edge,next_index in candidates:
-            if edge is None:
-                heapq.heappush(queue,(label.used_on_segments-1,-float(graph.weights[label.covered].sum()),label.joint_cost,serial,route,next_index,label));serial+=1;continue
             metrics.generated+=1; used=label.used_on_segments+edge.summary.off_to_on_count
             if used>k: metrics.segment_pruned+=1;continue
             try: state=apply_edge_summary(EpisodeState(label.covered,label.membership,label.repeat_error),edge.summary,graph.weights)
