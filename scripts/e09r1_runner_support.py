@@ -21,7 +21,8 @@ from diffusion_coverage.coverage.episode_summary import (
 )
 from diffusion_coverage.planning.e09_geometry import spherical_distance, shortest_sphere_arc
 from diffusion_coverage.robot.e09_execution import (
-    evaluate_synchronized_fk_trace, sphere_episode_counts_indexed, sphere_membership_stream,
+    evaluate_e09_fk_trace, evaluate_synchronized_fk_trace,
+    sphere_episode_counts_indexed, sphere_membership_stream,
 )
 from diffusion_coverage.robot.synchronized_motion import (
     SynchronizedMotionTrace, continue_to_configuration_synchronized,
@@ -577,12 +578,55 @@ def verify_all(root,config,output):
         composition.append({"scene_id":row["scene_id"],"k":row["k"],"method":row["method"],"witness_hash":witness_hash,**verdict["composition"]})
         resolution.extend({"scene_id":row["scene_id"],"k":row["k"],"method":row["method"],"witness_hash":witness_hash,**x} for x in verdict["resolution"])
     # Retrospective parent witnesses are fixed diagnostics, not planner cells.
-    parent_dir=root/"results/e09_global_surface_routing_v1/selected_plan_witnesses"
-    retrospective=[]
-    for path in sorted(parent_dir.glob("*.npz")):
-        old=np.load(path,allow_pickle=False);digest=hashlib.sha256();digest.update(old["q"].tobytes());digest.update(old["activity"].tobytes());digest.update(old["target"].tobytes());retrospective.append({"file":str(path.relative_to(root)),"content_hash":digest.hexdigest(),"status":"accessible_not_replanned","new_schedule":"deduplicated only when identical synchronized witness exists"})
-    write_json(output/"parent_e09_witnesses.json",{"retrospective_fixed_witnesses":retrospective})
+    retrospective=validate_parent_e09_witnesses(root,config,output)
     write_csv(output/"same_sample_composition.csv",composition);write_csv(output/"validation_resolution.csv",resolution);write_csv(output/"final_validation.csv",final);make_plots(root,config,output,final,cache);checkpoint(output,"verify",{"complete":True,"unique_witnesses":len(cache),"accepted":sum(x["overall_status"]=="accepted_under_E09_R1_refined_sampled_checks" for x in final)})
+
+
+def validate_parent_e09_witnesses(root,config,output):
+    """Retrospective fixed-witness checks; these do not create planning trials."""
+    parent_dir=root/"results/e09_global_surface_routing_v1/selected_plan_witnesses"
+    groups={}
+    for path in sorted(parent_dir.glob("*.npz")):
+        old=np.load(path,allow_pickle=False);digest=hashlib.sha256();digest.update(old["q"].tobytes());digest.update(old["activity"].tobytes());digest.update(old["target"].tobytes());groups.setdefault(digest.hexdigest(),[]).append(path)
+    rows=[];index=[]
+    scenes={x["candidate_id"]:x for x in selected_scenes(root,config)}
+    radius=float(config["surface"]["radius_m"]);footprint=float(config["coverage"]["footprint_radius_m"])
+    for digest,paths in groups.items():
+        scene_id=paths[0].name.split("_",1)[0];scene=scenes[scene_id];old=np.load(paths[0],allow_pickle=False);deadline=perf_counter()+float(config["validation"]["deadline_s_per_unique_witness"])
+        robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"]));temporal={}
+        for name in ("T0","T1"):
+            temporal[name]=densify_parent_e09_trace(old["q"],old["activity"],old["target"],radius,float(config["validation"]["temporal"][f"{name}_joint_step_rad"]),float(config["validation"]["temporal"][f"{name}_surface_step_m"]))
+        checks={}
+        for name,(q,active,target) in temporal.items():
+            checks[name]=evaluate_e09_fk_trace(robot,q,active,target,np.asarray(scene["transform_base_from_surface"]),np.asarray([[0.0,0.0,radius]]),np.asarray([1.0]),sphere_radius=radius,footprint_radius=footprint,characteristic_length=float(config["robot"]["characteristic_length_m"]))
+        metrics={};status_rows=[]
+        for temporal_name,quad_name in [("T0","Q1"),("T0","Q2"),("T0","Q3"),("T0","Q4"),("T1","Q4"),("T1","Q4a")]:
+            if perf_counter()>=deadline:
+                status_rows.append({"content_hash":digest,"scene_id":scene_id,"temporal":temporal_name,"quadrature":quad_name,"status":"NOT_RUN_deadline","E_miss":None,"E_rep":None});continue
+            points,weights=quadrature(config,quad_name,radius,root);q,active,_=temporal[temporal_name];counts=sphere_episode_counts_indexed(points,checks[temporal_name].surface_points,active,radius=radius,footprint_radius=footprint);total=float(weights.sum());value=(float(weights[counts==0].sum()/total),float(np.dot(weights,np.maximum(counts-1,0))/total));metrics[(temporal_name,quad_name)]=value;status_rows.append({"content_hash":digest,"scene_id":scene_id,"temporal":temporal_name,"quadrature":quad_name,"status":"complete","E_miss":value[0],"E_rep":value[1]})
+        required=[("T0","Q3"),("T0","Q4"),("T1","Q4"),("T1","Q4a")];t1=checks["T1"]
+        motion_ok=t1.max_position_error<=float(config["robot"]["position_tolerance_m"])+1e-12 and t1.max_axis_error<=np.deg2rad(float(config["robot"]["axis_tolerance_degrees"]))+1e-12 and t1.min_sigma5>=float(config["robot"]["sigma_safe"])-1e-12 and t1.min_joint_margin>=-1e-12 and t1.collision_free
+        if not motion_ok:verdict="motion_contract_failed"
+        elif any(key not in metrics for key in required):verdict="validation_budget_limited"
+        else:
+            changes=[max(abs(metrics[("T0","Q3")][i]-metrics[("T0","Q4")][i]) for i in (0,1)),max(abs(metrics[("T0","Q4")][i]-metrics[("T1","Q4")][i]) for i in (0,1)),max(abs(metrics[("T1","Q4")][i]-metrics[("T1","Q4a")][i]) for i in (0,1))]
+            contract=all(metrics[key][0]<=float(config["coverage"]["missed_tolerance"])+1e-12 and metrics[key][1]<=float(config["coverage"]["repeat_tolerance"])+1e-12 for key in required);stable=max(changes)<=float(config["coverage"]["resolution_tolerance"])+1e-12
+            verdict="accepted_under_E09_R1_refined_sampled_checks" if contract and stable else ("coverage_contract_failed_under_refined_checks" if stable else "numerically_unresolved")
+        rows.extend(status_rows);index.append({"content_hash":digest,"scene_id":scene_id,"files_json":json.dumps([str(x.relative_to(root)) for x in paths]),"status":verdict,"same_sample_composition":"NOT_RUN_parent_graph_arrays_not_published","min_sigma5":t1.min_sigma5,"max_position_error_m":t1.max_position_error,"max_axis_error_deg":float(np.rad2deg(t1.max_axis_error)),"min_joint_margin":t1.min_joint_margin,"collision_free":t1.collision_free,**{f"E_miss_{a}_{b}":v[0] for (a,b),v in metrics.items()},**{f"E_rep_{a}_{b}":v[1] for (a,b),v in metrics.items()}})
+    write_csv(output/"parent_e09_validation_resolution.csv",rows);write_csv(output/"parent_e09_refined_validation.csv",index);write_json(output/"parent_e09_witnesses.json",{"retrospective_fixed_witnesses":index})
+    return index
+
+
+def densify_parent_e09_trace(q,activity,target,radius,joint_step,surface_step):
+    q=np.asarray(q,dtype=np.float64);activity=np.asarray(activity,dtype=bool);target=np.asarray(target,dtype=np.float64);qout=[q[0]];aout=[bool(activity[0])];tout=[target[0]]
+    for qa,qb,aa,ab,pa,pb in zip(q[:-1],q[1:],activity[:-1],activity[1:],target[:-1],target[1:]):
+        v0=pa/np.linalg.norm(pa);v1=pb/np.linalg.norm(pb);angle=float(np.arctan2(np.linalg.norm(np.cross(v0,v1)),np.dot(v0,v1))) if aa and ab else 0.0;distance=radius*angle if aa and ab else float(np.linalg.norm(pb-pa));count=max(1,int(np.ceil(max(np.max(np.abs(qb-qa))/joint_step,distance/surface_step))))
+        for step in range(1,count+1):
+            f=step/count;qout.append((1-f)*qa+f*qb);aout.append(bool(ab) if step==count else bool(aa and ab))
+            if aa and ab and angle>1e-14:p=radius*(np.sin((1-f)*angle)*v0+np.sin(f*angle)*v1)/np.sin(angle)
+            else:p=(1-f)*pa+f*pb
+            tout.append(p)
+    return np.asarray(qout),np.asarray(aout),np.asarray(tout)
 
 
 def validate_unique_witness(root,config,output,row,plan,data,scene,witness_hash):
