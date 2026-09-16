@@ -229,8 +229,9 @@ def evaluate_ordered_trace_reference(
         for trace in traces:
             if quadrature.surface_id == "hemisphere":
                 radius = float(surface_metadata["radius"])
-                distances = sphere_pairwise_distances(samples, trace, radius=radius)
-                fixed = distances <= footprint_radius + 1e-12
+                fixed = sphere_pairwise_membership(
+                    samples, trace, radius=radius, footprint_radius=footprint_radius
+                )
                 lo = hi = _episode_counts(fixed)
             else:
                 lower, upper = saddle_pairwise_distance_bounds(
@@ -274,10 +275,12 @@ def reference_membership_states(
     """Return 1=in, 0=out, and -1=uncertain for selected reference samples."""
 
     if surface_id == "hemisphere":
-        distances = sphere_pairwise_distances(
-            sample_points, trace, radius=float(surface_metadata["radius"])
-        )
-        return (distances <= footprint_radius + 1e-12).astype(np.int8)
+        return sphere_pairwise_membership(
+            sample_points,
+            trace,
+            radius=float(surface_metadata["radius"]),
+            footprint_radius=footprint_radius,
+        ).astype(np.int8)
     if surface_id == "saddle":
         lower, upper = saddle_pairwise_distance_bounds(
             sample_points, trace, curvature=float(surface_metadata["curvature"])
@@ -295,6 +298,19 @@ def sphere_pairwise_distances(samples: np.ndarray, sources: np.ndarray, *, radiu
     cross = np.linalg.norm(np.cross(x[:, None, :], y[None, :, :]), axis=2)
     dot = np.einsum("ij,kj->ik", x, y)
     return radius * np.arctan2(cross, np.clip(dot, -1.0, 1.0))
+
+
+def sphere_pairwise_membership(
+    samples: np.ndarray,
+    sources: np.ndarray,
+    *,
+    radius: float,
+    footprint_radius: float,
+) -> np.ndarray:
+    x = np.asarray(samples, dtype=np.float64) / radius
+    y = np.asarray(sources, dtype=np.float64) / radius
+    dot = np.einsum("ij,kj->ik", x, y)
+    return dot >= np.cos(footprint_radius / radius) - 1e-14
 
 
 def saddle_pairwise_distance_bounds(
@@ -376,8 +392,11 @@ def saddle_polyline_length(trace: np.ndarray, curvature: float) -> float:
 def sphere_polyline_length(trace: np.ndarray, radius: float) -> float:
     if len(trace) < 2:
         return 0.0
-    distances = sphere_pairwise_distances(trace[:-1], trace[1:], radius=radius)
-    return float(np.diag(distances).sum())
+    start = np.asarray(trace[:-1], dtype=np.float64) / radius
+    end = np.asarray(trace[1:], dtype=np.float64) / radius
+    cross = np.linalg.norm(np.cross(start, end), axis=1)
+    dot = np.einsum("ij,ij->i", start, end)
+    return float((radius * np.arctan2(cross, np.clip(dot, -1.0, 1.0))).sum())
 
 
 def _episode_counts(membership: np.ndarray) -> np.ndarray:
