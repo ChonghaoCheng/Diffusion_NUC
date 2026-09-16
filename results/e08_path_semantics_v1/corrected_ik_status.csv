@@ -1,0 +1,13 @@
+backend,coverage_contract_pass,dense_transition_check_pass,min_sigma_min_5,overall_execution_pass,sampled_numeric_task_constraints_pass,scene_id,sigma_safe,status_note,surface_id,target_sequence_solved
+legacy6,NOT_RUN,NOT_RUN,0.6673794167665437,NOT_RUN,True,T17,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,saddle,True
+task5,NOT_RUN,NOT_RUN,0.6673793684909181,NOT_RUN,True,T17,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,saddle,True
+legacy6,NOT_RUN,NOT_RUN,0.3549281923371497,NOT_RUN,True,T21,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,saddle,True
+task5,NOT_RUN,NOT_RUN,0.3549280813171639,NOT_RUN,True,T21,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,saddle,True
+legacy6,NOT_RUN,NOT_RUN,0.43710178726783344,NOT_RUN,True,T10,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,saddle,True
+task5,NOT_RUN,NOT_RUN,0.43710172894096516,NOT_RUN,True,T10,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,saddle,True
+legacy6,NOT_RUN,NOT_RUN,0.02696004452948938,NOT_RUN,False,T30,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,hemisphere,True
+task5,NOT_RUN,NOT_RUN,0.0269615631981681,NOT_RUN,False,T30,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,hemisphere,True
+legacy6,NOT_RUN,NOT_RUN,0.11514310134545853,NOT_RUN,True,T27,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,hemisphere,True
+task5,NOT_RUN,NOT_RUN,0.1151430987640218,NOT_RUN,True,T27,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,hemisphere,True
+legacy6,NOT_RUN,NOT_RUN,0.07172092404846339,NOT_RUN,False,T33,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,hemisphere,True
+task5,NOT_RUN,NOT_RUN,0.07172078759078716,NOT_RUN,False,T33,0.07237417172157597,pointwise target-sequence completion is not a dense continuous lift or coverage-qualified execution,hemisphere,True

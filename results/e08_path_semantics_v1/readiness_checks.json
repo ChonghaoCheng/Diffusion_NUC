@@ -1,0 +1,15 @@
+{
+  "collision_scope": "existing MuJoCo self-collision pairs only; workpiece, tool body beyond the model, and external environment were not modeled",
+  "explicit_node_activity": false,
+  "final_robot_plan_validation": "NOT_RUN",
+  "focused_regressions": "see test_summary.txt",
+  "guard": "require_real_graph_readiness rejects missing ON connections, node activity, or endpoint membership checks",
+  "old_cross_chain_connection_semantics": "OFF reconfiguration",
+  "pruning_efficacy": "N/A",
+  "real_surface_graph_construction": "NOT_RUN",
+  "real_surface_s0_s1": "NOT_RUN",
+  "recomputed_endpoint_membership_checked": true,
+  "runtime_benefit": "N/A",
+  "success_rate": "N/A",
+  "task_preserving_on_connections": false
+}

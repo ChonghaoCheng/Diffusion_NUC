@@ -1,0 +1,40 @@
+$ /data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q tests/test_ordered_trace_evaluator.py tests/test_history_search.py tests/test_completion_bound.py
+exit_code=0 runtime_s=0.721019
+....................                                                     [100%]
+20 passed in 0.52s
+
+
+$ /data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q
+exit_code=0 runtime_s=23.315109
+........................................................................ [ 39%]
+........................................................................ [ 79%]
+......................................                                   [100%]
+=============================== warnings summary ===============================
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64
+  /data/chocheng/.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+    prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85
+  /data/chocheng/.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89
+  /data/chocheng/.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+../../.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_mathtext.py:45
+  /data/chocheng/.venvs/coverage-fm/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+182 passed, 14 warnings in 22.68s

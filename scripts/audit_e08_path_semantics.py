@@ -339,6 +339,16 @@ def stage_readiness(config: dict[str, Any], output: Path) -> None:
             }
         )
     write_csv(output / "corrected_ik_status.csv", rows)
+    (output / "status_correction_2026-09-16.md").write_text(
+        "# E08 execution-status correction — 2026-09-16\n\n"
+        "This append-only view does not rewrite `ik_comparison.csv`. Its historical `complete_lift` "
+        "means that the sampled target sequence was solved. It is not evidence that dense transitions, "
+        "coverage, or overall execution passed. Those checks are marked `NOT_RUN`. Under the frozen "
+        "sigma threshold 0.07237417172157597, both T30 rows and both T33 rows fail the sampled numeric "
+        "task constraints; T27 passes that sampled check. Real-surface graph construction, S0/S1 "
+        "comparison, and final robot-plan validation remain unexecuted, so their benefit and success "
+        "metrics are N/A.\n"
+    )
     readiness = {
         "real_surface_graph_construction": "NOT_RUN",
         "real_surface_s0_s1": "NOT_RUN",
@@ -365,6 +375,8 @@ def stage_report(config: dict[str, Any], output: Path) -> None:
     comparisons = read_csv(output / "path_semantics_comparison.csv")
     decisions = read_csv(output / "geometry_decisions.csv")
     corrected = read_csv(output / "corrected_ik_status.csv")
+    compact_legacy_representative_source(output)
+    normalize_csv_newlines(output)
     table = []
     for decision in decisions:
         candidate = decision["candidate_id"]
@@ -400,12 +412,28 @@ not a pure reconstruction attribution. Saddle uncertainty is retained with episo
 programming. The final decisions also require Q1/Q2 changes no larger than 0.002. Geometry
 acceptance, if any, does not imply robot qualification; robot requalification was NOT RUN.
 
+The evidence separates two artifacts. Preserving the path reduced legacy reconstructed lengths
+from 6.68--6.84 m to 3.89--4.02 m on saddle and from 14.68--22.55 m to 7.85--12.53 m on hemisphere;
+repeat error fell in every candidate, showing that legacy route reconstruction created many extra
+episodes. P still reported large miss fractions because it deliberately retained the mesh-distance
+backend. With analytical surface distance and area, hemisphere raster-u phases had zero sampled
+miss and 0.028614 repeat, while the spiral had 0.012865 miss and 0.020482 repeat; all three were
+stable accepted geometries. Hemisphere raster-v retained 0.576860 repeat, supporting a genuine
+repeat defect, but its Q1/Q2 change was 0.006384 and therefore its qualification is unresolved.
+The saddle candidates retained Q2 miss lower bounds from 0.026564 to 0.038599, supporting genuine
+uncovered gaps, but their final changes were 0.006019--0.010651, so all four remain unresolved.
+No percentage of failure is assigned to either cause.
+
 ## Corrected execution semantics
 
 The historical `complete_lift` field is interpreted only as `target_sequence_solved`. Dense
 transition, coverage-contract, and overall execution checks are NOT_RUN. Sampled numeric failures
 under the frozen sigma threshold include: {', '.join(numeric_fail) if numeric_fail else 'none'}.
 The full corrected view is in `corrected_ik_status.csv`.
+
+Focused regressions passed 20 tests. The complete repository run passed 182 tests with one existing
+skip and 14 warnings; no test failed. The planar regression measured the prescribed sqrt(8) mm
+motion and separately exposed the legacy mesh-vertex detour.
 
 ## Search and graph readiness
 
@@ -422,7 +450,8 @@ limited to modeled MuJoCo self-collision pairs; workpiece, full tool, and enviro
 These results concern sampled membership on the frozen eight paths. They do not certify continuous
 coverage, robot safety, global infeasibility, planner superiority, FM benefit, or publication-level
 novelty. Runtime and pruning benefit for E08 real-surface planning remain N/A because no case was
-admitted and no such comparison ran.
+robot-qualified in the original run, this repair did not rerun robot qualification, and no such
+comparison ran.
 """
     (output / "report.md").write_text(report)
     commands = "\n".join(
@@ -431,6 +460,35 @@ admitted and no such comparison ran.
     ) + "\n"
     (output / "reproduction_commands.txt").write_text(commands)
     checkpoint(output, "report", {"complete": True, "report": "results/e08_path_semantics_v1/report.md"})
+
+
+def compact_legacy_representative_source(output: Path) -> None:
+    """Convert an interrupted development run's verbose CSV to the committed NPZ format."""
+
+    source = output / "representative_membership_source.csv"
+    if not source.exists():
+        return
+    manifest = json.loads((output / "frozen_candidate_manifest.json").read_text())
+    candidate_indices = {item["candidate_id"]: item["candidate_index"] for item in manifest["candidates"]}
+    grouped: dict[tuple[str, int, int], list[dict[str, str]]] = {}
+    for row in read_csv(source):
+        key = (row["candidate_id"], int(row["sample_index"]), int(row["segment_index"]))
+        grouped.setdefault(key, []).append(row)
+    payload: dict[str, np.ndarray] = {}
+    for (candidate, sample_index, segment_index), rows in grouped.items():
+        rows.sort(key=lambda row: int(row["time_index"]))
+        key = f"candidate_{candidate_indices[candidate]}_sample_{sample_index}_segment_{segment_index}"
+        payload[f"{key}_state"] = np.asarray([int(row["state"]) for row in rows], dtype=np.int8)
+        payload[f"{key}_point"] = np.asarray([float(rows[0][axis]) for axis in ("x", "y", "z")])
+        payload[f"{key}_weight"] = np.asarray(float(rows[0]["weight"]))
+    np.savez_compressed(output / "representative_membership_source.npz", **payload)
+    source.unlink()
+
+
+def normalize_csv_newlines(output: Path) -> None:
+    for path in output.glob("*.csv"):
+        content = path.read_bytes()
+        path.write_bytes(content.replace(b"\r\n", b"\n"))
 
 
 def make_surface(surface_id: str, historical: dict[str, Any], config: dict[str, Any]):
@@ -514,7 +572,7 @@ def decide_geometry(config: dict[str, Any], rows: list[dict[str, Any]]) -> list[
 
 
 def save_representative_traces(output: Path, config: dict[str, Any], records, cache) -> None:
-    data_rows = []
+    source_payload: dict[str, np.ndarray] = {}
     plot_dir = output / "representative_plots"
     plot_dir.mkdir(exist_ok=True)
     for record in records:
@@ -532,8 +590,10 @@ def save_representative_traces(output: Path, config: dict[str, Any], records, ca
             timeline = []
             for segment_index, trace in enumerate(traces):
                 states = reference_membership_states(record["surface_id"], quadrature.points[[sample_index]], trace, footprint_radius=config["coverage"]["footprint_radius_m"], surface_metadata=metadata)[0]
-                for local_index, state in enumerate(states):
-                    data_rows.append({"candidate_id": candidate, "sample_index": sample_index, "segment_index": segment_index, "time_index": local_index, "state": int(state), "x": quadrature.points[sample_index, 0], "y": quadrature.points[sample_index, 1], "z": quadrature.points[sample_index, 2], "weight": quadrature.weights[sample_index]})
+                key = f"candidate_{record['candidate_index']}_sample_{sample_index}_segment_{segment_index}"
+                source_payload[f"{key}_state"] = states.astype(np.int8)
+                source_payload[f"{key}_point"] = quadrature.points[sample_index]
+                source_payload[f"{key}_weight"] = np.asarray(quadrature.weights[sample_index])
                 if timeline: timeline.append(np.asarray([-2], dtype=np.int8))
                 timeline.append(states)
                 offset += len(states)
@@ -546,7 +606,7 @@ def save_representative_traces(output: Path, config: dict[str, Any], records, ca
         fig.tight_layout()
         fig.savefig(plot_dir / (candidate.replace("/", "_") + ".png"), dpi=140)
         plt.close(fig)
-    write_csv(output / "representative_membership_source.csv", data_rows)
+    np.savez_compressed(output / "representative_membership_source.npz", **source_payload)
 
 
 def surface_discrepancy(config, historical, output):
@@ -590,7 +650,7 @@ def write_json(path: Path, value: Any) -> None:
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     fields = sorted({key for row in rows for key in row})
     with path.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

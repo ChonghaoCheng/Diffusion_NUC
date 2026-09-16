@@ -1,0 +1,46 @@
+{
+  "branch": "exp/e08-path-semantics-repair-v1",
+  "config_sha256": "6a5205ba408b3ea3ed55d02039456814b8b486f835705dae217823379984096a",
+  "environment": {
+    "matplotlib": "3.9.4",
+    "numpy": "1.26.4",
+    "python": "3.12.13"
+  },
+  "executed_at": "2026-09-16T19:45:07+10:00",
+  "experiment": "E08-R1 path semantics repair v1",
+  "frozen_candidate_manifest_sha256": "64171ccb7d21e23043beef0751d9406ecd842187e57caa8feed62da3f991a782",
+  "legacy_ordered_sources_sha256": "26dc394fd7b1d2ec84cb0cab189ba0536786d239c5105be745471b20c9ce6d81",
+  "quadrature_definitions_sha256": "9fc6829ce8b5233bc351e672c261e2db246ed017067b6c1a7bca4e3217b695a8",
+  "scope": {
+    "continuous_time_certificate": false,
+    "flow_matching": false,
+    "geometry_candidates": 8,
+    "new_ik": false,
+    "per_robot_placement_repetition": false,
+    "real_graph_build": false,
+    "real_s0_s1": false
+  },
+  "surface_representation_discrepancy": [
+    {
+      "analytical_Q2_area": 0.060017906138973905,
+      "analytical_Q2_samples": 36864,
+      "area_change": 1.5905061591901803e-05,
+      "legacy_mesh_area": 0.060002001077382,
+      "legacy_mesh_samples": 1152,
+      "legacy_sample_analytical_projection_max_m": 0.00011681763191939698,
+      "legacy_sample_analytical_projection_mean_m": 5.255866807189237e-05,
+      "surface_id": "saddle"
+    },
+    {
+      "analytical_Q2_area": 0.12315043202072021,
+      "analytical_Q2_samples": 18432,
+      "area_change": 0.0010791703227736316,
+      "legacy_mesh_area": 0.12207126169794658,
+      "legacy_mesh_samples": 1824,
+      "legacy_sample_analytical_projection_max_m": 0.0015758189080189256,
+      "legacy_sample_analytical_projection_mean_m": 0.000724955306664388,
+      "surface_id": "hemisphere"
+    }
+  ],
+  "tested_code_sha": "f9e4a2a1c7031b47ff589f0d0f69f9e48eb669a2"
+}

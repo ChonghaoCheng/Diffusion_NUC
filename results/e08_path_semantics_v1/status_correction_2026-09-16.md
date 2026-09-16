@@ -1,0 +1,3 @@
+# E08 execution-status correction — 2026-09-16
+
+This append-only view does not rewrite `ik_comparison.csv`. Its historical `complete_lift` means that the sampled target sequence was solved. It is not evidence that dense transitions, coverage, or overall execution passed. Those checks are marked `NOT_RUN`. Under the frozen sigma threshold 0.07237417172157597, both T30 rows and both T33 rows fail the sampled numeric task constraints; T27 passes that sampled check. Real-surface graph construction, S0/S1 comparison, and final robot-plan validation remain unexecuted, so their benefit and success metrics are N/A.

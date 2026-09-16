@@ -22,14 +22,26 @@ from diffusion_coverage.surface.projection import project_points
 from diffusion_coverage.surface.surface_instance import SurfaceInstance
 
 
-def _two_triangle_square(flipped: bool = False) -> SurfaceInstance:
+def _two_triangle_square(flipped: bool = False, center_sample: bool = False) -> SurfaceInstance:
     vertices = 1e-3 * np.asarray([[0, 0, 0], [20, 0, 0], [20, 20, 0], [0, 20, 0]], float)
     faces = np.asarray([[0, 1, 2], [0, 2, 3]] if not flipped else [[0, 1, 3], [1, 2, 3]])
+    if center_sample and not flipped:
+        return SurfaceInstance(
+            vertices=vertices,
+            faces=faces,
+            sample_points=1e-3 * np.asarray([[10, 10, 0]], float),
+            sample_normals=np.asarray([[0, 0, 1]], float),
+            area_weights=np.asarray([0.02 * 0.02]),
+            sample_face_indices=np.asarray([0]),
+            sample_barycentric=np.asarray([[0.5, 0.0, 0.5]]),
+            surface_id="plane",
+            metadata={"width": 0.02, "height": 0.02},
+        )
     return SurfaceInstance.from_mesh(vertices, faces, samples_per_face=1, surface_id="plane", metadata={"width": 0.02, "height": 0.02})
 
 
 def test_two_triangle_regression_preserves_straight_motion_and_exposes_legacy_detour():
-    surface = _two_triangle_square()
+    surface = _two_triangle_square(center_sample=True)
     endpoints = 1e-3 * np.asarray([[9, 11, 0], [11, 9, 0]], float)
     center = 1e-3 * np.asarray([[10, 10, 0]], float)
     metrics = evaluate_ordered_trace_euclidean(center, np.ones(1), (endpoints,), footprint_radius=0.008)
@@ -39,7 +51,11 @@ def test_two_triangle_regression_preserves_straight_motion_and_exposes_legacy_de
     legacy_length, legacy_sources = _length_and_sources(surface, projection, max_spacing=0.001)
     legacy_membership = _ordered_footprint_membership(surface, legacy_sources, footprint_radius=0.008)
     assert legacy_length > 0.02
-    assert np.count_nonzero(legacy_membership[0, 1:] & ~legacy_membership[0, :-1]) >= 1
+    starts = legacy_membership.copy()
+    starts[:, 1:] &= ~legacy_membership[:, :-1]
+    assert not legacy_membership[0, 0]
+    assert legacy_membership[0, -1]
+    assert starts.sum() == 1
 
 
 def test_planar_reference_is_invariant_to_diagonal_and_vertex_relabeling():
