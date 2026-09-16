@@ -4,6 +4,7 @@ import csv
 import hashlib
 import json
 import platform
+import subprocess
 import sys
 from dataclasses import asdict
 from datetime import datetime
@@ -94,6 +95,7 @@ def prepare(root: Path, config: dict[str, Any], output: Path) -> None:
         "graph_references": references,
         "parent_code_sha": config["parent_code_sha"],
         "parent_ara_sha": config["parent_ara_sha"],
+        "tested_code_stage_sha": subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip(),
         "model_path": config["inputs"]["robot_model"],
         "model_sha256": file_hash(Path(config["inputs"]["robot_model"])),
         "collision_scope": config["collision_scope"],
