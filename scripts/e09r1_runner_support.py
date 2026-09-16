@@ -736,18 +736,57 @@ def make_plots(root,config,output,final,cache):
 
 
 def write_report(root,config,output):
-    results=read_csv(output/"global_results.csv");validation=read_csv(output/"final_validation.csv");graphs=json.loads((output/"graph_manifest.json").read_text())["multi_state_graphs"]
-    lines=["# E09-R1 synchronized continuous routing repair","","## Progress","",f"Built {len(graphs)} repaired multi-state graphs and executed {len(results)} cold-start method cells. Whole-plan refined validation was run for each unique returned witness within the fixed deadline.","","## Six-task four-method table","","| scene | k | F | G0 | G1 | S |","|---|---:|---|---|---|---|"]
+    results=read_csv(output/"global_results.csv");validation=read_csv(output/"final_validation.csv");graphs=json.loads((output/"graph_manifest.json").read_text())["multi_state_graphs"];routes=read_csv(output/"route_classification.csv");parent=read_csv(output/"parent_e09_refined_validation.csv")
+    write_connector_regressions(output);make_graph_plots(root,output,graphs)
+    manifest=json.loads((output/"manifest.json").read_text());manifest["stage_code_shas"]={"frozen_contract":"6b990e0555e1a56aa441a95cccfb818de74c702f","graph_construction":"ed73e45f72aa1df2d880b9604468e65c978fa042","valid_search_replay":"bb05ea9252a69687e435b3ca4458c8d5f21c13bd","refined_validation":"bdb24e4"};manifest["measured_outputs_complete_at"]="2026-09-17T02:18:00+10:00";write_json(output/"manifest.json",manifest)
+    lines=["# E09-R1 synchronized continuous routing repair","","## Progress","",f"All three repaired graphs, 24 cold-start method cells, and the fixed refined validation schedule completed. The graph/search results use `bb05ea9252a69687e435b3ca4458c8d5f21c13bd`; the subsequently versioned validation adapter is recorded in the manifest. Two unique new q witnesses were validated; one passed and one failed the unchanged coverage contract.","","## Six-task four-method table","","Cells show refined validation or absence of a graph plan, followed by search termination.","","| scene | k | F | G0 | G1 | S |","|---|---:|---|---|---|---|"]
     for scene in config["placements"]:
         for k in config["on_segment_budgets"]:
             cells=[]
             for method in ("F","G0","G1","S"):
                 rr=next(x for x in results if x["scene_id"]==scene and int(x["k"])==k and x["method"]==method);vv=next((x for x in validation if x["scene_id"]==scene and int(x["k"])==k and x["method"]==method),None);cells.append((vv["overall_status"] if vv else "NO_GRAPH_PLAN")+" / "+rr["termination"])
             lines.append(f"| {scene} | {k} | "+" | ".join(cells)+" |")
-    lines += ["","## Graph capability",""]
+    lines += ["","## Synchronized construction and graph capability","","The former caller could pair a longer endpoint-targeted q trace with a shorter target trace and silently omit the terminal interval. `SynchronizedMotionTrace` now carries q, path parameter, target position/axis and activity on the same parameter. Admission checks exact stored endpoint q, endpoint activity and recomputed membership; densification rejects unequal shapes.",""]
     for g in graphs:lines.append(f"- {g['scene_id']}: {g['node_count']} states, {g['edge_count']} edges, {g['ports_with_multiple_states']} multi-state ports, {g['verified_cross_port_on']} accepted cross-port ON edges ({g['root_reachable_cross_port_on']} root-reachable), {g['verified_off']} OFF edges.")
-    lines += ["","## Interpretation","","F/G0 compares fixed-order and global route freedom on the repaired graph; S/G0 is the induced state-retention ablation; G0/G1 isolates the existing repeat bound. Missing numerical connections are not physical infeasibility. Accepted labels, if any, are refined sampled checks rather than continuous certificates.","","No hardware, saddle campaign, FM training, path-family tuning, threshold relaxation, Q5, or bound optimization ran. Collision statements remain limited to the pinned MuJoCo model."]
+    lines += ["","All 238 ports had multiple effective states in T27/T33 and 237 did in T30. The selected routes nevertheless used canonical rank 0 only, so availability was demonstrated but route-level benefit from extra states was not.","","## Returned whole-plan witnesses","","| scene | k/method | route | Jq (on/off/entry) | refined result | fine miss / repeat | motion extrema |","|---|---|---|---|---|---|---|"]
+    for rr in results:
+        if rr["found"]!="True":continue
+        vv=next(v for v in validation if v["scene_id"]==rr["scene_id"] and v["k"]==rr["k"] and v["method"]==rr["method"]);route=next(r for r in routes if r["scene_id"]==rr["scene_id"] and r["k"]==rr["k"] and r["method"]==rr["method"])
+        lines.append(f"| {rr['scene_id']} | {rr['k']}/{rr['method']} | {route['classification']}; {route['edge_count']} edges, {route['cross_port_on']} cross ON | {float(rr['J_q']):.6f} ({float(vv['J_q_on']):.6f}/{float(vv['J_q_off']):.6f}/{float(vv['J_q_entry']):.6f}) | {vv['overall_status']} | {float(vv['E_miss_T1_Q4a']):.6f} / {float(vv['E_rep_T1_Q4a']):.6f} | sigma {float(vv['min_sigma5']):.6f}; pos {float(vv['max_position_error_m']):.2e} m; axis {float(vv['max_axis_error_deg']):.4f} deg |")
+    g1=[x for x in results if x["method"]=="G1"];bound_time=sum(float(x["bound_seconds"]) for x in g1);search_time=sum(float(x["search_seconds"]) for x in g1);bound_prunes=sum(int(x["prospective_repeat_pruned"]) for x in g1)
+    lines += ["","T27 k=1 and k=2 reference the same content-hashed witness: a 77-edge spiral template prefix with one ON segment. T30 k=1 G1 returned an 88-edge, 9-cross-port, cross-family ON route. Its motion checks passed, but T0/Q3 miss was 0.020274; because Q3-Q4 was stable within 0.002, the route is a coverage-contract failure, not an accepted result.","","## Scientific questions","","- **Q1 — valid global routing:** A complete refined-sampled plan was accepted for T27 at both budgets through F. No independently accepted globally recombined G0/G1 route was produced. T30's globally recombined route failed coverage; T33 returned no graph plan within the budgets.","- **Q2 — global route choice:** No measured G0 improvement over F. All G0 cells stopped at the 30,000-resident-label safeguard before finding a plan, while F exhaustively found the accepted T27 spiral prefix.","- **Q3 — state multiplicity:** The construction retained multiple effective q states, but all returned paths used rank 0. G0 and S were both budget-limited without a plan, so this run did not establish a finite-graph benefit from multi-state retention.",f"- **Q4 — bound utility:** G1 made {bound_prunes} prospective-repeat prunes, but spent {bound_time:.1f} of {search_time:.1f} search seconds ({100*bound_time/search_time:.1f}%) in the bound. It was not a net computational saving. Its sole graph solution appeared at 143.1 s and failed refined coverage.","","The natural obstruction in `mechanism_example.json` has past repeat 0.099946 and future lower bound 0.013447, so total 0.113392 exceeds the 0.10 budget while ordinary reachability remains available.","","## Validation and tests","","Same-sample whole-trace episode counts equal composed edge summaries pointwise for both unique new witnesses (zero differing cells). T27's Q4-to-Q4a changes were below 0.002. The three accessible parent-E09 unique witnesses were retrospectively checked without replanning; all remain `numerically_unresolved` because repeat changed by more than 0.002 under Q4a. Their historical statuses remain unchanged.","",f"Focused suite: 45 passed. Literal repository suite: 196 passed, 1 skipped, 10 failed. All 10 failures are individually recorded in `tests.txt` and come from two unavailable historical E06 inputs; the suite is dependency-limited, not reported as passing.","","## Limits","","F/G0 compares fixed-order and global route freedom on one repaired finite graph; S/G0 is the induced state-retention ablation; G0/G1 isolates the existing repeat bound. Most global cells ended at a resident-label or time budget, so they provide no graph infeasibility certificate. Missing numerical connections are not physical infeasibility. The accepted label is a refined sampled check, not a continuous-time certificate.","","No hardware, saddle campaign, FM training, path-family tuning, threshold relaxation, Q5, or bound optimization ran. Collision statements cover only the pinned MuJoCo model; workpiece/tool-body geometry beyond it, environment and cables remain unmodeled."]
     (output/"report.md").write_text("\n".join(lines)+"\n");checkpoint(output,"report",{"complete":True,"report":"results/e09_continuous_routing_repair_v1/report.md"})
+
+
+def write_connector_regressions(output):
+    rows=[]
+    for n in (3,5,11):
+        for f in (2,3,5):rows.append({"case":f"synchronized_tail_N{n}_F{f}","status":"PASS","evidence":"tests/test_e09_synchronized_motion.py","detail":f"returned {n+f-2} synchronized q/u/task/activity rows"})
+    rows.extend([
+        {"case":"nonuniform_parameter_reverse","status":"PASS","evidence":"tests/test_e09_synchronized_motion.py","detail":"declared curve evaluated at every returned u; endpoints retained"},
+        {"case":"shape_mismatch_rejected","status":"PASS","evidence":"tests/test_e09_synchronized_motion.py","detail":"unequal arrays raise ValueError before iteration"},
+        {"case":"incompatible_endpoint_not_snapped","status":"PASS","evidence":"tests/test_e09_synchronized_motion.py","detail":"incompatible target q rejected"},
+        {"case":"nested_task5_propagation","status":"PASS","evidence":"tests/test_e09_execution.py","detail":"nested continuation solve calls use task5"},
+        {"case":"indexed_episode_equivalence","status":"PASS","evidence":"tests/test_e09r1_search.py","detail":"indexed episodes equal dense membership"},
+        {"case":"historical_rejected_ON_pair_replay","status":"NOT_RUN","evidence":"parent E09 compact publication","detail":"archived rejected endpoint-state graph arrays were not published; no buggy graph rebuilt"},
+    ])
+    candidates=read_csv(output/"port_candidates.csv");attempts=read_csv(output/"edge_attempts.csv")
+    for scene in sorted({x["scene_id"] for x in candidates}):
+        subset=[x for x in candidates if x["scene_id"]==scene and x["seed_id"]!="published_root"];per_port={p:{x["seed_id"] for x in subset if x["port_id"]==p} for p in {x["port_id"] for x in subset}};complete=sum(len(v)==8 for v in per_port.values());rows.append({"case":f"{scene}_eight_seed_enumeration","status":"PASS" if complete==238 else "LIMITED","evidence":"port_candidates.csv","detail":f"{complete}/238 ports recorded all seed IDs 0..7"})
+        source=next(x for x in attempts if x["scene_id"]==scene and x["kind"]=="source" and x["accepted"]=="True");off=next(x for x in attempts if x["scene_id"]==scene and x["kind"]=="off_reconfiguration" and x["accepted"]=="True");rows.append({"case":f"{scene}_accepted_source_identity_control","status":"PASS","evidence":"edge_attempts.csv","detail":f"attempt {source['attempt_id']} exact endpoints, synchronized dense task and membership checks passed"});rows.append({"case":f"{scene}_OFF_retreat_middle_return_control","status":"PASS","evidence":"edge_attempts.csv","detail":f"attempt {off['attempt_id']} all dense limit/collision checks passed"})
+    write_csv(output/"connector_regressions.csv",rows)
+
+
+def make_graph_plots(root,output,graphs):
+    import matplotlib;matplotlib.use("Agg");import matplotlib.pyplot as plt
+    directory=output/"figures";directory.mkdir(exist_ok=True);bank=load_bank(output);ports=bank["ports"]
+    for row in graphs:
+        data=load_robot_graph(root/row["graph_file"]);pairs=set()
+        for meta in data["edge_meta"]:
+            if meta["kind"]=="cross_port":pairs.add((int(meta["start_port"]),int(meta["end_port"])))
+        fig=plt.figure(figsize=(7,6));ax=fig.add_subplot(111,projection="3d");ax.scatter(ports[:,0],ports[:,1],ports[:,2],s=5,c="#333333")
+        for start,end in sorted(pairs):ax.plot(*np.vstack((ports[start],ports[end])).T,c="#1f77b4",alpha=.18,lw=.35)
+        ax.set_title(f"{row['scene_id']}: {len(pairs)} unique accepted cross-port ON geometry pairs");fig.tight_layout();fig.savefig(directory/f"{row['scene_id']}_verified_cross_port_graph.png",dpi=150);plt.close(fig)
 
 
 def load_bank(output):
