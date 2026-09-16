@@ -102,6 +102,7 @@ def prepare(root: Path, config: dict[str, Any], output: Path) -> None:
         "prospective_repeat_bound_calls_allowed": 0,
     }
     write_json(output / "manifest.json", manifest)
+    write_json(output / "config_snapshot.json", config)
     write_json(output / "graph_references.json", {"geometry_hash": published["geometry_hash"], "graphs": references})
     commands = [
         f"OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e10-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e10_structured_anytime_routing_v1.py --stage {stage} --output results/e10_structured_anytime_routing_v1_reproduction"
@@ -296,20 +297,29 @@ def verify(root: Path, config: dict[str, Any], output: Path) -> None:
     final: list[dict[str, Any]] = []
     routes = _csv(output / "route_classification.csv")
     validation_seconds: dict[str, float] = {}
+    load_rows=[]
+    for ref in refs:
+        began=perf_counter();load_robot_graph(Path(ref["path"]));load_rows.append({"scene_id":ref["scene_id"],"graph_load_seconds":perf_counter()-began,"bytes":Path(ref["path"]).stat().st_size})
+    write_csv(output/"graph_load_benchmark.csv",load_rows)
     for row in results:
         scene_id=row["scene_id"]; k=int(row["k"]); method=row["method"]
         ref=next(x for x in refs if x["scene_id"]==scene_id);data=load_robot_graph(Path(ref["path"]));scene=_scene(root,config,scene_id)
         accepted=[]; checked_candidates=[]
         if method=="F":
             inherited=next((x for x in init_validation if x["scene_id"]==scene_id and int(x["k"])==k),None)
-            if inherited and inherited["overall_status"]==ACCEPTED:accepted.append((int(inherited["on_segments_checked"]),float(inherited["J_q_recorded"]),inherited["plan_file"],inherited["witness_hash"],"retained_F"))
+            if inherited:
+                plan=np.load(root/inherited["plan_file"],allow_pickle=False);h=str(plan["witness_hash"])
+                if h not in cache:
+                    began=perf_counter();cache[h]=validate_unique_witness(root,config,output,{"k":k},plan,data,scene,h);validation_seconds[h]=perf_counter()-began
+                checked=cache[h];inherited={"scene_id":scene_id,"k":k,"method":"F","plan_file":inherited["plan_file"],"witness_hash":h,**checked["final"]}
+                if checked["final"]["overall_status"]==ACCEPTED:accepted.append((int(inherited["on_segments_checked"]),float(inherited["J_q_recorded"]),inherited["plan_file"],h,"retained_F"))
         else:
             fallback=next((x for x in init_validation if x["scene_id"]==scene_id and int(x["k"])==k and x["overall_status"]==ACCEPTED),None)
             if fallback:accepted.append((int(fallback["on_segments_checked"]),float(fallback["J_q_recorded"]),fallback["plan_file"],fallback["witness_hash"],"retained_F"))
             for item in catalog.get(f"{scene_id}/k{k}/{method}",[]):
                 plan=np.load(root/item["plan_file"],allow_pickle=False);h=str(plan["witness_hash"]);began=perf_counter()
-                if h not in cache:cache[h]=validate_unique_witness(root,config,output,{"k":k},plan,data,scene,h)
-                validation_seconds[h]=validation_seconds.get(h,0.0)+(perf_counter()-began if h not in validation_seconds else 0.0)
+                if h not in cache:
+                    cache[h]=validate_unique_witness(root,config,output,{"k":k},plan,data,scene,h);validation_seconds[h]=perf_counter()-began
                 checked=cache[h]; composition.append({"scene_id":scene_id,"k":k,"method":method,"witness_hash":h,**checked["composition"]});resolution.extend({"scene_id":scene_id,"k":k,"method":method,"witness_hash":h,**x} for x in checked["resolution"])
                 record={"plan_file":item["plan_file"],"witness_hash":h,**checked["final"]};checked_candidates.append(record)
                 if checked["final"]["overall_status"]==ACCEPTED:accepted.append((int(checked["final"]["on_segments_checked"]),float(checked["final"]["J_q_recorded"]),item["plan_file"],h,"new_global_plan"))
@@ -331,6 +341,8 @@ def verify(root: Path, config: dict[str, Any], output: Path) -> None:
             "selected_plan_file":None if chosen is None else chosen[2],"witness_hash":None if chosen is None else chosen[3],
             "novel_candidates_validated":len(checked_candidates),
             "novel_statuses_json":json.dumps([x["overall_status"] for x in checked_candidates]),
+            "selected_validation_seconds_uncached_equivalent":None if chosen is None else validation_seconds.get(chosen[3]),
+            "graph_load_seconds_equivalent":next(x["graph_load_seconds"] for x in load_rows if x["scene_id"]==scene_id),
             **({} if chosen_final is None else {key:value for key,value in chosen_final.items() if key not in {"scene_id","k","method","plan_file","witness_hash","overall_status"}}),
         })
     write_csv(output/"same_sample_composition.csv",composition);write_csv(output/"validation_resolution.csv",resolution);write_csv(output/"final_validation.csv",final)
