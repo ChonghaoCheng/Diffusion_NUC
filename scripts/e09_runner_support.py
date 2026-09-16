@@ -222,7 +222,7 @@ def compare_all(root,config,output):
             order=("G0","G1") if task_index%2==0 else ("G1","G0")
             method_results={"F":fixed_route_search(data,start,k,config,wall_time=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),initial_incumbent=common)}
             for method in order:
-                method_results[method]=search_history_graph(graph,start_node=start,maximum_on_segments=k,missed_tolerance=float(config["coverage"]["missed_tolerance"]),repeat_tolerance=float(config["coverage"]["repeat_tolerance"]),use_completion_bound=method=="G1",wall_time_s=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),checkpoint_times=tuple(float(x) for x in config["search"]["checkpoints_s"]),initial_incumbent=common,coverage_directed_order=True)
+                method_results[method]=search_history_graph(graph,start_node=start,maximum_on_segments=k,missed_tolerance=float(config["coverage"]["missed_tolerance"]),repeat_tolerance=float(config["coverage"]["repeat_tolerance"]),use_completion_bound=method=="G1",wall_time_s=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),checkpoint_times=tuple(float(x) for x in config["search"]["checkpoints_s"]),initial_incumbent=common,coverage_directed_order=True,memory_limit_bytes=int(float(config["search"]["private_memory_gib"])*(1024**3)))
                 if mechanism is None and method_results[method].mechanism_sample is not None: mechanism={"scene_id":row["scene_id"],"k":k,**method_results[method].mechanism_sample}
             for method in ("F","G0","G1"):
                 result=method_results[method]; label=result.incumbent; plan_file=None
@@ -231,6 +231,11 @@ def compare_all(root,config,output):
                 results.append(result_row(row,k,method,result,common,plan_file,graph.weights))
                 for cp in result.checkpoints: anytime.append({"scene_id":row["scene_id"],"k":k,"method":method,**cp})
                 pruning.append(pruning_row(row,k,method,result))
+                write_csv(output/"global_results.partial.csv",results)
+                write_csv(output/"anytime.partial.csv",anytime)
+                write_csv(output/"pruning_stats.partial.csv",pruning)
+                checkpoint(output,"compare-progress",{"complete":False,"cells":len(results),"last_scene":row["scene_id"],"last_k":k,"last_method":method})
+                print(json.dumps({"scene_id":row["scene_id"],"k":k,"method":method,"termination":result.termination,"found":label is not None,"expanded":result.metrics.expanded,"seconds":result.elapsed_seconds}),flush=True)
     write_csv(output/"global_results.csv",results); write_csv(output/"fixed_route_results.csv",[r for r in results if r["method"]=="F"]); write_csv(output/"anytime.csv",anytime); write_csv(output/"pruning_stats.csv",pruning); write_json(output/"mechanism_example.json",mechanism or {"status":"not_observed"}); checkpoint(output,"compare",{"complete":True,"cells":len(results),"mechanism_example":mechanism is not None})
 
 
@@ -244,6 +249,7 @@ def fixed_route_search(data,start,k,config,*,wall_time,expanded_limit,initial_in
     while queue:
         if perf_counter()-started>=wall_time: termination="wall_time"; break
         if metrics.expanded>=expanded_limit: termination="expanded_limit"; break
+        if private_memory_bytes()>=int(float(config["search"]["private_memory_gib"])*(1024**3)): termination="memory_limit"; break
         _,_,_,_,route,index,label=heapq.heappop(queue); key=(route,index,label.node,np.packbits(label.covered).tobytes(),np.packbits(label.membership).tobytes(),label.used_on_segments)
         if seen.get(key,np.inf)<=label.joint_cost: metrics.dominance_pruned+=1; continue
         seen[key]=label.joint_cost; metrics.expanded+=1
@@ -402,3 +408,9 @@ def write_csv(path,rows):
     with path.open("w",newline="") as f:w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
 def read_csv(path):
     with path.open(newline="") as f:return list(csv.DictReader(f))
+
+
+def private_memory_bytes():
+    import os
+    try:return int(Path("/proc/self/statm").read_text().split()[1])*os.sysconf("SC_PAGE_SIZE")
+    except (OSError,ValueError,IndexError):return 0

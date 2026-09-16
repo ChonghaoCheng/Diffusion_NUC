@@ -1,0 +1,6 @@
+{
+  "status": "INTERRUPTED_WITHOUT_RESULTS",
+  "tested_code_sha": "2815eaeec8ce2fb7e5ecc74846521311fef1ec58",
+  "reason": "The first monolithic comparison attempt exposed no per-cell progress and was manually interrupted before any result file was written; no scientific result from that attempt is retained.",
+  "completed_cells": 0
+}

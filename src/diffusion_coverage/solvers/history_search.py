@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import heapq
+import os
+from pathlib import Path
 from time import perf_counter
 from typing import Any
 
@@ -88,6 +90,7 @@ def search_history_graph(
     tolerance: float = 1e-12,
     initial_incumbent: SearchLabel | None = None,
     coverage_directed_order: bool = False,
+    memory_limit_bytes: int | None = None,
 ) -> SearchResult:
     start_time = perf_counter()
     metrics = SearchMetrics()
@@ -123,6 +126,9 @@ def search_history_graph(
             break
         if metrics.expanded >= expanded_limit:
             termination = "expanded_limit"
+            break
+        if memory_limit_bytes is not None and _private_memory_bytes() >= memory_limit_bytes:
+            termination = "memory_limit"
             break
         *_, label = heapq.heappop(queue)
         if incumbent is not None and _objective(label) >= _objective(incumbent):
@@ -341,3 +347,11 @@ def _checkpoint(seconds: float, incumbent: SearchLabel | None, metrics: SearchMe
         "expanded": metrics.expanded,
         "generated": metrics.generated,
     }
+
+
+def _private_memory_bytes() -> int:
+    try:
+        resident_pages = int(Path("/proc/self/statm").read_text().split()[1])
+        return resident_pages * os.sysconf("SC_PAGE_SIZE")
+    except (OSError, ValueError, IndexError):
+        return 0
