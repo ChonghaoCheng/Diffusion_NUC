@@ -171,3 +171,29 @@ def test_real_graph_readiness_guard_requires_on_connections_and_activity():
             "recomputed_endpoint_membership_checked": True,
         }
     )
+
+
+def test_unconstrained_reachability_terminates_on_positive_off_on_cycle():
+    weights = np.ones(3)
+    memberships = tuple(np.eye(3, dtype=bool))
+    cycle = summarize_ordered_membership(
+        np.asarray([[True, False, True], [False, False, False], [False, False, True]]),
+        weights,
+        active=np.asarray([True, False, True]),
+    )
+    to_one = _continuous_edge(1, 0, 1, 0, 1, weights)
+    edges = (CompletionEdge(0, 0, 0, cycle, 1.0), to_one)
+    graph = SearchGraph(memberships, edges, weights, "unconstrained-off-cycle")
+    result = search_history_graph(
+        graph,
+        start_node=0,
+        maximum_on_segments=1,
+        missed_tolerance=0.0,
+        repeat_tolerance=1.0,
+        use_completion_bound=False,
+        wall_time_s=0.2,
+        expanded_limit=20,
+        checkpoint_times=(),
+    )
+    assert result.termination == "queue_exhausted"
+    assert result.metrics.segment_budget_reachability_pruned == 1

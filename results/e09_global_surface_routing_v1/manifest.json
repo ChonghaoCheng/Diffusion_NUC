@@ -1,0 +1,115 @@
+{
+  "code_sha": "91f7418d9facf1a12676a98c7bb2b372965f55de",
+  "config_sha256": "20ee10052ccb07df5555510932a6bc95bee0cbc29afa621c1248c4538ba4249a",
+  "experiment": "E09 full-surface robot-aware coverage routing",
+  "frozen_at": "2026-09-16T21:49:41.886159+10:00",
+  "geometry_bank_sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd",
+  "geometry_graph_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "inputs": [
+    {
+      "bytes": 4739,
+      "name": "candidate_manifest",
+      "path": "/data/chocheng/worktrees/e09-global-surface-routing-v1/results/e08_path_semantics_v1/frozen_candidate_manifest.json",
+      "sha256": "64171ccb7d21e23043beef0751d9406ecd842187e57caa8feed62da3f991a782"
+    },
+    {
+      "bytes": 146328,
+      "name": "candidate_arrays",
+      "path": "/data/chocheng/worktrees/e09-global-surface-routing-v1/results/e08_path_semantics_v1/frozen_candidates.npz",
+      "sha256": "791a8ef557a5a3b9c50b8ccd513709e9be383d32b4b34472a01cff5f176dacb1"
+    },
+    {
+      "bytes": 45014,
+      "name": "quadrature_q1",
+      "path": "/data/chocheng/worktrees/e09-global-surface-routing-v1/results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+      "sha256": "276f6a7df85dc8810d47b0f5d395ca7cac2595b48f5665d68fb89514ad446c5f"
+    },
+    {
+      "bytes": 182002,
+      "name": "quadrature_q2",
+      "path": "/data/chocheng/worktrees/e09-global-surface-routing-v1/results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+      "sha256": "490f1d6b02f2a868d88180afb803e683edddf56cbc18e211131c9f8c902f0967"
+    },
+    {
+      "bytes": 127629,
+      "name": "placements",
+      "path": "/data/chocheng/worktrees/e09-global-surface-routing-v1/configs/riemannian_anisotropy_scenes_v1.json",
+      "sha256": "84ea882a4340a54a2dc891e820c90b1a4ff84c9733c4b5ab577986e569dab71b"
+    },
+    {
+      "bytes": 6652,
+      "name": "robot_model",
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml",
+      "sha256": "ffd0a7b336d3c2d27c35a15cc0d4aaa95196769aca190ac8d6522d3318c345a0"
+    }
+  ],
+  "model_identity": {
+    "site_name": "attachment_site",
+    "tool_axis_index": 2,
+    "tool_axis_sign": 1.0,
+    "xml": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml"
+  },
+  "thresholds": {
+    "construction": {
+      "continuation_target_spacing_m": 0.0005,
+      "edge_joint_step_rad": 0.025,
+      "edge_membership_spacing_m": 0.00025,
+      "max_ik_calls": 1000000,
+      "max_nodes": 2048,
+      "max_off_attempts": 4000,
+      "max_on_attempts": 8000,
+      "max_q_candidates_per_port": 4,
+      "max_seeds_per_port": 8,
+      "retreat_distance_m": 0.02,
+      "round_robin_categories": [
+        "original",
+        "cross_port",
+        "off"
+      ]
+    },
+    "coverage": {
+      "footprint_radius_m": 0.008,
+      "missed_tolerance": 0.02,
+      "repeat_tolerance": 0.1,
+      "resolution_warning": 0.002
+    },
+    "robot": {
+      "axis_opposes_surface_normal": true,
+      "axis_tolerance_degrees": 0.1,
+      "characteristic_length_m": 0.1,
+      "constant_q6_policy": "allowed by E08 sampled pure-terminal-roll audit; actual unwrapped q is retained",
+      "ik_axis_tolerance_degrees": 0.05,
+      "ik_backend": "task5",
+      "ik_damping": 0.002,
+      "ik_max_iterations": 120,
+      "ik_max_update_rad": 0.25,
+      "ik_position_tolerance_m": 5e-05,
+      "joint_metric": "identity",
+      "position_tolerance_m": 0.0001,
+      "sigma_safe": 0.07237417172157597,
+      "site_name": "attachment_site",
+      "tool_axis_index": 2,
+      "tool_axis_sign": 1.0
+    },
+    "search": {
+      "checkpoints_s": [
+        10,
+        30,
+        60,
+        120,
+        300
+      ],
+      "expanded_label_limit": 200000,
+      "initializer_seconds": 30,
+      "private_memory_gib": 6,
+      "queue_order": [
+        "used_reconfigurations",
+        "negative_covered_area",
+        "joint_cost",
+        "serial"
+      ],
+      "single_process_single_core": true,
+      "wall_time_s": 300
+    }
+  }
+}

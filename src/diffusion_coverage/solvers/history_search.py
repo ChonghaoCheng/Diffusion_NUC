@@ -86,13 +86,17 @@ def search_history_graph(
     expanded_limit: int,
     checkpoint_times: tuple[float, ...] = (10.0, 30.0, 60.0, 120.0, 300.0),
     tolerance: float = 1e-12,
+    initial_incumbent: SearchLabel | None = None,
+    coverage_directed_order: bool = False,
 ) -> SearchResult:
     start_time = perf_counter()
     metrics = SearchMetrics()
     initial = initial_episode_state(graph.node_membership[start_node])
     first = SearchLabel(start_node, initial.covered, initial.membership, 0.0, 0.0, 1)
     serial = 0
-    queue: list[tuple[int, float, int, SearchLabel]] = [(0, 0.0, serial, first)]
+    queue: list[tuple[Any, ...]] = [
+        _queue_item(first, graph.weights, serial, coverage_directed_order)
+    ]
     outgoing: dict[int, list[CompletionEdge]] = {}
     for edge in graph.edges:
         outgoing.setdefault(edge.start, []).append(edge)
@@ -101,7 +105,7 @@ def search_history_graph(
 
     pareto: dict[tuple[int, bytes, bytes, int], list[tuple[float, float]]] = {}
     _admit_pareto(first, pareto, tolerance)
-    incumbent: SearchLabel | None = None
+    incumbent: SearchLabel | None = initial_incumbent
     first_solution_seconds: float | None = None
     mechanism_sample: dict[str, Any] | None = None
     cache: dict[tuple[int, bytes, int, str], Any] = {}
@@ -120,7 +124,7 @@ def search_history_graph(
         if metrics.expanded >= expanded_limit:
             termination = "expanded_limit"
             break
-        _, _, _, label = heapq.heappop(queue)
+        *_, label = heapq.heappop(queue)
         if incumbent is not None and _objective(label) >= _objective(incumbent):
             continue
         if _is_goal(label, graph.weights, missed_tolerance, repeat_tolerance, tolerance):
@@ -136,6 +140,7 @@ def search_history_graph(
             graph.weights,
             missed_tolerance,
             maximum_on_segments=maximum_on_segments,
+            deadline=start_time + wall_time_s,
         ):
             if _reachable_area_sufficient(
                 label,
@@ -143,6 +148,7 @@ def search_history_graph(
                 graph.weights,
                 missed_tolerance,
                 maximum_on_segments=None,
+                deadline=start_time + wall_time_s,
             ):
                 metrics.segment_budget_reachability_pruned += 1
             else:
@@ -219,7 +225,10 @@ def search_history_graph(
                 metrics.dominance_pruned += 1
                 continue
             serial += 1
-            heapq.heappush(queue, (child.used_on_segments - 1, child.joint_cost, serial, child))
+            heapq.heappush(
+                queue,
+                _queue_item(child, graph.weights, serial, coverage_directed_order),
+            )
 
     elapsed = perf_counter() - start_time
     while checkpoint_index < len(checkpoint_times) and checkpoint_times[checkpoint_index] <= min(elapsed, wall_time_s):
@@ -267,6 +276,7 @@ def _reachable_area_sufficient(
     missed: float,
     *,
     maximum_on_segments: int | None,
+    deadline: float | None = None,
 ) -> bool:
     """Optimistically union footprints reachable within the ON-segment budget.
 
@@ -275,11 +285,28 @@ def _reachable_area_sufficient(
     between different targets remain relaxed, so this is a safe area upper bound.
     """
 
+    if maximum_on_segments is None:
+        reachable_nodes = {label.node}
+        stack_nodes = [label.node]
+        footprint = label.covered.copy()
+        while stack_nodes:
+            if deadline is not None and perf_counter() >= deadline:
+                return True
+            node = stack_nodes.pop()
+            for edge in outgoing.get(node, ()):
+                footprint |= edge.summary.footprint
+                if edge.end not in reachable_nodes:
+                    reachable_nodes.add(edge.end)
+                    stack_nodes.append(edge.end)
+        return float(np.asarray(weights)[footprint].sum()) >= (1.0 - missed) * float(np.asarray(weights).sum()) - 1e-15
+
     start = (label.node, label.used_on_segments)
     reachable_states = {start}
     stack = [start]
     footprint = label.covered.copy()
     while stack:
+        if deadline is not None and perf_counter() >= deadline:
+            return True
         node, used_on_segments = stack.pop()
         for edge in outgoing.get(node, ()):
             new_used = used_on_segments + edge.summary.off_to_on_count
@@ -291,6 +318,18 @@ def _reachable_area_sufficient(
                 reachable_states.add(state)
                 stack.append(state)
     return float(np.asarray(weights)[footprint].sum()) >= (1.0 - missed) * float(np.asarray(weights).sum()) - 1e-15
+
+
+def _queue_item(
+    label: SearchLabel,
+    weights: np.ndarray,
+    serial: int,
+    coverage_directed: bool,
+) -> tuple[Any, ...]:
+    if coverage_directed:
+        covered = float(np.asarray(weights)[label.covered].sum() / np.asarray(weights).sum())
+        return (label.used_on_segments - 1, -covered, label.joint_cost, serial, label)
+    return (label.used_on_segments - 1, label.joint_cost, serial, label)
 
 
 def _checkpoint(seconds: float, incumbent: SearchLabel | None, metrics: SearchMetrics) -> dict[str, Any]:

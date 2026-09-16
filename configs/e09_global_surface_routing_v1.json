@@ -1,0 +1,50 @@
+{
+  "experiment": "E09 full-surface robot-aware coverage routing",
+  "registered_at": "2026-09-16T23:30:00+10:00",
+  "seed": 20260916,
+  "parent_code_sha": "91f7418d9facf1a12676a98c7bb2b372965f55de",
+  "parent_ara_sha": "8bf8938c62c2c8961e03893177bd1ef9cc3963cc",
+  "inputs": {
+    "candidate_manifest": "results/e08_path_semantics_v1/frozen_candidate_manifest.json",
+    "candidate_arrays": "results/e08_path_semantics_v1/frozen_candidates.npz",
+    "quadrature_q1": "results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+    "quadrature_q2": "results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+    "placements": "configs/riemannian_anisotropy_scenes_v1.json",
+    "robot_model": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml"
+  },
+  "source_candidate_indices": [4, 5, 7],
+  "placements": ["T30", "T27", "T33"],
+  "on_segment_budgets": [1, 2],
+  "surface": {"id": "hemisphere", "radius_m": 0.14, "complete_domain": true},
+  "coverage": {"footprint_radius_m": 0.008, "missed_tolerance": 0.02, "repeat_tolerance": 0.10, "resolution_warning": 0.002},
+  "robot": {
+    "site_name": "attachment_site", "tool_axis_index": 2, "tool_axis_sign": 1.0,
+    "axis_opposes_surface_normal": true, "ik_backend": "task5",
+    "characteristic_length_m": 0.1, "sigma_safe": 0.07237417172157597,
+    "position_tolerance_m": 0.0001, "axis_tolerance_degrees": 0.1,
+    "ik_position_tolerance_m": 0.00005, "ik_axis_tolerance_degrees": 0.05,
+    "ik_damping": 0.002, "ik_max_update_rad": 0.25, "ik_max_iterations": 120,
+    "joint_metric": "identity", "constant_q6_policy": "allowed by E08 sampled pure-terminal-roll audit; actual unwrapped q is retained"
+  },
+  "geometry_graph": {
+    "macro_target_length_m": 0.10, "nearby_connector_radius_m": 0.032,
+    "nearest_nonadjacent_per_port": 6, "coincident_port_tolerance_m": 1e-9,
+    "connector_tie_break": ["intrinsic_distance", "target_port_id"], "freeze_before_robot_results": true
+  },
+  "construction": {
+    "max_nodes": 2048, "max_on_attempts": 8000, "max_off_attempts": 4000,
+    "max_ik_calls": 1000000, "max_q_candidates_per_port": 4, "max_seeds_per_port": 8,
+    "continuation_target_spacing_m": 0.0005, "edge_membership_spacing_m": 0.00025,
+    "edge_joint_step_rad": 0.025, "retreat_distance_m": 0.02,
+    "round_robin_categories": ["original", "cross_port", "off"]
+  },
+  "search": {
+    "initializer_seconds": 30, "wall_time_s": 300, "expanded_label_limit": 200000,
+    "private_memory_gib": 6, "checkpoints_s": [10, 30, 60, 120, 300],
+    "queue_order": ["used_reconfigurations", "negative_covered_area", "joint_cost", "serial"],
+    "single_process_single_core": true
+  },
+  "verification": {"joint_step_rad": 0.0125, "surface_step_m": 0.000125, "quadratures": ["Q1", "Q2"]},
+  "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+  "forbidden": ["hardware", "FM", "saddle rerun", "new candidate families", "threshold relaxation"]
+}

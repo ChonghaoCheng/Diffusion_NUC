@@ -611,6 +611,7 @@ class UR5eKinematics:
         minimum_manipulability: float = 1e-5,
         position_tolerance: float = 3e-3,
         axis_tolerance: float = np.deg2rad(3.0),
+        backend: str = "legacy6",
     ) -> TaskTransitionResult:
         """Track sampled task poses by warm-started IK continuation from one branch."""
 
@@ -630,6 +631,7 @@ class UR5eKinematics:
                 q_values[-1],
                 position_tolerance=min(position_tolerance, 1e-3),
                 axis_tolerance=axis_tolerance,
+                backend=backend,
             )
             if candidate is None:
                 return TaskTransitionResult(
@@ -691,6 +693,7 @@ class UR5eKinematics:
         position_tolerance: float = 3e-3,
         axis_tolerance: float = np.deg2rad(3.0),
         final_tracking_samples: int = 3,
+        backend: str = "legacy6",
     ) -> TaskTransitionResult:
         """Continue along a task edge and finish exactly at a target-layer candidate."""
 
@@ -706,6 +709,7 @@ class UR5eKinematics:
             minimum_manipulability=minimum_manipulability,
             position_tolerance=position_tolerance,
             axis_tolerance=axis_tolerance,
+            backend=backend,
         )
         if not prefix.feasible:
             return prefix
