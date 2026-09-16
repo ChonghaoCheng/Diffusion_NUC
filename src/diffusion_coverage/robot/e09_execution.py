@@ -19,6 +19,7 @@ class E09TraceCheck:
     min_sigma5: float
     min_joint_margin: float
     collision_free: bool
+    sigma5: np.ndarray
 
 
 def sphere_membership_stream(
@@ -108,4 +109,5 @@ def evaluate_e09_fk_trace(
         min_sigma5=float(sigma[active].min(initial=np.inf)),
         min_joint_margin=float(margin.min(initial=np.inf)),
         collision_free=not bool(collisions.any()),
+        sigma5=sigma.copy(),
     )
