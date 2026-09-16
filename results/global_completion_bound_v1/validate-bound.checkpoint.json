@@ -1,0 +1,678 @@
+{
+  "completable_prefixes": 2912,
+  "complete": true,
+  "false_prunes": 0,
+  "graphs": [
+    {
+      "edges": 6,
+      "graph": 0,
+      "nodes": 5,
+      "oracle": [
+        0,
+        4.0
+      ],
+      "paths": 10,
+      "search": [
+        [
+          0,
+          4.0
+        ],
+        [
+          0,
+          4.0
+        ]
+      ],
+      "units": 3
+    },
+    {
+      "edges": 3,
+      "graph": 1,
+      "nodes": 4,
+      "oracle": [
+        1,
+        4.0
+      ],
+      "paths": 4,
+      "search": [
+        [
+          1,
+          4.0
+        ],
+        [
+          1,
+          4.0
+        ]
+      ],
+      "units": 5
+    },
+    {
+      "edges": 9,
+      "graph": 2,
+      "nodes": 7,
+      "oracle": [
+        0,
+        6.0
+      ],
+      "paths": 11,
+      "search": [
+        [
+          0,
+          6.0
+        ],
+        [
+          0,
+          6.0
+        ]
+      ],
+      "units": 5
+    },
+    {
+      "edges": 2,
+      "graph": 3,
+      "nodes": 3,
+      "oracle": null,
+      "paths": 3,
+      "search": [
+        null,
+        null
+      ],
+      "units": 5
+    },
+    {
+      "edges": 7,
+      "graph": 4,
+      "nodes": 6,
+      "oracle": [
+        0,
+        3.0
+      ],
+      "paths": 10,
+      "search": [
+        [
+          0,
+          3.0
+        ],
+        [
+          0,
+          3.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 7,
+      "graph": 5,
+      "nodes": 6,
+      "oracle": [
+        1,
+        11.0
+      ],
+      "paths": 8,
+      "search": [
+        [
+          1,
+          11.0
+        ],
+        [
+          1,
+          11.0
+        ]
+      ],
+      "units": 8
+    },
+    {
+      "edges": 6,
+      "graph": 6,
+      "nodes": 5,
+      "oracle": [
+        0,
+        6.0
+      ],
+      "paths": 7,
+      "search": [
+        [
+          0,
+          6.0
+        ],
+        [
+          0,
+          6.0
+        ]
+      ],
+      "units": 5
+    },
+    {
+      "edges": 5,
+      "graph": 7,
+      "nodes": 6,
+      "oracle": [
+        1,
+        8.0
+      ],
+      "paths": 6,
+      "search": [
+        [
+          1,
+          8.0
+        ],
+        [
+          1,
+          8.0
+        ]
+      ],
+      "units": 4
+    },
+    {
+      "edges": 5,
+      "graph": 8,
+      "nodes": 5,
+      "oracle": [
+        0,
+        3.0
+      ],
+      "paths": 6,
+      "search": [
+        [
+          0,
+          3.0
+        ],
+        [
+          0,
+          3.0
+        ]
+      ],
+      "units": 3
+    },
+    {
+      "edges": 5,
+      "graph": 9,
+      "nodes": 4,
+      "oracle": [
+        0,
+        6.0
+      ],
+      "paths": 7,
+      "search": [
+        [
+          0,
+          6.0
+        ],
+        [
+          0,
+          6.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 12,
+      "graph": 10,
+      "nodes": 9,
+      "oracle": [
+        1,
+        16.0
+      ],
+      "paths": 32,
+      "search": [
+        [
+          1,
+          16.0
+        ],
+        [
+          1,
+          16.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 14,
+      "graph": 11,
+      "nodes": 10,
+      "oracle": [
+        0,
+        9.0
+      ],
+      "paths": 27,
+      "search": [
+        [
+          0,
+          9.0
+        ],
+        [
+          0,
+          9.0
+        ]
+      ],
+      "units": 5
+    },
+    {
+      "edges": 5,
+      "graph": 12,
+      "nodes": 6,
+      "oracle": [
+        1,
+        18.0
+      ],
+      "paths": 6,
+      "search": [
+        [
+          1,
+          18.0
+        ],
+        [
+          1,
+          18.0
+        ]
+      ],
+      "units": 4
+    },
+    {
+      "edges": 9,
+      "graph": 13,
+      "nodes": 7,
+      "oracle": [
+        0,
+        1.0
+      ],
+      "paths": 15,
+      "search": [
+        [
+          0,
+          1.0
+        ],
+        [
+          0,
+          1.0
+        ]
+      ],
+      "units": 4
+    },
+    {
+      "edges": 4,
+      "graph": 14,
+      "nodes": 5,
+      "oracle": [
+        0,
+        13.0
+      ],
+      "paths": 5,
+      "search": [
+        [
+          0,
+          13.0
+        ],
+        [
+          0,
+          13.0
+        ]
+      ],
+      "units": 7
+    },
+    {
+      "edges": 18,
+      "graph": 15,
+      "nodes": 10,
+      "oracle": [
+        0,
+        9.0
+      ],
+      "paths": 40,
+      "search": [
+        [
+          0,
+          9.0
+        ],
+        [
+          0,
+          9.0
+        ]
+      ],
+      "units": 8
+    },
+    {
+      "edges": 18,
+      "graph": 16,
+      "nodes": 10,
+      "oracle": [
+        0,
+        1.0
+      ],
+      "paths": 50,
+      "search": [
+        [
+          0,
+          1.0
+        ],
+        [
+          0,
+          1.0
+        ]
+      ],
+      "units": 3
+    },
+    {
+      "edges": 15,
+      "graph": 17,
+      "nodes": 8,
+      "oracle": [
+        0,
+        6.0
+      ],
+      "paths": 49,
+      "search": [
+        [
+          0,
+          6.0
+        ],
+        [
+          0,
+          6.0
+        ]
+      ],
+      "units": 8
+    },
+    {
+      "edges": 9,
+      "graph": 18,
+      "nodes": 7,
+      "oracle": [
+        1,
+        18.0
+      ],
+      "paths": 12,
+      "search": [
+        [
+          1,
+          18.0
+        ],
+        [
+          1,
+          18.0
+        ]
+      ],
+      "units": 7
+    },
+    {
+      "edges": 18,
+      "graph": 19,
+      "nodes": 10,
+      "oracle": [
+        0,
+        9.0
+      ],
+      "paths": 63,
+      "search": [
+        [
+          0,
+          9.0
+        ],
+        [
+          0,
+          9.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 20,
+      "graph": 20,
+      "nodes": 10,
+      "oracle": [
+        0,
+        6.0
+      ],
+      "paths": 113,
+      "search": [
+        [
+          0,
+          6.0
+        ],
+        [
+          0,
+          6.0
+        ]
+      ],
+      "units": 4
+    },
+    {
+      "edges": 5,
+      "graph": 21,
+      "nodes": 5,
+      "oracle": [
+        0,
+        6.0
+      ],
+      "paths": 7,
+      "search": [
+        [
+          0,
+          6.0
+        ],
+        [
+          0,
+          6.0
+        ]
+      ],
+      "units": 4
+    },
+    {
+      "edges": 10,
+      "graph": 22,
+      "nodes": 7,
+      "oracle": [
+        0,
+        3.0
+      ],
+      "paths": 23,
+      "search": [
+        [
+          0,
+          3.0
+        ],
+        [
+          0,
+          3.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 5,
+      "graph": 23,
+      "nodes": 5,
+      "oracle": [
+        1,
+        9.0
+      ],
+      "paths": 6,
+      "search": [
+        [
+          1,
+          9.0
+        ],
+        [
+          1,
+          9.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 5,
+      "graph": 24,
+      "nodes": 5,
+      "oracle": [
+        0,
+        2.0
+      ],
+      "paths": 7,
+      "search": [
+        [
+          0,
+          2.0
+        ],
+        [
+          0,
+          2.0
+        ]
+      ],
+      "units": 5
+    },
+    {
+      "edges": 4,
+      "graph": 25,
+      "nodes": 4,
+      "oracle": null,
+      "paths": 5,
+      "search": [
+        null,
+        null
+      ],
+      "units": 7
+    },
+    {
+      "edges": 16,
+      "graph": 26,
+      "nodes": 10,
+      "oracle": [
+        0,
+        12.0
+      ],
+      "paths": 36,
+      "search": [
+        [
+          0,
+          12.0
+        ],
+        [
+          0,
+          12.0
+        ]
+      ],
+      "units": 7
+    },
+    {
+      "edges": 9,
+      "graph": 27,
+      "nodes": 6,
+      "oracle": [
+        0,
+        7.0
+      ],
+      "paths": 11,
+      "search": [
+        [
+          0,
+          7.0
+        ],
+        [
+          0,
+          7.0
+        ]
+      ],
+      "units": 3
+    },
+    {
+      "edges": 12,
+      "graph": 28,
+      "nodes": 9,
+      "oracle": [
+        0,
+        7.0
+      ],
+      "paths": 27,
+      "search": [
+        [
+          0,
+          7.0
+        ],
+        [
+          0,
+          7.0
+        ]
+      ],
+      "units": 7
+    },
+    {
+      "edges": 18,
+      "graph": 29,
+      "nodes": 10,
+      "oracle": [
+        0,
+        8.0
+      ],
+      "paths": 40,
+      "search": [
+        [
+          0,
+          8.0
+        ],
+        [
+          0,
+          8.0
+        ]
+      ],
+      "units": 8
+    },
+    {
+      "edges": 8,
+      "graph": 30,
+      "nodes": 5,
+      "oracle": [
+        0,
+        8.0
+      ],
+      "paths": 10,
+      "search": [
+        [
+          0,
+          8.0
+        ],
+        [
+          0,
+          8.0
+        ]
+      ],
+      "units": 6
+    },
+    {
+      "edges": 4,
+      "graph": 31,
+      "nodes": 4,
+      "oracle": [
+        0,
+        2.0
+      ],
+      "paths": 5,
+      "search": [
+        [
+          0,
+          2.0
+        ],
+        [
+          0,
+          2.0
+        ]
+      ],
+      "units": 4
+    }
+  ],
+  "inadmissible_prefixes": 0,
+  "manifest_sha256": "e5e262bd961a5c5f78d1e4139484c428d8df36e5c37670b635b4288481d0aab0",
+  "named_tests": {
+    "area_weighted_quantile": "pytest:test_area_weighted_quantile_can_ignore_small_unreachable_unit",
+    "endpoint_activity_and_winding": "pytest:test_joint_winding_and_activity_are_not_implicit_equivalence_keys",
+    "episode_corner_cases": "pytest:test_episode_corner_cases_and_initial_footprint",
+    "graph_monotonicity": "pytest:test_off_reconfiguration_and_cheaper_added_edge_lower_bound",
+    "history_dependence": "pytest:test_same_node_different_history_and_roll_does_not_revisit",
+    "off_reconfiguration": "pytest:test_off_reconfiguration_and_cheaper_added_edge_lower_bound",
+    "random_segmentation_summary": "pytest:test_random_segmentation_matches_full_membership",
+    "shared_bottleneck_not_summed": "pytest:test_shared_bottleneck_uses_max_not_sum"
+  },
+  "oracle_state_mismatches": 0,
+  "prefixes": 3079,
+  "random_graphs": 32,
+  "search_mismatches": 0,
+  "stage": "validate-bound"
+}

@@ -1,0 +1,72 @@
+{
+  "common_manifest_sha256": "e5e262bd961a5c5f78d1e4139484c428d8df36e5c37670b635b4288481d0aab0",
+  "frozen_before_search": true,
+  "graphs": [
+    {
+      "build_s": 0.0,
+      "connection_attempts": 0,
+      "connection_edges": 0,
+      "edges": 0,
+      "graph_hash": null,
+      "nodes": 0,
+      "scene_id": "T27",
+      "status": "not_qualified",
+      "surface_id": "hemisphere"
+    },
+    {
+      "build_s": 0.0,
+      "connection_attempts": 0,
+      "connection_edges": 0,
+      "edges": 0,
+      "graph_hash": null,
+      "nodes": 0,
+      "scene_id": "T30",
+      "status": "not_qualified",
+      "surface_id": "hemisphere"
+    },
+    {
+      "build_s": 0.0,
+      "connection_attempts": 0,
+      "connection_edges": 0,
+      "edges": 0,
+      "graph_hash": null,
+      "nodes": 0,
+      "scene_id": "T33",
+      "status": "not_qualified",
+      "surface_id": "hemisphere"
+    },
+    {
+      "build_s": 0.0,
+      "connection_attempts": 0,
+      "connection_edges": 0,
+      "edges": 0,
+      "graph_hash": null,
+      "nodes": 0,
+      "scene_id": "T10",
+      "status": "not_qualified",
+      "surface_id": "saddle"
+    },
+    {
+      "build_s": 0.0,
+      "connection_attempts": 0,
+      "connection_edges": 0,
+      "edges": 0,
+      "graph_hash": null,
+      "nodes": 0,
+      "scene_id": "T17",
+      "status": "not_qualified",
+      "surface_id": "saddle"
+    },
+    {
+      "build_s": 0.0,
+      "connection_attempts": 0,
+      "connection_edges": 0,
+      "edges": 0,
+      "graph_hash": null,
+      "nodes": 0,
+      "scene_id": "T21",
+      "status": "not_qualified",
+      "surface_id": "saddle"
+    }
+  ]
+}

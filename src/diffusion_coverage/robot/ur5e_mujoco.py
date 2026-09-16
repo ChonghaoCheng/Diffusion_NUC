@@ -107,7 +107,16 @@ class UR5eKinematics:
         damping: float = 2e-3,
         max_update: float = 0.25,
         constrain_limits: bool = True,
+        backend: str = "legacy6",
     ) -> IKCandidate | None:
+        """Solve the free-roll position/tool-axis task.
+
+        ``legacy6`` preserves the historical implementation and its default.  ``task5``
+        projects angular velocity and the cross-product residual onto the tangent plane
+        of the current tool axis, so rotation about that axis is not penalized.
+        """
+        if backend not in {"legacy6", "task5"}:
+            raise ValueError("backend must be 'legacy6' or 'task5'")
         target = np.asarray(target_position, dtype=np.float64)
         axis = np.asarray(target_axis, dtype=np.float64)
         if target.shape != (3,) or axis.shape != (3,):
@@ -124,7 +133,6 @@ class UR5eKinematics:
 
         jacobian_position = np.zeros((3, self.model.nv), dtype=np.float64)
         jacobian_rotation = np.zeros((3, self.model.nv), dtype=np.float64)
-        identity = np.eye(self.model.nv, dtype=np.float64)
         for _ in range(max_iterations):
             self.data.qpos[:] = q
             mujoco.mj_forward(self.model, self.data)
@@ -144,10 +152,19 @@ class UR5eKinematics:
                 jacobian_rotation,
                 self.site_id,
             )
-            jacobian = np.vstack((jacobian_position, jacobian_rotation))
-            residual = np.concatenate((position_error_vector, axis_error_vector))
+            if backend == "legacy6":
+                jacobian = np.vstack((jacobian_position, jacobian_rotation))
+                residual = np.concatenate((position_error_vector, axis_error_vector))
+            else:
+                # Import locally to avoid a module-level cycle: task_kinematics imports
+                # UR5eKinematics for its public evaluation helper.
+                from diffusion_coverage.robot.task_kinematics import orthonormal_axis_basis
+
+                basis = orthonormal_axis_basis(current_axis)
+                jacobian = np.vstack((jacobian_position, basis.T @ jacobian_rotation))
+                residual = np.concatenate((position_error_vector, basis.T @ axis_error_vector))
             update = jacobian.T @ np.linalg.solve(
-                jacobian @ jacobian.T + damping**2 * np.eye(6), residual
+                jacobian @ jacobian.T + damping**2 * np.eye(jacobian.shape[0]), residual
             )
             update_norm = float(np.linalg.norm(update))
             if update_norm > max_update:

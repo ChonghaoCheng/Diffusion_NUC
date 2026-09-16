@@ -1,0 +1,1 @@
+surface_id,scene_id,k,arm,dominance,repeat_budget,segment_budget,reachable_area,completion_bound,bound_calls,bound_cache_hits,bound_time_s,bound_nonzero_fraction,bound_stronger_fraction

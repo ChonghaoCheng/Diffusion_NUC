@@ -1,0 +1,1 @@
+surface_id,scene_id,k,arm,graph_hash,found,first_solution_s,total_search_s,termination,optimality_proved,on_segments,E_miss,E_rep,E_NUC,J_q,expanded,generated,peak_memory_bytes,connection_capability_limited,selected_plan_witness

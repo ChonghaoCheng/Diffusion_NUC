@@ -1,0 +1,7 @@
+python scripts/run_global_completion_v1.py --stage audit
+python scripts/run_global_completion_v1.py --stage qualify
+python scripts/run_global_completion_v1.py --stage validate-bound
+python scripts/run_global_completion_v1.py --stage build-graph
+python scripts/run_global_completion_v1.py --stage compare
+python scripts/run_global_completion_v1.py --stage verify
+python scripts/summarize_global_completion_v1.py

@@ -1,0 +1,106 @@
+{
+  "experiment": "E08 global completion bound v1",
+  "registered_at": "2026-09-16T00:00:00+10:00",
+  "code_baseline": "ad1696bd450bffb282baae61b5223ba8bc7ab3db",
+  "ara_baseline": "44ebf6642d3ee9571b99a11180e3cbcbaa5cc730",
+  "seed": 20260916,
+  "inputs": {
+    "historical_config": "configs/symmetry_preserving_global_layout_v1.json",
+    "placements": "configs/riemannian_anisotropy_scenes_v1.json",
+    "canonical_paths": "results/symmetry_preserving_global_layout_v1/canonical_paths.json",
+    "scene_summary": "results/symmetry_preserving_global_layout_v1/scene_summary.csv",
+    "execution_results": "results/symmetry_preserving_global_layout_v1/execution_results.csv",
+    "symmetry_arrays": "results/symmetry_preserving_global_layout_v1/symmetry_orbits.npz",
+    "robot_model": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml"
+  },
+  "historical_replay": {
+    "policy": "use each source artifact's original geometry, sampling, position tolerance, and axis tolerance without reinterpretation"
+  },
+  "process_contract": {
+    "static_complete_surface": true,
+    "nominal_normal_axis": true,
+    "free_tool_roll": true,
+    "dynamics_or_force_model": false,
+    "minimum_feed_rate": false,
+    "dose_model": false,
+    "collision_claim": "existing MuJoCo self-collision pairs only; workpiece, tool body beyond the model, and external environment are not added"
+  },
+  "robot": {
+    "site_name": "attachment_site",
+    "tool_axis_index": 2,
+    "tool_axis_sign": 1.0,
+    "characteristic_length_m": 0.1,
+    "joint_metric": "identity",
+    "sigma_safe": 0.07237417172157597,
+    "position_tolerance_m": 0.0001,
+    "axis_tolerance_degrees": 0.1,
+    "ik_position_tolerance_m": 0.00005,
+    "ik_axis_tolerance_degrees": 0.05,
+    "ik_damping": 0.002,
+    "ik_max_update_rad": 0.25,
+    "ik_max_iterations": 120,
+    "dense_q_step_rad": 0.025,
+    "verification_q_step_rad": 0.0125,
+    "reverse_axis_policy": "record cross-residual degeneracy; do not add a backend-specific rescue"
+  },
+  "coverage": {
+    "footprint_radius_m": 0.008,
+    "missed_tolerance": 0.02,
+    "repeat_tolerance": 0.10,
+    "main_path_sample_spacing_m": 0.001,
+    "verification_path_sample_spacing_m": 0.0005,
+    "main_samples_per_face": 4,
+    "verification_samples_per_face": 16,
+    "initial_static_footprint_counts_as_first_action": true
+  },
+  "on_segment_budgets": [1, 2],
+  "candidate_families": {
+    "saddle": [
+      {"name": "raster_u_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_v_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "spiral_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_u_phase_0.00_k2", "max_segments": 2, "overlap": 1.0}
+    ],
+    "hemisphere": [
+      {"name": "raster_u_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_u_phase_0.25", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_v_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "spiral_phase_0.00", "max_segments": 1, "overlap": 1.0}
+    ]
+  },
+  "ik_comparison": {
+    "scenes": ["saddle/T17", "saddle/T21", "saddle/T10", "hemisphere/T30", "hemisphere/T27", "hemisphere/T33"],
+    "max_start_seeds": 6,
+    "witness_samples": 32,
+    "additional_legal_samples": 16,
+    "backends": ["legacy6", "task5"]
+  },
+  "graph": {
+    "macro_target_length_m": 0.048,
+    "max_q_candidates_per_surface_position": 4,
+    "max_configuration_nodes": 1024,
+    "max_connection_attempts": 12000,
+    "max_solve_ik_calls": 30000,
+    "freeze_before_search": true
+  },
+  "bound_validation": {
+    "random_graphs": 32,
+    "max_units": 8,
+    "max_nodes": 10,
+    "integer_area_weight_max": 7,
+    "comparison_tolerance": 1e-12
+  },
+  "search": {
+    "wall_time_s": 300,
+    "expanded_label_limit": 200000,
+    "checkpoints_s": [10, 30, 60, 120, 300],
+    "queue_order": ["used_reconfigurations", "joint_length", "serial"],
+    "conservative_float_tolerance": 1e-12,
+    "single_process_single_core": true
+  },
+  "verification": {
+    "accepted_wording": "accepted under sampled checker",
+    "continuous_interval_certificate": false,
+    "change_pass_or_order_flag": "numerical_resolution_sensitive"
+  }
+}

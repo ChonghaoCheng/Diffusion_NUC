@@ -1,0 +1,207 @@
+{
+  "ara_head": "44ebf6642d3ee9571b99a11180e3cbcbaa5cc730",
+  "code_diff_bytes": 3441,
+  "code_diff_sha256": "902dd7c6d67201c86e1d33aacc6968521980c3d6c1afce02124c8b82054ebfa6",
+  "code_head": "ad1696bd450bffb282baae61b5223ba8bc7ab3db",
+  "config_sha256": "3fe8d0a79c7ad686acad1119b6b4c5c60f2f500c9802d8296a01105e968a6ded",
+  "frozen_before_main_results": true,
+  "inputs": [
+    {
+      "bytes": 556543,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/base_0.obj",
+      "sha256": "9a3b21f1524baef6af8a52d7af90b6e94b79f7e3c2b04a0f6581f74d22291b0b"
+    },
+    {
+      "bytes": 638415,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/base_1.obj",
+      "sha256": "cf7d54691a2c1eeda280955ebd6bd83c2dbecfc46fb53c10198f05d107511b50"
+    },
+    {
+      "bytes": 1691648,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/forearm_0.obj",
+      "sha256": "64c049a55149c2ab355594d52302b53d3e34da3677ceaa1917c427cde7743146"
+    },
+    {
+      "bytes": 76202,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/forearm_1.obj",
+      "sha256": "a96fe203015cf532b193f414cd01268c7c36795e51a837dd33afd122334f81f2"
+    },
+    {
+      "bytes": 932534,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/forearm_2.obj",
+      "sha256": "05b436505fc595aeab26675590c2b56b88a65b2d52d6352096fed9f07cb4c4ca"
+    },
+    {
+      "bytes": 1095775,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/forearm_3.obj",
+      "sha256": "fa31af19cfad7a765b62e8a2d5931cb014b88de84195a7850b4e5ee902112e9a"
+    },
+    {
+      "bytes": 2947794,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/shoulder_0.obj",
+      "sha256": "477387a7e7312782a6040484a3c2c2fcee33f40109f419076e31b6f6e1692c68"
+    },
+    {
+      "bytes": 569646,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/shoulder_1.obj",
+      "sha256": "8537bba02804640ddf6e260f79fe66e895b3229ed3d44298a95e8e027eb5d435"
+    },
+    {
+      "bytes": 2440344,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/shoulder_2.obj",
+      "sha256": "291714518416bb8f0bafbf123867db011ecbf5146a05245ca5893ee8c57d4e21"
+    },
+    {
+      "bytes": 156252,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/upperarm_0.obj",
+      "sha256": "14143d4f1175a7dbacc8e2f2f98f1cac5a2b2e238cd46cd03654d31f2610eb53"
+    },
+    {
+      "bytes": 1090164,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/upperarm_1.obj",
+      "sha256": "272899e927f4a32b7c25e34560ec70654c0346cc8ed1c616c0555f3f53b32d14"
+    },
+    {
+      "bytes": 3677923,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/upperarm_2.obj",
+      "sha256": "86c05350d60eb0e7e28a81b544267478b7db997baba41cef19088ebbeffecfa1"
+    },
+    {
+      "bytes": 5346165,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/upperarm_3.obj",
+      "sha256": "b257dab441e6fab64ea03b4b87029d8a96554ad1a513cce944d56acba0ad948a"
+    },
+    {
+      "bytes": 278871,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist1_0.obj",
+      "sha256": "7ef0c59b5c5d56a9902435c9a058b27d2a38c85fe2bae02d00a9284dd1f4d519"
+    },
+    {
+      "bytes": 2470967,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist1_1.obj",
+      "sha256": "ee6d5c562e6becef94109b0543329080d285d1aef521a01ed98e18a5bf1e8684"
+    },
+    {
+      "bytes": 1657638,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist1_2.obj",
+      "sha256": "88c66dc64f15391287147d50add37729a3f41dadd80b1f859cf2cb6d45daf32a"
+    },
+    {
+      "bytes": 846741,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist2_0.obj",
+      "sha256": "2ac2e2e39d8f7005bc3b3ab26cd61634be2e14930074615da5318b9ee7c569a8"
+    },
+    {
+      "bytes": 2156900,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist2_1.obj",
+      "sha256": "a721d06dc61d3b3a8ec58c035c9e3358ed30d6991a72e077d8abf3c3c203b633"
+    },
+    {
+      "bytes": 2141392,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist2_2.obj",
+      "sha256": "6df4335c8bd5e881fda2c224f770115ffe9ddd0cd321ebe3c0a4a310796f0987"
+    },
+    {
+      "bytes": 211390,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/assets/wrist3.obj",
+      "sha256": "0e51748f9c93bd66604360a5cf7e2e8a6e754550be64076333ff4fc19ec90c61"
+    },
+    {
+      "bytes": 6652,
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml",
+      "sha256": "ffd0a7b336d3c2d27c35a15cc0d4aaa95196769aca190ac8d6522d3318c345a0"
+    },
+    {
+      "bytes": 127629,
+      "path": "/data/chocheng/worktrees/global-completion-bound-v1/configs/riemannian_anisotropy_scenes_v1.json",
+      "sha256": "84ea882a4340a54a2dc891e820c90b1a4ff84c9733c4b5ab577986e569dab71b"
+    },
+    {
+      "bytes": 1856,
+      "path": "/data/chocheng/worktrees/global-completion-bound-v1/configs/symmetry_preserving_global_layout_v1.json",
+      "sha256": "1edefe06621775072fa49a5fd97d0ccc72f4187b4b3cc2982681cdbcc814d295"
+    },
+    {
+      "bytes": 2252,
+      "path": "/data/chocheng/worktrees/global-completion-bound-v1/results/symmetry_preserving_global_layout_v1/canonical_paths.json",
+      "sha256": "c32d457adef27845ed08c34ab475da7fe59e0f0ca92086f24670fd5220baf3a6"
+    },
+    {
+      "bytes": 33548,
+      "path": "/data/chocheng/worktrees/global-completion-bound-v1/results/symmetry_preserving_global_layout_v1/execution_results.csv",
+      "sha256": "f324de931f05981affb2be5fea7a78cc163b77ddf0a388e54565e821fda52e22"
+    },
+    {
+      "bytes": 1202,
+      "path": "/data/chocheng/worktrees/global-completion-bound-v1/results/symmetry_preserving_global_layout_v1/scene_summary.csv",
+      "sha256": "2cd0d03f09285c72248cb1ec2e83043e695e5a968fcd3cc1bb9602639343a8e4"
+    },
+    {
+      "bytes": 5242288,
+      "path": "/data/chocheng/worktrees/global-completion-bound-v1/results/symmetry_preserving_global_layout_v1/symmetry_orbits.npz",
+      "sha256": "4431fbef1a7c0cf09d6c0251866ef426fa921629ac970600d5a337d2af15ff08"
+    }
+  ],
+  "plan_sha256": "35bf9060496f7ffb21e51f752a046be4bb2676cbb2b1ac0462619280a77d5be5",
+  "registered_at": "2026-09-16T00:00:00+10:00",
+  "thresholds": {
+    "coverage": {
+      "footprint_radius_m": 0.008,
+      "initial_static_footprint_counts_as_first_action": true,
+      "main_path_sample_spacing_m": 0.001,
+      "main_samples_per_face": 4,
+      "missed_tolerance": 0.02,
+      "repeat_tolerance": 0.1,
+      "verification_path_sample_spacing_m": 0.0005,
+      "verification_samples_per_face": 16
+    },
+    "graph": {
+      "freeze_before_search": true,
+      "macro_target_length_m": 0.048,
+      "max_configuration_nodes": 1024,
+      "max_connection_attempts": 12000,
+      "max_q_candidates_per_surface_position": 4,
+      "max_solve_ik_calls": 30000
+    },
+    "on_segment_budgets": [
+      1,
+      2
+    ],
+    "robot": {
+      "axis_tolerance_degrees": 0.1,
+      "characteristic_length_m": 0.1,
+      "dense_q_step_rad": 0.025,
+      "ik_axis_tolerance_degrees": 0.05,
+      "ik_damping": 0.002,
+      "ik_max_iterations": 120,
+      "ik_max_update_rad": 0.25,
+      "ik_position_tolerance_m": 5e-05,
+      "joint_metric": "identity",
+      "position_tolerance_m": 0.0001,
+      "reverse_axis_policy": "record cross-residual degeneracy; do not add a backend-specific rescue",
+      "sigma_safe": 0.07237417172157597,
+      "site_name": "attachment_site",
+      "tool_axis_index": 2,
+      "tool_axis_sign": 1.0,
+      "verification_q_step_rad": 0.0125
+    },
+    "search": {
+      "checkpoints_s": [
+        10,
+        30,
+        60,
+        120,
+        300
+      ],
+      "conservative_float_tolerance": 1e-12,
+      "expanded_label_limit": 200000,
+      "queue_order": [
+        "used_reconfigurations",
+        "joint_length",
+        "serial"
+      ],
+      "single_process_single_core": true,
+      "wall_time_s": 300
+    }
+  }
+}

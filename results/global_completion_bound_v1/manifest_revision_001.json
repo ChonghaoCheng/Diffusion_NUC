@@ -1,0 +1,32 @@
+{
+  "revision": 1,
+  "timestamp": "2026-09-16",
+  "previous_manifest_sha256": "e5e262bd961a5c5f78d1e4139484c428d8df36e5c37670b635b4288481d0aab0",
+  "reason": "Restored the pre-existing diffusion_coverage.solvers public exports after detecting that the new package initializer had replaced them. The E08 modules and algorithms did not change.",
+  "timing": "After qualification produced zero eligible real-surface scenes and therefore after zero real-graph S0/S1 runs.",
+  "new_code_diff_sha256": "52c1b603e556c1c87b377b3911f7de04600911266db66d48471ee2dcd15af9c1",
+  "code_state_sha256": "65660e0f409494ed547ad078e2bcc0f7c99c628bfc0cc35a2851389f60c3c0b2",
+  "code_state_definition": "SHA256 over sorted git status, path, complete-file SHA256, and byte count for every modified or untracked non-ignored code file; unlike git diff, this includes new untracked files.",
+  "changed_code_files": {
+    "configs/global_completion_bound_v1.json": "3fe8d0a79c7ad686acad1119b6b4c5c60f2f500c9802d8296a01105e968a6ded",
+    "scripts/run_global_completion_v1.py": "5745ed2499e23929d0c4333bf7c8b5dd0537ecb150d4543c67f8d56d9dad8833",
+    "scripts/summarize_global_completion_v1.py": "18a882cfaafcdde925df381377a56097ce62fe332355da348c35fcbabb22a9c7",
+    "src/diffusion_coverage/coverage/episode_summary.py": "5ef7c77081a545722c57d986340d206da4afbf54f0c3c6ab423f7cc041837073",
+    "src/diffusion_coverage/robot/ur5e_mujoco.py": "b82dc4df21d0e1c9c7f3df9d1505be2bdbcb8cd01cf769eb9c152c4123230f26",
+    "src/diffusion_coverage/solvers/completion_bound.py": "c71cca1bff79ad6dc24dc238cc15e63ba7cc76393581a373e87478f2e1dd35c4",
+    "src/diffusion_coverage/solvers/history_search.py": "ea73e98ce325dfbe9d97ef711c70af00814b950abd0e60bf7674ac4c9cc262f4",
+    "tests/test_completion_bound.py": "8207ca8e19106bf9a94dbcf196e72845afaf2b7490b678cbbdf0a7bbacc8ef69"
+  },
+  "validation": {
+    "pytest": "36 passed",
+    "random_graphs": 32,
+    "prefixes": 3079,
+    "completable_prefixes": 2912,
+    "oracle_state_mismatches": 0,
+    "inadmissible_prefixes": 0,
+    "false_prunes": 0,
+    "search_mismatches": 0,
+    "bound_validation_sha256": "ed68ba4fc150765c323e24b149c0184f0c85cab90b91c02b545ef2bf7ddbe3c6"
+  },
+  "real_search_results_affected": false
+}
