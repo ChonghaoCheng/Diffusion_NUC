@@ -738,7 +738,8 @@ def make_plots(root,config,output,final,cache):
 
 def write_report(root,config,output):
     results=read_csv(output/"global_results.csv");validation=read_csv(output/"final_validation.csv");graphs=json.loads((output/"graph_manifest.json").read_text())["multi_state_graphs"];routes=read_csv(output/"route_classification.csv");parent=read_csv(output/"parent_e09_refined_validation.csv")
-    write_connector_regressions(output);make_graph_plots(root,output,graphs)
+    write_connector_regressions(output);write_failure_taxonomy(output);make_graph_plots(root,output,graphs)
+    write_json(output/"local_graph_retention.json",{"published":False,"reason":"large reconstructible intermediates excluded from Git","reconstruction":"run prepare, test, then build with the frozen config","graphs":[{"scene_id":g["scene_id"],"local_path":g["graph_file"],"sha256":g["graph_file_sha256"],"bytes":(root/g["graph_file"]).stat().st_size} for g in graphs]})
     manifest=json.loads((output/"manifest.json").read_text());manifest["stage_code_shas"]={"frozen_contract":"6b990e0555e1a56aa441a95cccfb818de74c702f","graph_construction":"ed73e45f72aa1df2d880b9604468e65c978fa042","valid_search_replay":"bb05ea9252a69687e435b3ca4458c8d5f21c13bd","refined_validation":"bdb24e4"};manifest["measured_outputs_complete_at"]="2026-09-17T02:18:00+10:00";write_json(output/"manifest.json",manifest)
     lines=["# E09-R1 synchronized continuous routing repair","","## Progress","",f"All three repaired graphs, 24 cold-start method cells, and the fixed refined validation schedule completed. The graph/search results use `bb05ea9252a69687e435b3ca4458c8d5f21c13bd`; the subsequently versioned validation adapter is recorded in the manifest. Two unique new q witnesses were validated; one passed and one failed the unchanged coverage contract.","","## Six-task four-method table","","Cells show refined validation or absence of a graph plan, followed by search termination.","","| scene | k | F | G0 | G1 | S |","|---|---:|---|---|---|---|"]
     for scene in config["placements"]:
@@ -776,6 +777,14 @@ def write_connector_regressions(output):
         subset=[x for x in candidates if x["scene_id"]==scene and x["seed_id"]!="published_root"];per_port={p:{x["seed_id"] for x in subset if x["port_id"]==p} for p in {x["port_id"] for x in subset}};complete=sum(len(v)==8 for v in per_port.values());rows.append({"case":f"{scene}_eight_seed_enumeration","status":"PASS" if complete==238 else "LIMITED","evidence":"port_candidates.csv","detail":f"{complete}/238 ports recorded all seed IDs 0..7"})
         source=next(x for x in attempts if x["scene_id"]==scene and x["kind"]=="source" and x["accepted"]=="True");off=next(x for x in attempts if x["scene_id"]==scene and x["kind"]=="off_reconfiguration" and x["accepted"]=="True");rows.append({"case":f"{scene}_accepted_source_identity_control","status":"PASS","evidence":"edge_attempts.csv","detail":f"attempt {source['attempt_id']} exact endpoints, synchronized dense task and membership checks passed"});rows.append({"case":f"{scene}_OFF_retreat_middle_return_control","status":"PASS","evidence":"edge_attempts.csv","detail":f"attempt {off['attempt_id']} all dense limit/collision checks passed"})
     write_csv(output/"connector_regressions.csv",rows)
+
+
+def write_failure_taxonomy(output):
+    attempts=read_csv(output/"edge_attempts.csv");counts={}
+    for row in attempts:
+        key=(row["scene_id"],row["kind"],row["reason"],row["accepted"]);counts[key]=counts.get(key,0)+1
+    rows=[{"scene_id":key[0],"edge_kind":key[1],"reason":key[2],"accepted":key[3],"attempts":value} for key,value in sorted(counts.items())]
+    write_csv(output/"failure_taxonomy.csv",rows)
 
 
 def make_graph_plots(root,output,graphs):
