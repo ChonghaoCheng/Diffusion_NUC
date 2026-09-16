@@ -290,13 +290,13 @@ def verify_all(root,config,output):
     for row in comparison:
         if not row.get("plan_file"):
             rows.append({"scene_id":row["scene_id"],"k":row["k"],"method":row["method"],"status":"NO_PLAN","E_miss_Q1":None,"E_rep_Q1":None,"E_miss_Q2":None,"E_rep_Q2":None,"Q1_Q2_max_change":None,"min_sigma5":None,"max_position_error_m":None,"max_axis_error_deg":None,"collision_free":None,"whole_edge_summary_match":None,"plan_file":None}); continue
-        graph_row=next(item for item in json.loads((output/"graph_manifest.json").read_text())["placements"] if item["scene_id"]==row["scene_id"]); data=load_robot_graph(root/graph_row["graph_file"]); scene=next(s for s in selected_scenes(root,config) if s["candidate_id"]==row["scene_id"]); plan=np.load(root/row["plan_file"],allow_pickle=False); q=plan["q"]; active=plan["activity"]; target=plan["target"]
+        graph_row=next(item for item in json.loads((output/"graph_manifest.json").read_text())["placements"] if item["scene_id"]==row["scene_id"]); data=load_robot_graph(root/graph_row["graph_file"]); scene=next(s for s in selected_scenes(root,config) if s["candidate_id"]==row["scene_id"]); plan=np.load(root/row["plan_file"],allow_pickle=False); q,active,target=densify_validation_trace(plan["q"],plan["activity"],plan["target"],float(config["surface"]["radius_m"]),float(config["verification"]["joint_step_rad"]),float(config["verification"]["surface_step_m"])); decomposition=plan["cost_decomposition"]
         robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"])); metrics={}; checks={}
         for level in ("Q1","Q2"):
             quad=np.load(root/config["inputs"][f"quadrature_{level.lower()}"]); check=evaluate_e09_fk_trace(robot,q,active,target,np.asarray(scene["transform_base_from_surface"]),quad["points"],quad["weights"],sphere_radius=float(config["surface"]["radius_m"]),footprint_radius=float(config["coverage"]["footprint_radius_m"]),characteristic_length=float(config["robot"]["characteristic_length_m"])); total=float(quad["weights"].sum()); metrics[level]=(float(quad["weights"][~check.summary.footprint].sum()/total),float(np.dot(quad["weights"],np.maximum(check.summary.episode_counts-1,0))/total)); checks[level]=check
         change=max(abs(metrics["Q1"][0]-metrics["Q2"][0]),abs(metrics["Q1"][1]-metrics["Q2"][1])); c=checks["Q2"]; accepted=metrics["Q2"][0]<=float(config["coverage"]["missed_tolerance"])+1e-12 and metrics["Q2"][1]<=float(config["coverage"]["repeat_tolerance"])+1e-12 and change<=float(config["coverage"]["resolution_warning"])+1e-12 and c.max_position_error<=float(config["robot"]["position_tolerance_m"])+1e-12 and c.max_axis_error<=np.deg2rad(float(config["robot"]["axis_tolerance_degrees"]))+1e-12 and c.min_sigma5>=float(config["robot"]["sigma_safe"])-1e-12 and c.collision_free
         status="accepted_execution" if accepted else ("numerically_unresolved" if change>float(config["coverage"]["resolution_warning"]) else "graph_feasible_but_validation_failed")
-        rows.append({"scene_id":row["scene_id"],"k":row["k"],"method":row["method"],"status":status,"E_miss_Q1":metrics["Q1"][0],"E_rep_Q1":metrics["Q1"][1],"E_miss_Q2":metrics["Q2"][0],"E_rep_Q2":metrics["Q2"][1],"Q1_Q2_max_change":change,"min_sigma5":c.min_sigma5,"max_position_error_m":c.max_position_error,"max_axis_error_deg":np.rad2deg(c.max_axis_error),"collision_free":c.collision_free,"whole_edge_summary_match":abs(float(row["E_miss_graph"])-metrics["Q2"][0])<1e-12 and abs(float(row["E_rep_graph"])-metrics["Q2"][1])<1e-12,"plan_file":row["plan_file"]})
+        rows.append({"scene_id":row["scene_id"],"k":row["k"],"method":row["method"],"status":status,"route_classification":classify_route(plan,data),"on_segments":row["on_segments"],"J_q":row["J_q"],"J_q_on":float(decomposition[0]),"J_q_off":float(decomposition[1]),"J_q_entry":float(decomposition[2]),"E_miss_Q1":metrics["Q1"][0],"E_rep_Q1":metrics["Q1"][1],"E_NUC_Q1":sum(metrics["Q1"]),"E_miss_Q2":metrics["Q2"][0],"E_rep_Q2":metrics["Q2"][1],"E_NUC_Q2":sum(metrics["Q2"]),"Q1_Q2_max_change":change,"graph_Q2_miss_difference":metrics["Q2"][0]-float(row["E_miss_graph"]),"graph_Q2_repeat_difference":metrics["Q2"][1]-float(row["E_rep_graph"]),"min_sigma5":c.min_sigma5,"max_position_error_m":c.max_position_error,"max_axis_error_deg":np.rad2deg(c.max_axis_error),"min_joint_margin":c.min_joint_margin,"collision_free":c.collision_free,"whole_edge_summary_match":abs(float(row["E_miss_graph"])-metrics["Q2"][0])<1e-12 and abs(float(row["E_rep_graph"])-metrics["Q2"][1])<1e-12,"validation_samples":len(q),"plan_file":row["plan_file"]})
     write_csv(output/"final_validation.csv",rows); make_plots(root,config,output,rows); checkpoint(output,"verify",{"complete":True,"plans":sum(r["status"]!="NO_PLAN" for r in rows),"accepted":sum(r["status"]=="accepted_execution" for r in rows)})
 
 
@@ -406,6 +406,30 @@ def make_plots(root,config,output,rows):
         ax.set_title(f"{row['scene_id']} k={row['k']} {row['method']} whole hemisphere");ax.legend();fig.tight_layout();fig.savefig(directory/f"{row['scene_id']}_k{row['k']}_{row['method']}_route.png",dpi=150);plt.close(fig)
 
 
+def densify_validation_trace(q,activity,target,radius,joint_step,surface_step):
+    q=np.asarray(q,dtype=np.float64); activity=np.asarray(activity,dtype=bool); target=np.asarray(target,dtype=np.float64)
+    qout=[q[0]]; aout=[bool(activity[0])]; tout=[target[0]]
+    for qa,qb,aa,ab,pa,pb in zip(q[:-1],q[1:],activity[:-1],activity[1:],target[:-1],target[1:]):
+        x=pa/np.linalg.norm(pa); y=pb/np.linalg.norm(pb); angle=float(np.arctan2(np.linalg.norm(np.cross(x,y)),np.dot(x,y)))
+        count=max(1,int(np.ceil(max(np.max(np.abs(qb-qa))/joint_step,radius*angle/surface_step))))
+        for index,fraction in enumerate(np.linspace(0,1,count+1)[1:],start=1):
+            qout.append((1-fraction)*qa+fraction*qb)
+            if angle>1e-14: point=(np.sin((1-fraction)*angle)*x+np.sin(fraction*angle)*y)/np.sin(angle)*radius
+            else: point=pb.copy()
+            tout.append(point); aout.append(bool(ab) if index==count else bool(aa and ab))
+    return np.asarray(qout),np.asarray(aout),np.asarray(tout)
+
+
+def classify_route(plan,data):
+    sequence=json.loads(str(plan["sequence_json"])); kinds=[item["kind"] for item in sequence]
+    if any(kind=="cross_port" for kind in kinds): return "genuine_cross_port_recombination"
+    if any(kind=="off_reconfiguration" for kind in kinds) and any(kind=="source_reverse" for kind in kinds): return "reconfiguration_with_direction_reversal"
+    geometry=tuple(int(item["geom_arc_id"]) for item in sequence if str(item["kind"]).startswith("source"))
+    for route,registered in data["routes"].items():
+        if geometry==tuple(registered[:len(geometry)]): return "fixed_template" if len(geometry)==len(registered) else "fixed_template_prefix"
+    return "global_recombination"
+
+
 def hash_robot_graph(nodes,ports,memberships,edges,meta):
     h=hashlib.sha256();h.update(np.asarray(nodes).tobytes());h.update(np.asarray(ports).tobytes());h.update(np.asarray(memberships).tobytes())
     for edge,item in zip(edges,meta):h.update(np.asarray([edge.start,edge.end],dtype=np.int64).tobytes());h.update(edge.summary.episode_counts.tobytes());h.update(np.asarray([edge.joint_cost]).tobytes());h.update(json.dumps(item,sort_keys=True).encode())
@@ -416,7 +440,11 @@ def write_json(path,value):path.write_text(json.dumps(value,indent=2,sort_keys=T
 def checkpoint(output,stage,payload):write_json(output/f"{stage}.checkpoint.json",{"stage":stage,**payload})
 def write_csv(path,rows):
     if not rows:path.write_text("");return
-    with path.open("w",newline="") as f:w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+    fields=[]
+    for row in rows:
+        for key in row:
+            if key not in fields: fields.append(key)
+    with path.open("w",newline="") as f:w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(rows)
 def read_csv(path):
     with path.open(newline="") as f:return list(csv.DictReader(f))
 
