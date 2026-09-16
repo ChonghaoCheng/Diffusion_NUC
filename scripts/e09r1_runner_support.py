@@ -587,7 +587,7 @@ def verify_all(root,config,output):
 
 def validate_unique_witness(root,config,output,row,plan,data,scene,witness_hash):
     deadline=perf_counter()+float(config["validation"]["deadline_s_per_unique_witness"]);edge_ids=[int(x) for x in plan["edge_ids"]];transform=np.asarray(scene["transform_base_from_surface"]);robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"]));q2=np.load(root/config["inputs"]["quadrature_q2"])
-    stored=concatenate_edges(data,edge_ids,None,None)
+    stored=concatenate_edges(data,edge_ids,None,None,transform=transform,sphere_radius=float(config["surface"]["radius_m"]))
     check_stored=evaluate_synchronized_fk_trace(robot,stored,transform,q2["points"][:1],q2["weights"][:1],sphere_radius=float(config["surface"]["radius_m"]),footprint_radius=float(config["coverage"]["footprint_radius_m"]),characteristic_length=float(config["robot"]["characteristic_length_m"]))
     direct=sphere_episode_counts_indexed(q2["points"],check_stored.surface_points,stored.activity,radius=float(config["surface"]["radius_m"]),footprint_radius=float(config["coverage"]["footprint_radius_m"]));composed=np.zeros_like(direct)
     for order,eid in enumerate(edge_ids):composed+=data["graph"].edges[eid].summary.episode_counts-(data["graph"].edges[eid].summary.start_membership.astype(np.int64) if order else 0)
@@ -596,17 +596,20 @@ def validate_unique_witness(root,config,output,row,plan,data,scene,witness_hash)
     temporal={}
     for name in ("T0","T1"):
         js=float(config["validation"]["temporal"][f"{name}_joint_step_rad"]);ss=float(config["validation"]["temporal"][f"{name}_surface_step_m"])
-        temporal[name]=concatenate_edges(data,edge_ids,js,ss)
+        temporal[name]=concatenate_edges(data,edge_ids,js,ss,transform=transform,sphere_radius=float(config["surface"]["radius_m"]))
     kinematic={}
     for name,trace in temporal.items():
         kinematic[name]=evaluate_synchronized_fk_trace(robot,trace,transform,q2["points"][:1],q2["weights"][:1],sphere_radius=float(config["surface"]["radius_m"]),footprint_radius=float(config["coverage"]["footprint_radius_m"]),characteristic_length=float(config["robot"]["characteristic_length_m"]))
     resolution=[];metrics={}
     schedule=[("T0","Q1"),("T0","Q2"),("T0","Q3"),("T0","Q4"),("T1","Q4"),("T1","Q4a")]
+    plot_quadrature=None
     for temporal_name,quad_name in schedule:
         if perf_counter()>=deadline:
             resolution.append({"temporal":temporal_name,"quadrature":quad_name,"status":"NOT_RUN_deadline","E_miss":None,"E_rep":None});continue
         points,weights=quadrature(config,quad_name,float(config["surface"]["radius_m"]),root)
         check=kinematic[temporal_name];counts=sphere_episode_counts_indexed(points,check.surface_points,temporal[temporal_name].activity,radius=float(config["surface"]["radius_m"]),footprint_radius=float(config["coverage"]["footprint_radius_m"]));total=float(weights.sum());miss=float(weights[counts==0].sum()/total);repeat=float(np.dot(weights,np.maximum(counts-1,0))/total);metrics[(temporal_name,quad_name)]=(miss,repeat);resolution.append({"temporal":temporal_name,"quadrature":quad_name,"status":"complete","E_miss":miss,"E_rep":repeat,"samples":len(points),"trace_samples":len(temporal[temporal_name].q)})
+        if (temporal_name,quad_name)==("T1","Q4"):
+            plot_quadrature=(points.copy(),counts.copy())
     t0=kinematic["T0"];t1=kinematic["T1"];on_segments=int(temporal["T1"].activity[0])+int(np.count_nonzero(temporal["T1"].activity[1:]&~temporal["T1"].activity[:-1]));actual_jq=float(np.linalg.norm(np.diff(stored.q,axis=0),axis=1).sum());recorded_jq=float(np.asarray(plan["cost_decomposition"]).sum());motion_ok=t1.max_position_error<=float(config["robot"]["position_tolerance_m"])+1e-12 and t1.max_axis_error<=np.deg2rad(float(config["robot"]["axis_tolerance_degrees"]))+1e-12 and t1.min_sigma5>=float(config["robot"]["sigma_safe"])-1e-12 and t1.min_joint_margin>=-1e-12 and t1.collision_free and on_segments<=int(row["k"]) and abs(actual_jq-recorded_jq)<=1e-10
     required=[("T0","Q3"),("T0","Q4"),("T1","Q4"),("T1","Q4a")]
     if not motion_ok:status="motion_contract_failed"
@@ -620,23 +623,36 @@ def validate_unique_witness(root,config,output,row,plan,data,scene,witness_hash)
     q1q2=max(abs(metrics.get(("T0","Q1"),(np.nan,np.nan))[i]-metrics.get(("T0","Q2"),(np.nan,np.nan))[i]) for i in (0,1)) if ("T0","Q1") in metrics and ("T0","Q2") in metrics else None
     final={"overall_status":status,"same_sample_composition_pass":composition_ok,"on_segments_checked":on_segments,"activity_budget_pass":on_segments<=int(row["k"]),"J_q_recorded":recorded_jq,"J_q_recomputed":actual_jq,"J_q_pass":abs(actual_jq-recorded_jq)<=1e-10,"J_q_on":float(plan["cost_decomposition"][0]),"J_q_off":float(plan["cost_decomposition"][1]),"J_q_entry":float(plan["cost_decomposition"][2]),"min_sigma5":t1.min_sigma5,"max_position_error_m":t1.max_position_error,"max_axis_error_deg":float(np.rad2deg(t1.max_axis_error)),"min_joint_margin":t1.min_joint_margin,"collision_free":t1.collision_free,"Q1_Q2_change":q1q2,"T0_samples":len(temporal["T0"].q),"T1_samples":len(temporal["T1"].q)}
     for key,value in metrics.items():final[f"E_miss_{key[0]}_{key[1]}"]=value[0];final[f"E_rep_{key[0]}_{key[1]}"]=value[1]
-    return {"composition":composition,"resolution":resolution,"final":final,"plot":{"surface":t1.surface_points,"activity":temporal["T1"].activity,"sigma":t1.sigma5,"counts":None}}
+    return {"composition":composition,"resolution":resolution,"final":final,"plot":{"surface":t1.surface_points,"activity":temporal["T1"].activity,"sigma":t1.sigma5,"quadrature":plot_quadrature}}
 
 
-def concatenate_edges(data,edge_ids,joint_step,surface_step):
+def concatenate_edges(data,edge_ids,joint_step,surface_step,*,transform,sphere_radius):
     qs=[];us=[];positions=[];axes=[];activities=[]
     for order,eid in enumerate(edge_ids):
         lo,hi=data["witness_offsets"][eid:eid+2];trace=SynchronizedMotionTrace(data["witness_q"][lo:hi],data["witness_u"][lo:hi],data["witness_target_position"][lo:hi],data["witness_target_axis"][lo:hi],data["witness_activity"][lo:hi],int(data["edge_meta"][eid]["geom_arc_id"]),(float(data["witness_u"][lo]),float(data["witness_u"][hi-1])),int(data["graph"].edges[eid].start),int(data["graph"].edges[eid].end))
         if joint_step is not None:
-            # The stored declared curve is piecewise spherical in surface coordinates.
-            transform_points=trace.target_position
+            # ON intervals follow their declared short spherical arc. OFF intervals
+            # retain the stored retreat/middle/return task interpolation.
             knots=trace.u
-            def curve(query,trace=trace,knots=knots):
+            rotation=np.asarray(transform)[:3,:3];translation=np.asarray(transform)[:3,3]
+            def curve(query,trace=trace,knots=knots,rotation=rotation,translation=translation):
                 p=np.empty((len(query),3));a=np.empty((len(query),3))
                 for j,x in enumerate(query):
                     idx=max(0,min(int(np.searchsorted(knots,x,side="right"))-1,len(knots)-2));span=knots[idx+1]-knots[idx];f=0.0 if span<=1e-15 else float((x-knots[idx])/span);p[j]=(1-f)*trace.target_position[idx]+f*trace.target_position[idx+1];axis=(1-f)*trace.target_axis[idx]+f*trace.target_axis[idx+1];a[j]=axis/np.linalg.norm(axis)
+                    if trace.activity[idx] and trace.activity[idx+1]:
+                        x0=(trace.target_position[idx]-translation)@rotation
+                        x1=(trace.target_position[idx+1]-translation)@rotation
+                        v0=x0/np.linalg.norm(x0);v1=x1/np.linalg.norm(x1)
+                        angle=float(np.arctan2(np.linalg.norm(np.cross(v0,v1)),np.dot(v0,v1)))
+                        if angle<=1e-14:v=(1-f)*v0+f*v1
+                        else:v=(np.sin((1-f)*angle)*v0+np.sin(f*angle)*v1)/np.sin(angle)
+                        v=v/np.linalg.norm(v);surface=sphere_radius*v
+                        p[j]=surface@rotation.T+translation
+                        a[j]=-v@rotation.T
                 return p,a
-            max_parameter_step=max(1e-12,(trace.u[-1]-trace.u[0])*surface_step/max(sum(np.linalg.norm(np.diff(trace.target_position,axis=0),axis=1)),surface_step))
+            lengths=np.linalg.norm(np.diff(trace.target_position,axis=0),axis=1);du=np.diff(trace.u)
+            ratios=[float(du[i]*surface_step/lengths[i]) for i in range(len(du)) if lengths[i]>1e-15 and du[i]>0]
+            max_parameter_step=max(1e-12,min(ratios,default=float(trace.u[-1]-trace.u[0])))
             trace=densify_synchronized_trace(trace,curve,maximum_joint_step=joint_step,maximum_parameter_step=max_parameter_step)
         local=(trace.u-trace.u[0])/max(float(trace.u[-1]-trace.u[0]),1e-15)+order
         q,p,a,active=trace.q,trace.target_position,trace.target_axis,trace.activity
@@ -670,6 +686,9 @@ def make_plots(root,config,output,final,cache):
         p=plot["surface"];active=plot["activity"]
         fig=plt.figure(figsize=(7,5));ax=fig.add_subplot(111,projection="3d");ax.plot(p[active,0],p[active,1],p[active,2],lw=.35);ax.scatter(p[~active,0],p[~active,1],p[~active,2],s=2,c="orange");ax.set_title("Whole executed centerline "+h[:10]);fig.tight_layout();fig.savefig(directory/f"{h[:12]}_3d.png",dpi=150);plt.close(fig)
         fig,ax=plt.subplots(figsize=(8,2.8));ax.plot(plot["sigma"],lw=.45);ax.axhline(float(config["robot"]["sigma_safe"]),c="r",ls="--");ax.set_title("sigma5 "+h[:10]);fig.tight_layout();fig.savefig(directory/f"{h[:12]}_sigma5.png",dpi=150);plt.close(fig)
+        if plot.get("quadrature") is not None:
+            qp,counts=plot["quadrature"];unit=qp/np.linalg.norm(qp,axis=1,keepdims=True);az=np.arctan2(unit[:,1],unit[:,0]);polar=np.arccos(np.clip(unit[:,2],-1,1))
+            fig,ax=plt.subplots(figsize=(9,4));sc=ax.scatter(az,polar,c=np.minimum(counts,2),s=.35,cmap="viridis",vmin=0,vmax=2,rasterized=True);ax.set(xlabel="azimuth [rad]",ylabel="polar angle [rad]",title="Q4 achieved-FK episode count "+h[:10]);fig.colorbar(sc,ax=ax,label="episodes (clipped at 2)");fig.tight_layout();fig.savefig(directory/f"{h[:12]}_coverage_unwrapped.png",dpi=150);plt.close(fig)
 
 
 def write_report(root,config,output):
