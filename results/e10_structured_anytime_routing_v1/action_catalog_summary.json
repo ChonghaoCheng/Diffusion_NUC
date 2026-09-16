@@ -1,0 +1,109 @@
+{
+  "all_atomic_edges_retained": true,
+  "branch_cap": 8,
+  "cache_limit_mib": 64,
+  "method_B": [
+    {
+      "cache_bytes": 0,
+      "cache_entries": 0,
+      "k": 1,
+      "method": "A",
+      "omitted_by_cap": 0,
+      "scene_id": "T30"
+    },
+    {
+      "cache_bytes": 66923376,
+      "cache_entries": 59,
+      "k": 1,
+      "method": "B",
+      "omitted_by_cap": 0,
+      "scene_id": "T30"
+    },
+    {
+      "cache_bytes": 66517312,
+      "cache_entries": 76,
+      "k": 2,
+      "method": "B",
+      "omitted_by_cap": 0,
+      "scene_id": "T30"
+    },
+    {
+      "cache_bytes": 0,
+      "cache_entries": 0,
+      "k": 2,
+      "method": "A",
+      "omitted_by_cap": 0,
+      "scene_id": "T30"
+    },
+    {
+      "cache_bytes": 0,
+      "cache_entries": 0,
+      "k": 1,
+      "method": "A",
+      "omitted_by_cap": 0,
+      "scene_id": "T27"
+    },
+    {
+      "cache_bytes": 66314752,
+      "cache_entries": 83,
+      "k": 1,
+      "method": "B",
+      "omitted_by_cap": 0,
+      "scene_id": "T27"
+    },
+    {
+      "cache_bytes": 66314752,
+      "cache_entries": 83,
+      "k": 2,
+      "method": "B",
+      "omitted_by_cap": 0,
+      "scene_id": "T27"
+    },
+    {
+      "cache_bytes": 0,
+      "cache_entries": 0,
+      "k": 2,
+      "method": "A",
+      "omitted_by_cap": 0,
+      "scene_id": "T27"
+    },
+    {
+      "cache_bytes": 0,
+      "cache_entries": 0,
+      "k": 1,
+      "method": "A",
+      "omitted_by_cap": 0,
+      "scene_id": "T33"
+    },
+    {
+      "cache_bytes": 66518320,
+      "cache_entries": 62,
+      "k": 1,
+      "method": "B",
+      "omitted_by_cap": 0,
+      "scene_id": "T33"
+    },
+    {
+      "cache_bytes": 66112200,
+      "cache_entries": 69,
+      "k": 2,
+      "method": "B",
+      "omitted_by_cap": 0,
+      "scene_id": "T33"
+    },
+    {
+      "cache_bytes": 0,
+      "cache_entries": 0,
+      "k": 2,
+      "method": "A",
+      "omitted_by_cap": 0,
+      "scene_id": "T33"
+    }
+  ],
+  "run_lengths": [
+    2,
+    4,
+    8,
+    16
+  ]
+}

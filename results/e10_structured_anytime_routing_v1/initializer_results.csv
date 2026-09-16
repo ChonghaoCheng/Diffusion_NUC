@@ -1,0 +1,7 @@
+scene_id,k,method,search_seconds,termination,queue_exhausted,expanded,generated,archive_prefixes,graph_goal_found,J_q,E_miss_Q2_graph,E_rep_Q2_graph,plan_file,witness_hash,refined_status,validated_fallback
+T30,1,F,0.00850532203912735,queue_exhausted,True,93,87,15,False,,,,,,,False
+T30,2,F,0.04219582676887512,queue_exhausted,True,486,491,19,False,,,,,,,False
+T27,1,F,0.01753184199333191,queue_exhausted,True,196,192,28,True,90.01135970918898,0.018230604966974054,0.02142448114298332,results/e10_structured_anytime_routing_v1/selected_plan_witnesses/ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534.npz,ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534,accepted_under_E09_R1_refined_sampled_checks,True
+T27,2,F,0.04729675501585007,queue_exhausted,True,196,681,28,True,90.01135970918898,0.018230604966974054,0.02142448114298332,results/e10_structured_anytime_routing_v1/selected_plan_witnesses/ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534.npz,ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534,accepted_under_E09_R1_refined_sampled_checks,True
+T33,1,F,0.009052738547325134,queue_exhausted,True,90,84,15,False,,,,,,,False
+T33,2,F,0.13076738268136978,queue_exhausted,True,1558,1564,28,False,,,,,,,False
