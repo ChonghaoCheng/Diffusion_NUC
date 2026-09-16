@@ -1,0 +1,51 @@
+{
+  "experiment": "E10 structured anytime global coverage search",
+  "registered_at": "2026-09-17T03:31:35+10:00",
+  "parent_code_sha": "31c6bb2068c789205924aacd3bab6dba5d8bebbf",
+  "parent_ara_sha": "54bab648b9d574243e2f64bb3a0b3f3fe39dc0a5",
+  "expected_geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "placements": ["T30", "T27", "T33"],
+  "on_segment_budgets": [1, 2],
+  "graph_sources": {
+    "T30": {"path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T30.npz", "sha256": "b2d4c06891582609d32874769bbdcd64b55e6db375e3cfff36c48ab3bb233406"},
+    "T27": {"path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T27.npz", "sha256": "637fffd5913666107b4bfa4a7c1ea3c016fb1f28ce5237be605efb884a2550bd"},
+    "T33": {"path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T33.npz", "sha256": "02c435e38439bc91242640962d52414af7e5bcd8f3b6f08250ad6ad363951bce"}
+  },
+  "inputs": {
+    "geometry_bank_json": "results/e09_continuous_routing_repair_v1/geometry_bank.json",
+    "geometry_bank_npz": "results/e09_continuous_routing_repair_v1/geometry_bank.npz",
+    "quadrature_q1": "results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+    "quadrature_q2": "results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+    "placements": "configs/riemannian_anisotropy_scenes_v1.json",
+    "robot_model": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml"
+  },
+  "surface": {"id": "hemisphere", "radius_m": 0.14, "complete_domain": true},
+  "coverage": {"footprint_radius_m": 0.008, "missed_tolerance": 0.02, "repeat_tolerance": 0.10, "resolution_tolerance": 0.002, "soft_q2_reserve": 0.002},
+  "robot": {"site_name": "attachment_site", "tool_axis_index": 2, "tool_axis_sign": 1.0, "characteristic_length_m": 0.1, "sigma_safe": 0.07237417172157597, "position_tolerance_m": 0.0001, "axis_tolerance_degrees": 0.1},
+  "search": {
+    "pipeline_core_seconds": 300,
+    "expanded_label_limit": 200000,
+    "private_memory_gib": 6,
+    "retained_record_limit": 30000,
+    "progress_bins": 21,
+    "bucket_live_limit": 32,
+    "endpoint_diversity_limit": 2,
+    "prefix_progress_bins": 10,
+    "prefix_representatives": 2,
+    "online_screen_limit": 4,
+    "candidate_reservoir": 8,
+    "run_lengths": [2, 4, 8, 16],
+    "run_branch_cap": 8,
+    "run_cache_mib": 64,
+    "checkpoints_s": [10, 30, 60, 120, 300],
+    "method_order_by_task": [["A", "B"], ["B", "A"]]
+  },
+  "validation": {
+    "deadline_s_per_unique_witness": 900,
+    "memory_gib": 6,
+    "temporal": {"T0_joint_step_rad": 0.0125, "T0_surface_step_m": 0.000125, "T1_joint_step_rad": 0.00625, "T1_surface_step_m": 0.0000625},
+    "quadrature": {"Q1": [96, 48], "Q2": [192, 96], "Q3": [384, 192], "Q4": [768, 384], "Q4a_fraction_pairs": [[0.25, 0.75], [0.75, 0.25]]}
+  },
+  "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+  "forbidden": ["IK rerun", "graph rebuild", "new geometry", "hardware", "FM", "saddle", "prospective-bound optimization", "Q5", "threshold relaxation"]
+}
