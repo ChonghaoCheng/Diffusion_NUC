@@ -57,7 +57,7 @@ def build_all_graphs(root: Path, config: dict[str, Any], output: Path) -> None:
         graph_file = graph_dir / f"hemisphere_{scene['candidate_id']}.npz"
         if built["status"] in {"ready", "recombination_limited"}:
             save_robot_graph(graph_file, built)
-        row = {key: value for key, value in built.items() if key not in {"nodes_q", "node_ports", "node_memberships", "edges", "edge_meta", "witness_q", "witness_activity", "witness_target"}}
+        row = {key: value for key, value in built.items() if key not in {"nodes_q", "node_ports", "node_memberships", "edges", "edge_meta", "witness_q", "witness_activity", "witness_target", "check_rows"}}
         row.update({"scene_id": scene["candidate_id"], "placement_level": scene["placement_level"], "graph_file": str(graph_file.relative_to(root)) if graph_file.exists() else None, "build_seconds": perf_counter() - started})
         rows.append(row)
         checks.extend(built.get("check_rows", []))

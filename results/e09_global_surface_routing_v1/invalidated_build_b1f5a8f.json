@@ -1,0 +1,11 @@
+{
+  "status": "INVALIDATED_BEFORE_COMPARISON",
+  "tested_code_sha": "b1f5a8fd6fcfaf76272469bc847a0764691ba4b0",
+  "reason": "OFF retreat samples were incorrectly included in ON position/axis residual extrema, rejecting every OFF reconfiguration",
+  "placements": [
+    {"scene_id": "T30", "nodes": 241, "edges": 465, "verified_cross_port_on": 0, "verified_off": 0, "ik_calls": 103607},
+    {"scene_id": "T27", "nodes": 238, "edges": 471, "verified_cross_port_on": 0, "verified_off": 0, "ik_calls": 102646},
+    {"scene_id": "T33", "nodes": 242, "edges": 463, "verified_cross_port_on": 0, "verified_off": 0, "ik_calls": 103732}
+  ],
+  "comparison_run": false
+}

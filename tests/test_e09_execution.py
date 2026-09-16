@@ -41,3 +41,22 @@ def test_e09_continuation_forwards_task5(monkeypatch):
     )
     assert result.feasible
     assert calls == ["task5", "task5"]
+
+
+def test_off_samples_do_not_enter_on_task_residual_extrema(monkeypatch):
+    from diffusion_coverage.robot.e09_execution import evaluate_e09_fk_trace
+    from types import SimpleNamespace
+    class FakeRobot:
+        def evaluate_configuration(self, q):
+            return SimpleNamespace(joint_limit_margin=1.0, collision_free=True)
+    robot = FakeRobot()
+    monkeypatch.setattr("diffusion_coverage.robot.e09_execution.evaluate_task_kinematics_5d", lambda r, q, characteristic_length: SimpleNamespace(position=np.asarray([q[0],0.0,0.14]), tool_axis=np.asarray([0.0,0.0,-1.0]), sigma_min_5=1.0))
+    q = np.zeros((3, 6)); q[1, 0] = 0.02
+    active = np.asarray([True, False, True])
+    target = np.repeat(np.asarray([[0.0, 0.0, 0.14]]), 3, axis=0)
+    check = evaluate_e09_fk_trace(
+        robot, q, active, target, np.eye(4), target[:1], np.ones(1),
+        sphere_radius=0.14, footprint_radius=0.008, characteristic_length=0.1,
+    )
+    assert check.max_position_error == 0.0
+    assert check.max_axis_error == 0.0
