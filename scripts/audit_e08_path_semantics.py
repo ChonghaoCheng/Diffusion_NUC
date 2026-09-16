@@ -454,8 +454,9 @@ robot-qualified in the original run, this repair did not rerun robot qualificati
 comparison ran.
 """
     (output / "report.md").write_text(report)
+    reproduction_output = "/tmp/e08_path_semantics_v1_reproduction"
     commands = "\n".join(
-        f"{sys.executable} scripts/audit_e08_path_semantics.py --stage {stage}"
+        f"MPLCONFIGDIR=/tmp/e08-matplotlib {sys.executable} scripts/audit_e08_path_semantics.py --stage {stage} --output {reproduction_output}"
         for stage in STAGES
     ) + "\n"
     (output / "reproduction_commands.txt").write_text(commands)

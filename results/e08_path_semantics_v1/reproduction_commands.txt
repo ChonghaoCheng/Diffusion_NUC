@@ -1,5 +1,5 @@
-/data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage freeze
-/data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage tests
-/data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage geometry
-/data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage readiness
-/data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage report
+MPLCONFIGDIR=/tmp/e08-matplotlib /data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage freeze --output /tmp/e08_path_semantics_v1_reproduction
+MPLCONFIGDIR=/tmp/e08-matplotlib /data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage tests --output /tmp/e08_path_semantics_v1_reproduction
+MPLCONFIGDIR=/tmp/e08-matplotlib /data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage geometry --output /tmp/e08_path_semantics_v1_reproduction
+MPLCONFIGDIR=/tmp/e08-matplotlib /data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage readiness --output /tmp/e08_path_semantics_v1_reproduction
+MPLCONFIGDIR=/tmp/e08-matplotlib /data/chocheng/.venvs/coverage-fm/bin/python scripts/audit_e08_path_semantics.py --stage report --output /tmp/e08_path_semantics_v1_reproduction
