@@ -6,6 +6,7 @@ import gc
 import hashlib
 import heapq
 import json
+import multiprocessing as mp
 from pathlib import Path
 import resource
 from time import perf_counter
@@ -219,21 +220,20 @@ def compare_all(root,config,output):
                 for method in ("F","G0","G1"): results.append(empty_result(row,k,method,row["status"]));
                 continue
             data=load_robot_graph(root/row["graph_file"]); graph=data["graph"]; start=int(data["start_node"])
-            init=fixed_route_search(data,start,k,config,wall_time=min(30.0,float(config["search"]["initializer_seconds"])),expanded_limit=int(config["search"]["expanded_label_limit"]))
+            init,init_peak=isolated_call(lambda: fixed_route_search(data,start,k,config,wall_time=min(30.0,float(config["search"]["initializer_seconds"])),expanded_limit=int(config["search"]["expanded_label_limit"])))
             common=init.incumbent
-            release_memory()
             order=("G0","G1") if task_index%2==0 else ("G1","G0")
-            method_results={"F":fixed_route_search(data,start,k,config,wall_time=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),initial_incumbent=common)}
-            release_memory()
+            f_result,f_peak=isolated_call(lambda: fixed_route_search(data,start,k,config,wall_time=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),initial_incumbent=common))
+            method_results={"F":f_result}; method_peaks={"F":f_peak}
             for method in order:
-                method_results[method]=search_history_graph(graph,start_node=start,maximum_on_segments=k,missed_tolerance=float(config["coverage"]["missed_tolerance"]),repeat_tolerance=float(config["coverage"]["repeat_tolerance"]),use_completion_bound=method=="G1",wall_time_s=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),checkpoint_times=tuple(float(x) for x in config["search"]["checkpoints_s"]),initial_incumbent=common,coverage_directed_order=True,memory_limit_bytes=int(float(config["search"]["private_memory_gib"])*(1024**3)),resident_label_limit=int(config["search"]["conservative_resident_label_limit"]))
+                current,peak=isolated_call(lambda method=method: search_history_graph(graph,start_node=start,maximum_on_segments=k,missed_tolerance=float(config["coverage"]["missed_tolerance"]),repeat_tolerance=float(config["coverage"]["repeat_tolerance"]),use_completion_bound=method=="G1",wall_time_s=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),checkpoint_times=tuple(float(x) for x in config["search"]["checkpoints_s"]),initial_incumbent=common,coverage_directed_order=True,memory_limit_bytes=int(float(config["search"]["private_memory_gib"])*(1024**3)),resident_label_limit=int(config["search"]["conservative_resident_label_limit"])))
+                method_results[method]=current; method_peaks[method]=peak
                 if mechanism is None and method_results[method].mechanism_sample is not None: mechanism={"scene_id":row["scene_id"],"k":k,**method_results[method].mechanism_sample}
-                release_memory()
             for method in ("F","G0","G1"):
                 result=method_results[method]; label=result.incumbent; plan_file=None
                 if label is not None:
                     plan_file=save_plan(output,row["scene_id"],k,method,label,data)
-                results.append(result_row(row,k,method,result,common,plan_file,graph.weights))
+                results.append(result_row(row,k,method,result,common,plan_file,graph.weights,method_peaks[method],init))
                 for cp in result.checkpoints: anytime.append({"scene_id":row["scene_id"],"k":k,"method":method,**cp})
                 pruning.append(pruning_row(row,k,method,result))
                 write_csv(output/"global_results.partial.csv",results)
@@ -371,9 +371,9 @@ def save_plan(output,scene,k,method,label,data):
     directory=output/"selected_plan_witnesses";directory.mkdir(exist_ok=True);path=directory/f"{scene}_k{k}_{method}.npz";np.savez_compressed(path,q=np.asarray(qs),activity=np.asarray(acts),target=np.asarray(targets),edge_ids=np.asarray(label.path),sequence_json=np.asarray(json.dumps(sequence)),cost_decomposition=np.asarray([on,off,entry]));return str(path.relative_to(output.parents[1]))
 
 
-def result_row(row,k,method,result,common,plan_file,weights):
+def result_row(row,k,method,result,common,plan_file,weights,peak_memory,initializer):
     label=result.incumbent; miss=None if label is None else float(weights[~label.covered].sum()/weights.sum()); m=result.metrics
-    return {"scene_id":row["scene_id"],"placement_level":row["placement_level"],"k":k,"method":method,"graph_hash":row.get("graph_hash"),"found":label is not None,"inherited_incumbent":common is not None,"first_solution_s":result.first_solution_seconds,"search_seconds":result.elapsed_seconds,"termination":result.termination,"graph_optimality_proved":result.optimality_proved,"on_segments":None if label is None else label.used_on_segments,"reconfigurations":None if label is None else label.used_on_segments-1,"J_q":None if label is None else label.joint_cost,"E_miss_graph":miss,"E_rep_graph":None if label is None else label.repeat_error,"expanded":m.expanded,"generated":m.generated,"dominance_pruned":m.dominance_pruned,"past_repeat_pruned":m.repeat_pruned,"segment_pruned":m.segment_pruned,"segment_reachability_pruned":m.segment_budget_reachability_pruned,"ordinary_reachability_pruned":m.reachability_pruned,"prospective_repeat_pruned":m.completion_bound_pruned,"bound_calls":m.completion_bound_calls,"bound_cache_hits":m.completion_bound_cache_hits,"bound_finite_positive":m.completion_bound_positive,"bound_seconds":m.completion_bound_seconds,"peak_memory_bytes":resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,"plan_file":plan_file}
+    return {"scene_id":row["scene_id"],"placement_level":row["placement_level"],"k":k,"method":method,"graph_hash":row.get("graph_hash"),"found":label is not None,"inherited_incumbent":common is not None,"initializer_termination":initializer.termination,"initializer_seconds":initializer.elapsed_seconds,"first_solution_s":result.first_solution_seconds,"search_seconds":result.elapsed_seconds,"termination":result.termination,"graph_optimality_proved":result.optimality_proved,"on_segments":None if label is None else label.used_on_segments,"reconfigurations":None if label is None else label.used_on_segments-1,"J_q":None if label is None else label.joint_cost,"E_miss_graph":miss,"E_rep_graph":None if label is None else label.repeat_error,"expanded":m.expanded,"generated":m.generated,"dominance_pruned":m.dominance_pruned,"past_repeat_pruned":m.repeat_pruned,"segment_pruned":m.segment_pruned,"segment_reachability_pruned":m.segment_budget_reachability_pruned,"ordinary_reachability_pruned":m.reachability_pruned,"prospective_repeat_pruned":m.completion_bound_pruned,"bound_calls":m.completion_bound_calls,"bound_cache_hits":m.completion_bound_cache_hits,"bound_finite_positive":m.completion_bound_positive,"bound_seconds":m.completion_bound_seconds,"peak_memory_bytes":peak_memory,"plan_file":plan_file}
 
 
 def pruning_row(row,k,method,result):
@@ -426,3 +426,15 @@ def release_memory():
     gc.collect()
     try: ctypes.CDLL("libc.so.6").malloc_trim(0)
     except (OSError,AttributeError): pass
+
+
+def isolated_call(function):
+    context=mp.get_context("fork")
+    receiver,sender=context.Pipe(duplex=False)
+    def target():
+        try: sender.send((function(),resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,None))
+        except BaseException as exc: sender.send((None,resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,repr(exc)))
+        finally: sender.close()
+    process=context.Process(target=target); process.start(); sender.close(); payload=receiver.recv(); process.join(); receiver.close()
+    if payload[2] is not None or process.exitcode!=0: raise RuntimeError(f"isolated search failed: exit={process.exitcode} error={payload[2]}")
+    return payload[0],payload[1]

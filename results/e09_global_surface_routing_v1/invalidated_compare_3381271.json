@@ -1,0 +1,7 @@
+{
+  "status": "INVALIDATED_BEFORE_SCIENTIFIC_INTERPRETATION",
+  "tested_code_sha": "338127101627bf49218afe2cf568303c96df5eee",
+  "reason": "The initializer respected the projected label guard, but its allocator arenas remained in the common process, so T30/k=1 timed arms inherited RSS above 6 GiB and stopped at zero expansions.",
+  "invalidated_cells": 3,
+  "replacement": "run initializer and every timed method in a fresh sequential forked process"
+}
