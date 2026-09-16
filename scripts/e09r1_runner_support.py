@@ -418,10 +418,14 @@ def save_robot_graph(path: Path, built: dict[str, Any]) -> None:
 def load_robot_graph(path: Path) -> dict[str, Any]:
     path = Path(path); z = np.load(path, allow_pickle=False); meta = json.loads(str(z["metadata_json"]))
     q2 = np.load(Path(__file__).resolve().parents[1] / "results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz", allow_pickle=False); weights = np.asarray(q2["weights"])
+    edge_start=np.asarray(z["edge_start"]);edge_end=np.asarray(z["edge_end"]);edge_cost=np.asarray(z["edge_cost"])
+    footprint=np.asarray(z["edge_footprint"]);counts=np.asarray(z["edge_counts"],dtype=np.int64)
+    start_membership=np.asarray(z["edge_start_membership"]);end_membership=np.asarray(z["edge_end_membership"])
+    mass=np.asarray(z["edge_mass"]);off_on=np.asarray(z["edge_off_on"])
     edges=[]
-    for i in range(len(z["edge_start"])):
-        summary=EpisodeEdgeSummary(z["edge_footprint"][i],z["edge_counts"][i].astype(np.int64),z["edge_start_membership"][i],z["edge_end_membership"][i],float(z["edge_mass"][i]),int(z["edge_off_on"][i]))
-        edges.append(CompletionEdge(i,int(z["edge_start"][i]),int(z["edge_end"][i]),summary,float(z["edge_cost"][i])))
+    for i in range(len(edge_start)):
+        summary=EpisodeEdgeSummary(footprint[i],counts[i],start_membership[i],end_membership[i],float(mass[i]),int(off_on[i]))
+        edges.append(CompletionEdge(i,int(edge_start[i]),int(edge_end[i]),summary,float(edge_cost[i])))
     graph=SearchGraph(tuple(z["node_memberships"]),tuple(edges),weights,meta["graph_hash_multi"])
     single=derive_single_graph(z["nodes_q"],z["node_ports"],z["node_ranks"],z["node_memberships"],edges,meta["edge_meta"],int(meta["start_node"]),weights)
     bank=load_bank(path.parents[1])
