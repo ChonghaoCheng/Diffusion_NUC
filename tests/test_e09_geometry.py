@@ -27,3 +27,10 @@ def test_geometry_bank_preserves_both_route_directions():
     reverse = bank.route_arc_ids["sample/reverse"]
     assert len(forward) == len(reverse)
     assert bank.arcs[forward[0]].start_port == bank.arcs[reverse[-1]].end_port
+
+
+def test_coincident_shortest_arc_is_explicitly_stationary():
+    point = np.asarray([0.0, 0.0, 0.14])
+    arc = shortest_sphere_arc(point, point, 0.14, 0.001)
+    assert arc.shape == (2, 3)
+    assert np.array_equal(arc[0], arc[-1])

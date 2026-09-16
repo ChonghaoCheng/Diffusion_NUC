@@ -174,7 +174,14 @@ def build_placement_graph(root, config, bank, scene, q2):
         for sn in list(port_nodes[sp]):
             for en in list(port_nodes[ep]):
                 if on_attempts>=int(config["construction"]["max_on_attempts"]): break
-                on_attempts+=1; points=resample_prescribed_path(raw,surface_id="hemisphere",surface_metadata={"radius":float(config["surface"]["radius_m"])},maximum_step=float(config["construction"]["continuation_target_spacing_m"])); positions,axes=task_pose(points)
+                on_attempts+=1; points=resample_prescribed_path(raw,surface_id="hemisphere",surface_metadata={"radius":float(config["surface"]["radius_m"])},maximum_step=float(config["construction"]["continuation_target_spacing_m"]));
+                if len(points) < 3:
+                    middle = points[0] + points[-1]
+                    if np.linalg.norm(middle) <= 1e-14:
+                        fail("connector_antipodal"); continue
+                    middle = float(config["surface"]["radius_m"]) * middle / np.linalg.norm(middle)
+                    points = np.asarray([points[0], middle, points[-1]], dtype=np.float64)
+                positions,axes=task_pose(points)
                 result=robot.continue_task_transition_to_configuration(nodes_q[sn],nodes_q[en],positions,axes,maximum_joint_step=0.8,minimum_manipulability=0.0,position_tolerance=float(config["robot"]["position_tolerance_m"]),axis_tolerance=np.deg2rad(float(config["robot"]["axis_tolerance_degrees"])),backend="task5")
                 counter.calls+=max(0,len(positions)-2)
                 if not result.feasible: fail("connector_"+str(result.failure_reason)); continue
