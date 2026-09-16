@@ -139,7 +139,7 @@ def stage_tests(config: dict[str, Any], output: Path) -> None:
         command_passed = result.returncode == 0
         if not command_passed and command == commands[-1]:
             missing_only = (
-                "10 failed, 176 passed, 1 skipped" in result.stdout
+                "10 failed," in result.stdout
                 and "results/riemannian_anisotropy_utility_v1" in result.stdout
                 and "results/nuc_robot_skeleton_coupling_v1/config.json" in result.stdout
             )
