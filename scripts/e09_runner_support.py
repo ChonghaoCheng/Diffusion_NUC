@@ -326,7 +326,11 @@ def load_bank(output):
 
 
 def selected_scenes(root,config):
-    doc=json.loads((root/config["inputs"]["placements"]).read_text()); chosen=doc["selected"]["hemisphere"]; byid={v["candidate_id"]:v for v in chosen.values()}; return [byid[s] for s in config["placements"]]
+    doc=json.loads((root/config["inputs"]["placements"]).read_text()); chosen=doc["selected"]["hemisphere"]
+    byid={}
+    for level,value in chosen.items():
+        record=dict(value); record["placement_level"]=level; byid[record["candidate_id"]]=record
+    return [byid[s] for s in config["placements"]]
 
 
 def save_robot_graph(path,b):
