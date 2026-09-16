@@ -1,0 +1,7 @@
+{
+  "status": "INVALIDATED_BEFORE_SCIENTIFIC_INTERPRETATION",
+  "tested_code_sha": "083519d48631a2c1f433d9b5888be649dc24d5d3",
+  "reason": "Graph loading decompressed each full edge-summary matrix once per edge and retained every matrix through slice bases, producing about 100 GiB RSS before search. T30/k=1 timed arms therefore stopped at zero expansions.",
+  "invalidated_cells": 3,
+  "replacement": "load each compact edge-summary matrix once and share its slices"
+}

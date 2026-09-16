@@ -352,9 +352,14 @@ def save_robot_graph(path,b):
 
 
 def load_robot_graph(path):
+    path=Path(path)
     z=np.load(path,allow_pickle=False); meta=json.loads(str(z["metadata_json"])); q2=np.load(Path(__file__).resolve().parents[1]/"results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz"); weights=np.asarray(q2["weights"]); edges=[]
-    for i in range(len(z["edge_start"])):
-        summary=EpisodeEdgeSummary(z["edge_footprint"][i],z["edge_counts"][i].astype(np.int64),z["edge_start_membership"][i],z["edge_end_membership"][i],float(z["edge_mass"][i]),int(z["edge_off_on"][i]));edges.append(CompletionEdge(i,int(z["edge_start"][i]),int(z["edge_end"][i]),summary,float(z["edge_cost"][i])))
+    edge_start=z["edge_start"]; edge_end=z["edge_end"]; edge_cost=z["edge_cost"]
+    footprint=z["edge_footprint"]; counts=z["edge_counts"].astype(np.int64)
+    start_membership=z["edge_start_membership"]; end_membership=z["edge_end_membership"]
+    mass=z["edge_mass"]; off_on=z["edge_off_on"]
+    for i in range(len(edge_start)):
+        summary=EpisodeEdgeSummary(footprint[i],counts[i],start_membership[i],end_membership[i],float(mass[i]),int(off_on[i]));edges.append(CompletionEdge(i,int(edge_start[i]),int(edge_end[i]),summary,float(edge_cost[i])))
     graph=SearchGraph(tuple(z["node_memberships"]),tuple(edges),weights,meta["graph_hash"]); bank=json.loads((path.parents[1]/"geometry_bank.json").read_text()); return {"graph":graph,"start_node":meta["start_node"],"edge_meta":meta["edge_meta"],"node_ports":z["node_ports"],"nodes_q":z["nodes_q"],"witness_q":z["witness_q"],"witness_activity":z["witness_activity"],"witness_target":z["witness_target"],"witness_offsets":z["witness_offsets"],"routes":{k:tuple(v) for k,v in bank["routes"].items()},"arc_start":np.load(path.parents[1]/"geometry_bank.npz")["arc_start"]}
 
 
