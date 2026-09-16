@@ -41,6 +41,7 @@
   "search": {
     "initializer_seconds": 30, "wall_time_s": 300, "expanded_label_limit": 200000,
     "private_memory_gib": 6, "checkpoints_s": [10, 30, 60, 120, 300],
+    "conservative_resident_label_limit": 30000,
     "queue_order": ["used_reconfigurations", "negative_covered_area", "joint_cost", "serial"],
     "single_process_single_core": true
   },

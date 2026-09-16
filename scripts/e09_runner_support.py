@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import csv
+import ctypes
+import gc
 import hashlib
 import heapq
 import json
@@ -219,11 +221,14 @@ def compare_all(root,config,output):
             data=load_robot_graph(root/row["graph_file"]); graph=data["graph"]; start=int(data["start_node"])
             init=fixed_route_search(data,start,k,config,wall_time=min(30.0,float(config["search"]["initializer_seconds"])),expanded_limit=int(config["search"]["expanded_label_limit"]))
             common=init.incumbent
+            release_memory()
             order=("G0","G1") if task_index%2==0 else ("G1","G0")
             method_results={"F":fixed_route_search(data,start,k,config,wall_time=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),initial_incumbent=common)}
+            release_memory()
             for method in order:
-                method_results[method]=search_history_graph(graph,start_node=start,maximum_on_segments=k,missed_tolerance=float(config["coverage"]["missed_tolerance"]),repeat_tolerance=float(config["coverage"]["repeat_tolerance"]),use_completion_bound=method=="G1",wall_time_s=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),checkpoint_times=tuple(float(x) for x in config["search"]["checkpoints_s"]),initial_incumbent=common,coverage_directed_order=True,memory_limit_bytes=int(float(config["search"]["private_memory_gib"])*(1024**3)))
+                method_results[method]=search_history_graph(graph,start_node=start,maximum_on_segments=k,missed_tolerance=float(config["coverage"]["missed_tolerance"]),repeat_tolerance=float(config["coverage"]["repeat_tolerance"]),use_completion_bound=method=="G1",wall_time_s=float(config["search"]["wall_time_s"]),expanded_limit=int(config["search"]["expanded_label_limit"]),checkpoint_times=tuple(float(x) for x in config["search"]["checkpoints_s"]),initial_incumbent=common,coverage_directed_order=True,memory_limit_bytes=int(float(config["search"]["private_memory_gib"])*(1024**3)),resident_label_limit=int(config["search"]["conservative_resident_label_limit"]))
                 if mechanism is None and method_results[method].mechanism_sample is not None: mechanism={"scene_id":row["scene_id"],"k":k,**method_results[method].mechanism_sample}
+                release_memory()
             for method in ("F","G0","G1"):
                 result=method_results[method]; label=result.incumbent; plan_file=None
                 if label is not None:
@@ -250,6 +255,7 @@ def fixed_route_search(data,start,k,config,*,wall_time,expanded_limit,initial_in
         if perf_counter()-started>=wall_time: termination="wall_time"; break
         if metrics.expanded>=expanded_limit: termination="expanded_limit"; break
         if private_memory_bytes()>=int(float(config["search"]["private_memory_gib"])*(1024**3)): termination="memory_limit"; break
+        if len(seen)+len(queue)>=int(config["search"]["conservative_resident_label_limit"]): termination="memory_limit_projected"; break
         _,_,_,_,route,index,label=heapq.heappop(queue); key=(route,index,label.node,np.packbits(label.covered).tobytes(),np.packbits(label.membership).tobytes(),label.used_on_segments)
         if seen.get(key,np.inf)<=label.joint_cost: metrics.dominance_pruned+=1; continue
         seen[key]=label.joint_cost; metrics.expanded+=1
@@ -414,3 +420,9 @@ def private_memory_bytes():
     import os
     try:return int(Path("/proc/self/statm").read_text().split()[1])*os.sysconf("SC_PAGE_SIZE")
     except (OSError,ValueError,IndexError):return 0
+
+
+def release_memory():
+    gc.collect()
+    try: ctypes.CDLL("libc.so.6").malloc_trim(0)
+    except (OSError,AttributeError): pass

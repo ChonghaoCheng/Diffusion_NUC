@@ -91,6 +91,7 @@ def search_history_graph(
     initial_incumbent: SearchLabel | None = None,
     coverage_directed_order: bool = False,
     memory_limit_bytes: int | None = None,
+    resident_label_limit: int | None = None,
 ) -> SearchResult:
     start_time = perf_counter()
     metrics = SearchMetrics()
@@ -115,6 +116,7 @@ def search_history_graph(
     checkpoints: list[dict[str, Any]] = []
     checkpoint_index = 0
     termination = "queue_exhausted"
+    admitted_labels = 1
 
     while queue:
         elapsed = perf_counter() - start_time
@@ -129,6 +131,9 @@ def search_history_graph(
             break
         if memory_limit_bytes is not None and _private_memory_bytes() >= memory_limit_bytes:
             termination = "memory_limit"
+            break
+        if resident_label_limit is not None and admitted_labels >= resident_label_limit:
+            termination = "memory_limit_projected"
             break
         *_, label = heapq.heappop(queue)
         if incumbent is not None and _objective(label) >= _objective(incumbent):
@@ -231,6 +236,7 @@ def search_history_graph(
                 metrics.dominance_pruned += 1
                 continue
             serial += 1
+            admitted_labels += 1
             heapq.heappush(
                 queue,
                 _queue_item(child, graph.weights, serial, coverage_directed_order),

@@ -1,0 +1,7 @@
+{
+  "status": "INVALIDATED_BEFORE_SCIENTIFIC_INTERPRETATION",
+  "tested_code_sha": "06ca20a7854794a924285ec258bd2a221ccc399d",
+  "reason": "The common initializer retained allocator RSS after reaching the 6 GiB guard, causing the first three timed arms to terminate at zero expansions. The run stopped after T30/k=1.",
+  "invalidated_cells": 3,
+  "replacement": "rerun all 18 cells with a conservative resident-label projection guard and allocator trim"
+}
