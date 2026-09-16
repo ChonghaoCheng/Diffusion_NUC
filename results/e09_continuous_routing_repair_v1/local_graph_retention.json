@@ -1,0 +1,25 @@
+{
+  "graphs": [
+    {
+      "bytes": 71870699,
+      "local_path": "results/e09_continuous_routing_repair_v1/graphs/hemisphere_T30.npz",
+      "scene_id": "T30",
+      "sha256": "b2d4c06891582609d32874769bbdcd64b55e6db375e3cfff36c48ab3bb233406"
+    },
+    {
+      "bytes": 83079640,
+      "local_path": "results/e09_continuous_routing_repair_v1/graphs/hemisphere_T27.npz",
+      "scene_id": "T27",
+      "sha256": "637fffd5913666107b4bfa4a7c1ea3c016fb1f28ce5237be605efb884a2550bd"
+    },
+    {
+      "bytes": 71976691,
+      "local_path": "results/e09_continuous_routing_repair_v1/graphs/hemisphere_T33.npz",
+      "scene_id": "T33",
+      "sha256": "02c435e38439bc91242640962d52414af7e5bcd8f3b6f08250ad6ad363951bce"
+    }
+  ],
+  "published": false,
+  "reason": "large reconstructible intermediates excluded from Git",
+  "reconstruction": "run prepare, test, then build with the frozen config"
+}

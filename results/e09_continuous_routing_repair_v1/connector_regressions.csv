@@ -1,0 +1,25 @@
+case,status,evidence,detail
+synchronized_tail_N3_F2,PASS,tests/test_e09_synchronized_motion.py,returned 3 synchronized q/u/task/activity rows
+synchronized_tail_N3_F3,PASS,tests/test_e09_synchronized_motion.py,returned 4 synchronized q/u/task/activity rows
+synchronized_tail_N3_F5,PASS,tests/test_e09_synchronized_motion.py,returned 6 synchronized q/u/task/activity rows
+synchronized_tail_N5_F2,PASS,tests/test_e09_synchronized_motion.py,returned 5 synchronized q/u/task/activity rows
+synchronized_tail_N5_F3,PASS,tests/test_e09_synchronized_motion.py,returned 6 synchronized q/u/task/activity rows
+synchronized_tail_N5_F5,PASS,tests/test_e09_synchronized_motion.py,returned 8 synchronized q/u/task/activity rows
+synchronized_tail_N11_F2,PASS,tests/test_e09_synchronized_motion.py,returned 11 synchronized q/u/task/activity rows
+synchronized_tail_N11_F3,PASS,tests/test_e09_synchronized_motion.py,returned 12 synchronized q/u/task/activity rows
+synchronized_tail_N11_F5,PASS,tests/test_e09_synchronized_motion.py,returned 14 synchronized q/u/task/activity rows
+nonuniform_parameter_reverse,PASS,tests/test_e09_synchronized_motion.py,declared curve evaluated at every returned u; endpoints retained
+shape_mismatch_rejected,PASS,tests/test_e09_synchronized_motion.py,unequal arrays raise ValueError before iteration
+incompatible_endpoint_not_snapped,PASS,tests/test_e09_synchronized_motion.py,incompatible target q rejected
+nested_task5_propagation,PASS,tests/test_e09_execution.py,nested continuation solve calls use task5
+indexed_episode_equivalence,PASS,tests/test_e09r1_search.py,indexed episodes equal dense membership
+historical_rejected_ON_pair_replay,NOT_RUN,parent E09 compact publication,archived rejected endpoint-state graph arrays were not published; no buggy graph rebuilt
+T27_eight_seed_enumeration,PASS,port_candidates.csv,238/238 ports recorded all seed IDs 0..7
+T27_accepted_source_identity_control,PASS,edge_attempts.csv,"attempt 6 exact endpoints, synchronized dense task and membership checks passed"
+T27_OFF_retreat_middle_return_control,PASS,edge_attempts.csv,attempt 2 all dense limit/collision checks passed
+T30_eight_seed_enumeration,PASS,port_candidates.csv,238/238 ports recorded all seed IDs 0..7
+T30_accepted_source_identity_control,PASS,edge_attempts.csv,"attempt 6 exact endpoints, synchronized dense task and membership checks passed"
+T30_OFF_retreat_middle_return_control,PASS,edge_attempts.csv,attempt 2 all dense limit/collision checks passed
+T33_eight_seed_enumeration,PASS,port_candidates.csv,238/238 ports recorded all seed IDs 0..7
+T33_accepted_source_identity_control,PASS,edge_attempts.csv,"attempt 6 exact endpoints, synchronized dense task and membership checks passed"
+T33_OFF_retreat_middle_return_control,PASS,edge_attempts.csv,attempt 8 all dense limit/collision checks passed

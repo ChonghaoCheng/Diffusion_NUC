@@ -1,0 +1,7 @@
+{
+  "status": "invalidated_before_any_method_result",
+  "implementation_sha": "ed73e45f72aa1df2d880b9604468e65c978fa042",
+  "reason": "load_robot_graph repeatedly indexed compressed NPZ arrays inside the edge loop, causing whole-array decompression per edge; the parent compare process terminated with exit 143 before writing a method row",
+  "affected_stage": "compare",
+  "frozen_graphs_unchanged": true
+}

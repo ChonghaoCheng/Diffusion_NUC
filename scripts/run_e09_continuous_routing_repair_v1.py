@@ -95,7 +95,8 @@ def stage_test(config: dict[str, Any], output: Path) -> None:
         lines.extend(["$ " + " ".join(command), result.stdout, f"exit={result.returncode} elapsed_s={perf_counter()-started:.6f}"])
         if not command_passed:
             break
-    (output / "tests.txt").write_text("\n".join(lines) + "\n")
+    combined = "\n".join(lines)
+    (output / "tests.txt").write_text("\n".join(line.rstrip() for line in combined.splitlines()) + "\n")
     checkpoint(output, "test", {"complete": passed, "commands": len(commands), "tested_code_sha": git("rev-parse", "HEAD"), "full_suite_dependency_limited": dependency_limited, "missing_historical_inputs": ["results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz", "results/nuc_robot_skeleton_coupling_v1/config.json"] if dependency_limited else []})
     if not passed:
         raise RuntimeError("E09 correctness tests failed")
@@ -145,7 +146,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         path.write_text("")
         return
     with path.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader(); writer.writerows(rows)
 
 

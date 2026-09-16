@@ -1,0 +1,147 @@
+{
+  "code_sha": "6b990e0555e1a56aa441a95cccfb818de74c702f",
+  "config_sha256": "8d8ed7b304fb4af7556055113d6b2394a783dac1893dd003b5d7a05db04ec5cf",
+  "experiment": "E09-R1 synchronized continuous connections and multi-state global surface routing",
+  "frozen_at": "2026-09-17T00:25:11.823217+10:00",
+  "geometry_bank_sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd",
+  "geometry_graph_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "inputs": [
+    {
+      "bytes": 5751,
+      "name": "geometry_bank_json",
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_global_surface_routing_v1/geometry_bank.json",
+      "sha256": "9cff4530d43f53dd61d56bc0280565b789211ff715486fb51e2e27ca670b9108"
+    },
+    {
+      "bytes": 207298,
+      "name": "geometry_bank_npz",
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_global_surface_routing_v1/geometry_bank.npz",
+      "sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd"
+    },
+    {
+      "bytes": 45014,
+      "name": "quadrature_q1",
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+      "sha256": "276f6a7df85dc8810d47b0f5d395ca7cac2595b48f5665d68fb89514ad446c5f"
+    },
+    {
+      "bytes": 182002,
+      "name": "quadrature_q2",
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+      "sha256": "490f1d6b02f2a868d88180afb803e683edddf56cbc18e211131c9f8c902f0967"
+    },
+    {
+      "bytes": 127629,
+      "name": "placements",
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/configs/riemannian_anisotropy_scenes_v1.json",
+      "sha256": "84ea882a4340a54a2dc891e820c90b1a4ff84c9733c4b5ab577986e569dab71b"
+    },
+    {
+      "bytes": 3549,
+      "name": "parent_graph_manifest",
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_global_surface_routing_v1/graph_manifest.json",
+      "sha256": "a50d963185264e7bfd9d71910e6393c14f85244a8cd93381330a0af58f3a0703"
+    },
+    {
+      "bytes": 6652,
+      "name": "robot_model",
+      "path": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml",
+      "sha256": "ffd0a7b336d3c2d27c35a15cc0d4aaa95196769aca190ac8d6522d3318c345a0"
+    }
+  ],
+  "measured_outputs_complete_at": "2026-09-17T02:18:00+10:00",
+  "model_identity": {
+    "site_name": "attachment_site",
+    "tool_axis_index": 2,
+    "tool_axis_sign": 1.0,
+    "xml": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml"
+  },
+  "stage_code_shas": {
+    "frozen_contract": "6b990e0555e1a56aa441a95cccfb818de74c702f",
+    "graph_construction": "ed73e45f72aa1df2d880b9604468e65c978fa042",
+    "refined_validation": "bdb24e4",
+    "valid_search_replay": "bb05ea9252a69687e435b3ca4458c8d5f21c13bd"
+  },
+  "thresholds": {
+    "construction": {
+      "continuation_target_spacing_m": 0.0005,
+      "edge_joint_step_rad": 0.025,
+      "edge_membership_spacing_m": 0.00025,
+      "effective_dedup_tolerance_rad": 0.001,
+      "endpoint_tolerance_rad": 1e-10,
+      "final_tracking_samples": 3,
+      "max_ik_calls": 1000000,
+      "max_nodes": 2048,
+      "max_off_attempts": 4000,
+      "max_on_attempts": 8000,
+      "max_q_candidates_per_port": 4,
+      "max_seeds_per_port": 8,
+      "retreat_distance_m": 0.02,
+      "schedule": "round_robin_source_cross_entry_off_then_candidate_rank"
+    },
+    "coverage": {
+      "footprint_radius_m": 0.008,
+      "missed_tolerance": 0.02,
+      "repeat_tolerance": 0.1,
+      "resolution_tolerance": 0.002
+    },
+    "robot": {
+      "axis_opposes_surface_normal": true,
+      "axis_tolerance_degrees": 0.1,
+      "characteristic_length_m": 0.1,
+      "constant_q6": true,
+      "ik_axis_tolerance_degrees": 0.05,
+      "ik_backend": "task5",
+      "ik_damping": 0.002,
+      "ik_max_iterations": 120,
+      "ik_max_update_rad": 0.25,
+      "ik_position_tolerance_m": 5e-05,
+      "joint_metric": "identity",
+      "position_tolerance_m": 0.0001,
+      "sigma_safe": 0.07237417172157597,
+      "site_name": "attachment_site",
+      "tool_axis_index": 2,
+      "tool_axis_sign": 1.0
+    },
+    "search": {
+      "checkpoints_s": [
+        10,
+        30,
+        60,
+        120,
+        300
+      ],
+      "cold_start": true,
+      "conservative_resident_label_limit": 30000,
+      "expanded_label_limit": 200000,
+      "method_order_by_task": [
+        [
+          "F",
+          "G0",
+          "G1",
+          "S"
+        ],
+        [
+          "G1",
+          "G0",
+          "S",
+          "F"
+        ],
+        [
+          "S",
+          "F",
+          "G0",
+          "G1"
+        ],
+        [
+          "G0",
+          "G1",
+          "F",
+          "S"
+        ]
+      ],
+      "private_memory_gib": 6,
+      "wall_time_s": 300
+    }
+  }
+}
