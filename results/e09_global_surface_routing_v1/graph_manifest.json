@@ -1,0 +1,99 @@
+{
+  "frozen_geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "graphs_frozen_before_comparison": true,
+  "placements": [
+    {
+      "build_seconds": 119.12930872291327,
+      "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+      "edge_count": 1429,
+      "failure_counts": {
+        "edge_dense_contract": 357,
+        "endpoint_membership_mismatch": 791
+      },
+      "geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+      "graph_file": "results/e09_global_surface_routing_v1/graphs/hemisphere_T30.npz",
+      "graph_hash": "e8f97f3f679f6258367c481fa6cde6b32af7dd3ffed884c557ac2b7212a7ef94",
+      "ik_calls": 103607,
+      "node_count": 241,
+      "off_attempts": 964,
+      "on_attempts": 1381,
+      "placement_level": "P_low",
+      "reason": null,
+      "scene_id": "T30",
+      "start_node": 0,
+      "start_q": [
+        -1.5410352853571834,
+        -1.5099632769299884,
+        1.6873016714324718,
+        -1.6205584452406185,
+        -1.6099928012468316,
+        -2.0290631599706334e-17
+      ],
+      "status": "recombination_limited",
+      "verified_cross_port_on": 0,
+      "verified_off": 964
+    },
+    {
+      "build_seconds": 117.11248186975718,
+      "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+      "edge_count": 1423,
+      "failure_counts": {
+        "edge_dense_contract": 347,
+        "endpoint_membership_mismatch": 778
+      },
+      "geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+      "graph_file": "results/e09_global_surface_routing_v1/graphs/hemisphere_T27.npz",
+      "graph_hash": "e641af51833630135c3b16cd246350a68b3d2cec1d4c45de75d093af7f270f76",
+      "ik_calls": 102646,
+      "node_count": 238,
+      "off_attempts": 952,
+      "on_attempts": 1361,
+      "placement_level": "P_mid",
+      "reason": null,
+      "scene_id": "T27",
+      "start_node": 0,
+      "start_q": [
+        -1.5144675062375585,
+        -1.47168633686051,
+        1.5321620022092346,
+        -1.3690526637479956,
+        -1.5521892293285964,
+        1.3382193136158187e-17
+      ],
+      "status": "recombination_limited",
+      "verified_cross_port_on": 0,
+      "verified_off": 952
+    },
+    {
+      "build_seconds": 118.0679769963026,
+      "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+      "edge_count": 1431,
+      "failure_counts": {
+        "edge_dense_contract": 361,
+        "endpoint_membership_mismatch": 790
+      },
+      "geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+      "graph_file": "results/e09_global_surface_routing_v1/graphs/hemisphere_T33.npz",
+      "graph_hash": "62c728dcd0cb854a3edfaa549b4149ab0b8347746982d058f5fca243fe1081f6",
+      "ik_calls": 103732,
+      "node_count": 242,
+      "off_attempts": 968,
+      "on_attempts": 1383,
+      "placement_level": "P_high",
+      "reason": null,
+      "scene_id": "T33",
+      "start_node": 0,
+      "start_q": [
+        -1.5028416675261174,
+        -1.4925014458070545,
+        1.5571182279948728,
+        -1.515064962752063,
+        -1.549423651460821,
+        1.4050160775390702e-17
+      ],
+      "status": "recombination_limited",
+      "verified_cross_port_on": 0,
+      "verified_off": 968
+    }
+  ]
+}

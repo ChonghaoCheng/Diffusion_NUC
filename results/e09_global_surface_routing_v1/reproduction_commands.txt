@@ -1,6 +1,7 @@
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage freeze
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage tests
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage build
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage compare
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage verify
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage report
+# Run from the Code repository root. Use a new output directory because the freeze stage is intentionally non-overwriting.
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage freeze --output results/e09_global_surface_routing_v1_reproduction
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage tests --output results/e09_global_surface_routing_v1_reproduction
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage build --output results/e09_global_surface_routing_v1_reproduction
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage compare --output results/e09_global_surface_routing_v1_reproduction
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage verify --output results/e09_global_surface_routing_v1_reproduction
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e09-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e09_global_surface_routing_v1.py --stage report --output results/e09_global_surface_routing_v1_reproduction

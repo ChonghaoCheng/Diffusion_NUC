@@ -1,0 +1,15 @@
+{
+  "branch": "exp/e09-global-surface-routing-v1",
+  "code_parent": "91f7418d9facf1a12676a98c7bb2b372965f55de",
+  "ara_parent": "8bf8938c62c2c8961e03893177bd1ef9cc3963cc",
+  "parent_branch": "exp/e08-path-semantics-repair-v1",
+  "initial_code_status": "clean isolated worktree",
+  "initial_ara_status": "clean isolated worktree",
+  "code_origin": "git@github.com:ChonghaoCheng/Diffusion_NUC.git",
+  "ara_origin": "git@github.com:ChonghaoCheng/Diffusion_NUC_ARA.git",
+  "parent_remote_heads_verified": true,
+  "newer_parent_changes": "Code parent includes reproduction-command-only commit 91f7418 after result commit cc98cdc; no later parent changes were present. ARA parent matched the supplied remote head.",
+  "worktree_policy": "isolated worktrees; no reset, clean, stash, force-push, merge, or unrelated edits",
+  "hardware": "NOT_RUN",
+  "fm_training": "NOT_RUN"
+}

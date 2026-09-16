@@ -1,0 +1,28 @@
+E09 final test record
+=====================
+
+Focused command:
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /data/chocheng/.venvs/coverage-fm/bin/python -m pytest tests/test_e09_geometry.py tests/test_e09_execution.py tests/test_history_search.py tests/test_completion_bound.py tests/test_ordered_trace_evaluator.py -q
+Result: PASS — 27 passed in 0.55 s (2026-09-16, final code before result-only commit).
+
+Literal repository-wide command:
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q
+Result: DEPENDENCY-LIMITED — 178 passed, 1 skipped, 10 failed, 14 warnings in 19.97 s.
+
+All 10 failures are pre-existing tests whose gitignored historical fixtures are absent from the isolated worktree. The missing inputs are:
+- results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz
+- results/nuc_robot_skeleton_coupling_v1/config.json
+
+Failed tests:
+- tests/test_local_deformation.py::test_archived_local_baseline_witness_reconstruction_is_exact
+- tests/test_surface_configuration_coupling.py::test_common_Jq_matches_archived_F0_slice_exactly
+- tests/test_surface_configuration_coupling.py::test_layered_q_replay_keeps_shared_endpoints_and_fixed_task_path
+- tests/test_symmetry_layout.py::test_theta_zero_exactly_reproduces_frozen_canonical_path
+- tests/test_symmetry_layout.py::test_hemisphere_orbit_is_analytical_closed_and_length_invariant
+- tests/test_symmetry_layout.py::test_saddle_symmetries_pass_analytical_surface_boundary_and_mesh_tests
+- tests/test_symmetry_layout.py::test_transported_temporal_coverage_is_exactly_invariant
+- tests/test_symmetry_layout.py::test_order_topology_and_activity_are_index_preserving
+- tests/test_symmetry_layout.py::test_scene_seed_and_budget_do_not_depend_on_orbit_member
+- tests/test_symmetry_layout.py::test_placement_is_external_to_the_object_frame_symmetry_orbit
+
+No focused E09, history-search, completion-bound, or ordered-trace test failed.

@@ -1,0 +1,15 @@
+{
+  "commands": 2,
+  "complete": true,
+  "focused_passed": 27,
+  "full_failed_missing_fixtures": 10,
+  "full_passed": 178,
+  "full_skipped": 1,
+  "full_suite_dependency_limited": true,
+  "missing_historical_inputs": [
+    "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz",
+    "results/nuc_robot_skeleton_coupling_v1/config.json"
+  ],
+  "stage": "tests",
+  "tested_code_sha": "2beeb9007cc2b2c00129c4144bde34e57255d2c0"
+}

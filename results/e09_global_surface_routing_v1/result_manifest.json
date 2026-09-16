@@ -1,0 +1,39 @@
+{
+  "experiment": "E09 full-surface robot-aware coverage routing",
+  "branch": "exp/e09-global-surface-routing-v1",
+  "geometry_freeze_code_sha": "600e72f07f336b29c7b9b76861a259e72b160468",
+  "frozen_graph_code_sha": "2815eaeec8ce2fb7e5ecc74846521311fef1ec58",
+  "paired_search_code_sha": "a314d55dc6c678e21f583a64927c2c426df6b961",
+  "final_validation_code_sha": "2beeb9007cc2b2c00129c4144bde34e57255d2c0",
+  "geometry_graph_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "geometry_bank_file_sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd",
+  "graphs": {
+    "T30": {
+      "semantic_hash": "e8f97f3f679f6258367c481fa6cde6b32af7dd3ffed884c557ac2b7212a7ef94",
+      "file_sha256": "32addf361af50f49a207c0fced45e4abfe5efdd5cfcff44a966da0b2ec7c4973"
+    },
+    "T27": {
+      "semantic_hash": "e641af51833630135c3b16cd246350a68b3d2cec1d4c45de75d093af7f270f76",
+      "file_sha256": "f79db1068698825e74135497a8069dc41a3fc2b25b2159e1f1f8750f490968a2"
+    },
+    "T33": {
+      "semantic_hash": "62c728dcd0cb854a3edfaa549b4149ab0b8347746982d058f5fca243fe1081f6",
+      "file_sha256": "fe0340889db6183cd54b71d6c04989d2ad51bb75d9409be11fd128f7b428f372"
+    }
+  },
+  "large_graph_retention": "The three reconstructible 8.5 MB graph NPZ files remain in the local result directory and are omitted from Git; semantic and file hashes are published here. Compact graph summaries, edge checks, selected witnesses, and frozen inputs are published.",
+  "invalidated_attempts": [
+    "invalidated_build_b1f5a8f.json",
+    "interrupted_compare_2815eae.json",
+    "invalidated_compare_06ca20a.json",
+    "invalidated_compare_3381271.json",
+    "invalidated_compare_083519d.json",
+    "invalidated_compare_9c6f871.json"
+  ],
+  "scheduled_planner_cells": 18,
+  "completed_planner_cells": 18,
+  "accepted_executions": 0,
+  "numerically_unresolved_plan_rows": 10,
+  "fm_training": "NOT_RUN",
+  "hardware": "NOT_RUN"
+}

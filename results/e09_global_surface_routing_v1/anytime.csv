@@ -1,0 +1,6 @@
+scene_id,k,method,seconds,found,used_reconfigurations,joint_cost,expanded,generated
+T30,2,G1,10.0,False,,,131,713
+T27,2,G1,10.0,True,0,90.06790931480374,126,720
+T27,2,G1,30.0,True,0,90.06790931480374,384,2106
+T33,2,G1,10.0,False,,,132,707
+T33,2,G1,30.0,False,,,403,2039

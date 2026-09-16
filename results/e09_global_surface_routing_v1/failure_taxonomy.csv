@@ -1,0 +1,7 @@
+scene_id,stage,reason,count
+T30,construction,edge_dense_contract,357
+T30,construction,endpoint_membership_mismatch,791
+T27,construction,endpoint_membership_mismatch,778
+T27,construction,edge_dense_contract,347
+T33,construction,edge_dense_contract,361
+T33,construction,endpoint_membership_mismatch,790
