@@ -30,7 +30,7 @@ from diffusion_coverage.robot.strict_execution import check_strict_coverage_exec
 from diffusion_coverage.robot.task_kinematics import evaluate_task_kinematics_5d
 from diffusion_coverage.robot.ur5e_mujoco import UR5eKinematics, transform_surface_pose_path
 from diffusion_coverage.solvers.completion_bound import CompletionEdge, completion_repeat_lower_bound
-from diffusion_coverage.solvers.history_search import SearchGraph, search_history_graph
+from diffusion_coverage.solvers.history_search import SearchGraph, require_real_graph_readiness, search_history_graph
 from diffusion_coverage.surface.primitives import make_hemisphere, make_saddle
 
 
@@ -643,6 +643,7 @@ def freeze_manifest(config: dict[str, Any], output: Path) -> dict[str, Any]:
 
 
 def stage_build_graph(config: dict[str, Any], output: Path) -> None:
+    require_real_graph_readiness(config.get("graph_capabilities", {}))
     require_checkpoint(output, "qualify")
     require_checkpoint(output, "validate-bound")
     verify_frozen_diff(config, output)
@@ -763,8 +764,10 @@ def edge_membership_from_q(robot:UR5eKinematics,surface,inverse:np.ndarray,q:np.
     surface_points=(homogeneous@inverse.T)[:,:3]
     membership=_ordered_footprint_membership(surface,surface_points,footprint_radius=config["coverage"]["footprint_radius_m"])
     membership[:,~np.asarray(active,dtype=bool)]=False
-    if start is not None: membership[:,0]=start
-    if end is not None: membership[:,-1]=end
+    if start is not None and not np.array_equal(membership[:,0],np.asarray(start,dtype=bool)):
+        raise RuntimeError("recomputed_start_membership_mismatch")
+    if end is not None and not np.array_equal(membership[:,-1],np.asarray(end,dtype=bool)):
+        raise RuntimeError("recomputed_end_membership_mismatch")
     return membership
 
 
@@ -830,7 +833,9 @@ def stage_compare(config: dict[str,Any], output: Path) -> None:
                 })
                 prune_rows.append({"surface_id":row["surface_id"],"scene_id":row["scene_id"],"k":k,"arm":arm,
                     "dominance":result.metrics.dominance_pruned,"repeat_budget":result.metrics.repeat_pruned,
-                    "segment_budget":result.metrics.segment_pruned,"reachable_area":result.metrics.reachability_pruned,
+                    "segment_budget":result.metrics.segment_pruned,
+                    "segment_budget_reachable_area":result.metrics.segment_budget_reachability_pruned,
+                    "reachable_area":result.metrics.reachability_pruned,
                     "completion_bound":result.metrics.completion_bound_pruned,"bound_calls":result.metrics.completion_bound_calls,
                     "bound_cache_hits":result.metrics.completion_bound_cache_hits,"bound_time_s":result.metrics.completion_bound_seconds,
                     "bound_nonzero_fraction":None if not result.metrics.completion_bound_calls else result.metrics.completion_bound_positive/result.metrics.completion_bound_calls,

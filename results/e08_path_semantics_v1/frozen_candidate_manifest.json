@@ -1,0 +1,153 @@
+{
+  "candidate_file": "results/e08_path_semantics_v1/frozen_candidates.npz",
+  "candidate_file_sha256": "791a8ef557a5a3b9c50b8ccd513709e9be383d32b4b34472a01cff5f176dacb1",
+  "candidates": [
+    {
+      "activity_keys": [
+        "candidate_0_activity_0"
+      ],
+      "candidate_id": "saddle/raster_u_phase_0.00",
+      "candidate_index": 0,
+      "candidate_sha256": "a840a202b54f13da558a8d176b75c98b75cc0bb2682d74c30db0ed47851d41de",
+      "family": "raster_u_phase_0.00",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_0_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "saddle",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_1_activity_0"
+      ],
+      "candidate_id": "saddle/raster_v_phase_0.00",
+      "candidate_index": 1,
+      "candidate_sha256": "c3e13347dcfd13b0c49712adabae941e2f324fdb3c1c3b518bde3dafaaecf42f",
+      "family": "raster_v_phase_0.00",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_1_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "saddle",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_2_activity_0"
+      ],
+      "candidate_id": "saddle/spiral_phase_0.00",
+      "candidate_index": 2,
+      "candidate_sha256": "d97597d0da0dc5217ae6dc1ffc4ffdc64afd10b8ca630327821acc5a103384dc",
+      "family": "spiral_phase_0.00",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_2_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "saddle",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_3_activity_0",
+        "candidate_3_activity_1"
+      ],
+      "candidate_id": "saddle/raster_u_phase_0.00_k2",
+      "candidate_index": 3,
+      "candidate_sha256": "cfe7e3fcc36ca368f360739f3f70f367ce68e6e2108963d9f1aea7649db6b6b2",
+      "family": "raster_u_phase_0.00_k2",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 2,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_3_path_0",
+        "candidate_3_path_1"
+      ],
+      "segment_count": 2,
+      "surface_id": "saddle",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_4_activity_0"
+      ],
+      "candidate_id": "hemisphere/raster_u_phase_0.00",
+      "candidate_index": 4,
+      "candidate_sha256": "9213b29f08bf36494ce2c826222ec47a9d287958b158a90603b8160d5d1f3e82",
+      "family": "raster_u_phase_0.00",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_4_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "hemisphere",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_5_activity_0"
+      ],
+      "candidate_id": "hemisphere/raster_u_phase_0.25",
+      "candidate_index": 5,
+      "candidate_sha256": "7c3f7d55dfed374fac95752d015f8aa9d97027a71defb45970a5a076cce43f59",
+      "family": "raster_u_phase_0.25",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_5_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "hemisphere",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_6_activity_0"
+      ],
+      "candidate_id": "hemisphere/raster_v_phase_0.00",
+      "candidate_index": 6,
+      "candidate_sha256": "44fbd2ffb0f917fa14ed41e532541c518fba0285454090cf13a85c34c380cc70",
+      "family": "raster_v_phase_0.00",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_6_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "hemisphere",
+      "waypoint_spacing_m": 0.006
+    },
+    {
+      "activity_keys": [
+        "candidate_7_activity_0"
+      ],
+      "candidate_id": "hemisphere/spiral_phase_0.00",
+      "candidate_index": 7,
+      "candidate_sha256": "d7a887c889dc5668ab124129718c777d6b9acb9c821f447def935483114b9cf6",
+      "family": "spiral_phase_0.00",
+      "generator": "pinned E08 raster_pattern/spiral_pattern",
+      "max_segments": 1,
+      "overlap": 1.0,
+      "path_keys": [
+        "candidate_7_path_0"
+      ],
+      "segment_count": 1,
+      "surface_id": "hemisphere",
+      "waypoint_spacing_m": 0.006
+    }
+  ],
+  "frozen_before_geometry": true
+}

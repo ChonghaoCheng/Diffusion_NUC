@@ -112,7 +112,10 @@ def _ordered_footprint_membership(
 
 
 def _surface_sample_to_ordered_source_distances(
-    surface: SurfaceInstance, ordered_sources: np.ndarray
+    surface: SurfaceInstance,
+    ordered_sources: np.ndarray,
+    *,
+    sample_indices: np.ndarray | None = None,
 ) -> np.ndarray:
     """Pairwise version of the legacy mesh-edge geodesic approximation."""
 
@@ -125,10 +128,17 @@ def _surface_sample_to_ordered_source_distances(
     source_to_vertices = np.linalg.norm(
         source_vertices - source_projection.points[:, None, :], axis=2
     )
-    distances = np.empty((surface.num_samples, len(sources)), dtype=np.float64)
-    for sample_index, (sample, face_index) in enumerate(
-        zip(surface.sample_points, surface.sample_face_indices)
-    ):
+    indices = (
+        np.arange(surface.num_samples, dtype=np.int64)
+        if sample_indices is None
+        else np.asarray(sample_indices, dtype=np.int64)
+    )
+    if indices.ndim != 1 or np.any(indices < 0) or np.any(indices >= surface.num_samples):
+        raise ValueError("sample_indices must be valid surface sample indices")
+    distances = np.empty((len(indices), len(sources)), dtype=np.float64)
+    for output_index, sample_index in enumerate(indices):
+        sample = surface.sample_points[sample_index]
+        face_index = int(surface.sample_face_indices[sample_index])
         initial = np.full(surface.num_vertices, np.inf, dtype=np.float64)
         face_vertices = surface.faces[int(face_index)]
         initial[face_vertices] = np.linalg.norm(
@@ -142,5 +152,5 @@ def _surface_sample_to_ordered_source_distances(
                 row[same_face],
                 np.linalg.norm(source_projection.points[same_face] - sample, axis=1),
             )
-        distances[sample_index] = row
+        distances[output_index] = row
     return distances

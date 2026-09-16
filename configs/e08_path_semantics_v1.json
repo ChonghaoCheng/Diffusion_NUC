@@ -1,0 +1,64 @@
+{
+  "experiment": "E08-R1 path semantics repair v1",
+  "registered_at": "2026-09-16T19:00:00+10:00",
+  "parent_code_sha": "14c7fbdaa1441f5dbab244938912a57881503ccf",
+  "parent_ara_sha": "fc35b78c591f05ef6183d584057b5ea06bad40cd",
+  "seed": 20260916,
+  "inputs": {
+    "e08_config": "configs/global_completion_bound_v1.json",
+    "historical_surface_config": "configs/symmetry_preserving_global_layout_v1.json",
+    "canonical_qualification": "results/global_completion_bound_v1/canonical_qualification.csv",
+    "ik_comparison": "results/global_completion_bound_v1/ik_comparison.csv"
+  },
+  "coverage": {
+    "footprint_radius_m": 0.008,
+    "missed_tolerance": 0.02,
+    "repeat_tolerance": 0.10,
+    "legacy_path_step_m": 0.001,
+    "legacy_samples_per_face": 4,
+    "replay_warning_absolute": 1e-8,
+    "resolution_change_warning_absolute": 0.002,
+    "distance_chunk_size": 64
+  },
+  "quadrature": {
+    "rule": "nested analytical-domain cells; midpoint locations; exact spherical-cell weights and saddle midpoint surface-density weights",
+    "Q0": {"scale": 1, "saddle_nx": 48, "saddle_ny": 48, "hemisphere_n_azimuth": 48, "hemisphere_n_polar": 24},
+    "Q1": {"scale": 2, "saddle_nx": 96, "saddle_ny": 96, "hemisphere_n_azimuth": 96, "hemisphere_n_polar": 48},
+    "Q2": {"scale": 4, "saddle_nx": 192, "saddle_ny": 192, "hemisphere_n_azimuth": 192, "hemisphere_n_polar": 96}
+  },
+  "reference_schedule": [
+    {"path_step_m": 0.001, "quadrature": "Q0"},
+    {"path_step_m": 0.0005, "quadrature": "Q0"},
+    {"path_step_m": 0.00025, "quadrature": "Q0"},
+    {"path_step_m": 0.00025, "quadrature": "Q1"},
+    {"path_step_m": 0.00025, "quadrature": "Q2"}
+  ],
+  "candidates": {
+    "saddle": [
+      {"name": "raster_u_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_v_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "spiral_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_u_phase_0.00_k2", "max_segments": 2, "overlap": 1.0}
+    ],
+    "hemisphere": [
+      {"name": "raster_u_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_u_phase_0.25", "max_segments": 1, "overlap": 1.0},
+      {"name": "raster_v_phase_0.00", "max_segments": 1, "overlap": 1.0},
+      {"name": "spiral_phase_0.00", "max_segments": 1, "overlap": 1.0}
+    ]
+  },
+  "decision_rule": {
+    "accepted": "Q2 upper miss/repeat bounds meet thresholds, Q1/Q2 status agrees, and every bound changes by at most 0.002",
+    "rejected": "Q2 lower miss or repeat bound exceeds threshold, Q1/Q2 status agrees, and every bound changes by at most 0.002",
+    "unresolved": "threshold-straddling uncertainty, Q1/Q2 status change, or any final bound change above 0.002"
+  },
+  "scope": {
+    "geometry_candidates": 8,
+    "per_robot_placement_repetition": false,
+    "new_ik": false,
+    "real_graph_build": false,
+    "real_s0_s1": false,
+    "flow_matching": false,
+    "continuous_time_certificate": false
+  }
+}

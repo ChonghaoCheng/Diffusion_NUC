@@ -1,0 +1,30 @@
+{
+  "candidate_manifest_sha256": "64171ccb7d21e23043beef0751d9406ecd842187e57caa8feed62da3f991a782",
+  "config": "configs/e08_path_semantics_v1.json",
+  "config_sha256": "6a5205ba408b3ea3ed55d02039456814b8b486f835705dae217823379984096a",
+  "executed_at": "2026-09-16T19:04:34+10:00",
+  "inputs": {
+    "canonical_qualification": {
+      "path": "results/global_completion_bound_v1/canonical_qualification.csv",
+      "sha256": "231d93d42fe8cb51eda147f05b21c17c611c5e5aee2cb0f42a8e75a0c4bc16c7"
+    },
+    "e08_config": {
+      "path": "configs/global_completion_bound_v1.json",
+      "sha256": "3fe8d0a79c7ad686acad1119b6b4c5c60f2f500c9802d8296a01105e968a6ded"
+    },
+    "historical_surface_config": {
+      "path": "configs/symmetry_preserving_global_layout_v1.json",
+      "sha256": "1edefe06621775072fa49a5fd97d0ccc72f4187b4b3cc2982681cdbcc814d295"
+    },
+    "ik_comparison": {
+      "path": "results/global_completion_bound_v1/ik_comparison.csv",
+      "sha256": "7f9a129153f59599d9740f061f9a582ab982b4b39aae6d505cdde8cf5d03503e"
+    }
+  },
+  "numpy": "1.26.4",
+  "parent_ara_sha": "fc35b78c591f05ef6183d584057b5ea06bad40cd",
+  "parent_code_sha": "14c7fbdaa1441f5dbab244938912a57881503ccf",
+  "python": "3.12.13",
+  "quadrature_definitions_sha256": "9fc6829ce8b5233bc351e672c261e2db246ed017067b6c1a7bca4e3217b695a8",
+  "registered_at": "2026-09-16T19:00:00+10:00"
+}

@@ -38,6 +38,7 @@ class SearchMetrics:
     repeat_pruned: int = 0
     segment_pruned: int = 0
     reachability_pruned: int = 0
+    segment_budget_reachability_pruned: int = 0
     completion_bound_pruned: int = 0
     completion_bound_positive: int = 0
     completion_bound_stronger: int = 0
@@ -56,6 +57,21 @@ class SearchResult:
     checkpoints: tuple[dict[str, Any], ...]
     first_solution_seconds: float | None
     mechanism_sample: dict[str, Any] | None
+
+
+REAL_GRAPH_REQUIRED_CAPABILITIES = (
+    "task_preserving_on_connections",
+    "explicit_node_activity",
+    "recomputed_endpoint_membership_checked",
+)
+
+
+def require_real_graph_readiness(capabilities: dict[str, bool]) -> None:
+    """Reject a real-graph claim unless known construction capabilities are explicit."""
+
+    missing = [name for name in REAL_GRAPH_REQUIRED_CAPABILITIES if capabilities.get(name) is not True]
+    if missing:
+        raise RuntimeError("real_graph_readiness_missing:" + ",".join(missing))
 
 
 def search_history_graph(
@@ -114,8 +130,23 @@ def search_history_graph(
             continue
         metrics.expanded += 1
 
-        if not _reachable_area_sufficient(label, outgoing, graph.weights, missed_tolerance):
-            metrics.reachability_pruned += 1
+        if not _reachable_area_sufficient(
+            label,
+            outgoing,
+            graph.weights,
+            missed_tolerance,
+            maximum_on_segments=maximum_on_segments,
+        ):
+            if _reachable_area_sufficient(
+                label,
+                outgoing,
+                graph.weights,
+                missed_tolerance,
+                maximum_on_segments=None,
+            ):
+                metrics.segment_budget_reachability_pruned += 1
+            else:
+                metrics.reachability_pruned += 1
             continue
         if use_completion_bound:
             key = (label.node, np.packbits(label.covered).tobytes(), maximum_on_segments - label.used_on_segments, graph.graph_hash)
@@ -229,18 +260,36 @@ def _admit_pareto(label: SearchLabel, table: dict, tolerance: float) -> bool:
     return True
 
 
-def _reachable_area_sufficient(label: SearchLabel, outgoing: dict[int, list[CompletionEdge]], weights: np.ndarray, missed: float) -> bool:
-    # Deliberately optimistic ordinary reachability: ignore costs and ON-segment use.
-    reachable_nodes = {label.node}
-    stack = [label.node]
+def _reachable_area_sufficient(
+    label: SearchLabel,
+    outgoing: dict[int, list[CompletionEdge]],
+    weights: np.ndarray,
+    missed: float,
+    *,
+    maximum_on_segments: int | None,
+) -> bool:
+    """Optimistically union footprints reachable within the ON-segment budget.
+
+    ``None`` retains the unconstrained diagnostic used only to classify why the
+    constrained check pruned a label. Costs, repeat action, and path consistency
+    between different targets remain relaxed, so this is a safe area upper bound.
+    """
+
+    start = (label.node, label.used_on_segments)
+    reachable_states = {start}
+    stack = [start]
     footprint = label.covered.copy()
     while stack:
-        node = stack.pop()
+        node, used_on_segments = stack.pop()
         for edge in outgoing.get(node, ()):
+            new_used = used_on_segments + edge.summary.off_to_on_count
+            if maximum_on_segments is not None and new_used > maximum_on_segments:
+                continue
             footprint |= edge.summary.footprint
-            if edge.end not in reachable_nodes:
-                reachable_nodes.add(edge.end)
-                stack.append(edge.end)
+            state = (edge.end, new_used)
+            if state not in reachable_states:
+                reachable_states.add(state)
+                stack.append(state)
     return float(np.asarray(weights)[footprint].sum()) >= (1.0 - missed) * float(np.asarray(weights).sum()) - 1e-15
 
 

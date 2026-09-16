@@ -1,0 +1,95 @@
+{
+  "frozen_before_geometry": true,
+  "quadratures": [
+    {
+      "area": 0.06001697080752006,
+      "definition": {
+        "dx_m": 0.005,
+        "dy_m": 0.005,
+        "nx": 48,
+        "ny": 48,
+        "rule": "nested rectangular cells with midpoint surface-density quadrature"
+      },
+      "file": "results/e08_path_semantics_v1/quadrature_saddle_Q0.npz",
+      "level": "Q0",
+      "samples": 2304,
+      "sha256": "5d714ddd1dd1554661bc79b68c4eac0b4978521bfd2ea780977737f8afcca305",
+      "surface_id": "saddle"
+    },
+    {
+      "area": 0.06001771907528469,
+      "definition": {
+        "dx_m": 0.0025,
+        "dy_m": 0.0025,
+        "nx": 96,
+        "ny": 96,
+        "rule": "nested rectangular cells with midpoint surface-density quadrature"
+      },
+      "file": "results/e08_path_semantics_v1/quadrature_saddle_Q1.npz",
+      "level": "Q1",
+      "samples": 9216,
+      "sha256": "7a00144a576a62e52e8208f5ab8606e4093ac8114cbefadd3ec93ae904f705db",
+      "surface_id": "saddle"
+    },
+    {
+      "area": 0.060017906138973905,
+      "definition": {
+        "dx_m": 0.00125,
+        "dy_m": 0.00125,
+        "nx": 192,
+        "ny": 192,
+        "rule": "nested rectangular cells with midpoint surface-density quadrature"
+      },
+      "file": "results/e08_path_semantics_v1/quadrature_saddle_Q2.npz",
+      "level": "Q2",
+      "samples": 36864,
+      "sha256": "5af720109e185891e3920aac14fab044da60844af6e05f9946325392fb7f8a66",
+      "surface_id": "saddle"
+    },
+    {
+      "area": 0.12315043202071987,
+      "definition": {
+        "equator_azimuth_spacing_m": 0.01832595714594046,
+        "n_azimuth": 48,
+        "n_polar": 24,
+        "polar_spacing_m": 0.00916297857297023,
+        "rule": "nested azimuth-polar cells; midpoint locations and exact spherical cell area"
+      },
+      "file": "results/e08_path_semantics_v1/quadrature_hemisphere_Q0.npz",
+      "level": "Q0",
+      "samples": 1152,
+      "sha256": "7dcb30e8a9c61186bd1af2d38e243dbe31ee853616f7be72ddea799d295886d0",
+      "surface_id": "hemisphere"
+    },
+    {
+      "area": 0.12315043202071979,
+      "definition": {
+        "equator_azimuth_spacing_m": 0.00916297857297023,
+        "n_azimuth": 96,
+        "n_polar": 48,
+        "polar_spacing_m": 0.004581489286485115,
+        "rule": "nested azimuth-polar cells; midpoint locations and exact spherical cell area"
+      },
+      "file": "results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+      "level": "Q1",
+      "samples": 4608,
+      "sha256": "276f6a7df85dc8810d47b0f5d395ca7cac2595b48f5665d68fb89514ad446c5f",
+      "surface_id": "hemisphere"
+    },
+    {
+      "area": 0.12315043202072021,
+      "definition": {
+        "equator_azimuth_spacing_m": 0.004581489286485115,
+        "n_azimuth": 192,
+        "n_polar": 96,
+        "polar_spacing_m": 0.0022907446432425577,
+        "rule": "nested azimuth-polar cells; midpoint locations and exact spherical cell area"
+      },
+      "file": "results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+      "level": "Q2",
+      "samples": 18432,
+      "sha256": "490f1d6b02f2a868d88180afb803e683edddf56cbc18e211131c9f8c902f0967",
+      "surface_id": "hemisphere"
+    }
+  ]
+}
