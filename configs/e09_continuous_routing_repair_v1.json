@@ -1,0 +1,58 @@
+{
+  "experiment": "E09-R1 synchronized continuous connections and multi-state global surface routing",
+  "registered_at": "2026-09-17T00:20:00+10:00",
+  "seed": 20260917,
+  "parent_code_sha": "a401dbc7e3bdadea7af2d9420bc090b64b3dfb09",
+  "parent_ara_sha": "c06054f6f6c6c3cf8d2da2b77b4c12bb6b44afc1",
+  "inputs": {
+    "geometry_bank_json": "results/e09_global_surface_routing_v1/geometry_bank.json",
+    "geometry_bank_npz": "results/e09_global_surface_routing_v1/geometry_bank.npz",
+    "quadrature_q1": "results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+    "quadrature_q2": "results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+    "placements": "configs/riemannian_anisotropy_scenes_v1.json",
+    "parent_graph_manifest": "results/e09_global_surface_routing_v1/graph_manifest.json",
+    "robot_model": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml"
+  },
+  "expected_geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "placements": ["T30", "T27", "T33"],
+  "on_segment_budgets": [1, 2],
+  "surface": {"id": "hemisphere", "radius_m": 0.14, "complete_domain": true},
+  "coverage": {"footprint_radius_m": 0.008, "missed_tolerance": 0.02, "repeat_tolerance": 0.10, "resolution_tolerance": 0.002},
+  "robot": {
+    "site_name": "attachment_site", "tool_axis_index": 2, "tool_axis_sign": 1.0,
+    "axis_opposes_surface_normal": true, "ik_backend": "task5",
+    "characteristic_length_m": 0.1, "sigma_safe": 0.07237417172157597,
+    "position_tolerance_m": 0.0001, "axis_tolerance_degrees": 0.1,
+    "ik_position_tolerance_m": 0.00005, "ik_axis_tolerance_degrees": 0.05,
+    "ik_damping": 0.002, "ik_max_update_rad": 0.25, "ik_max_iterations": 120,
+    "joint_metric": "identity", "constant_q6": true
+  },
+  "common_start_q": {
+    "T30": [-1.5410352853571834, -1.5099632769299884, 1.6873016714324718, -1.6205584452406185, -1.6099928012468316, -2.0290631599706334e-17],
+    "T27": [-1.5144675062375585, -1.47168633686051, 1.5321620022092346, -1.3690526637479956, -1.5521892293285964, 1.3382193136158187e-17],
+    "T33": [-1.5028416675261174, -1.4925014458070545, 1.5571182279948728, -1.515064962752063, -1.549423651460821, 1.4050160775390702e-17]
+  },
+  "construction": {
+    "max_nodes": 2048, "max_on_attempts": 8000, "max_off_attempts": 4000,
+    "max_ik_calls": 1000000, "max_q_candidates_per_port": 4, "max_seeds_per_port": 8,
+    "effective_dedup_tolerance_rad": 0.001, "endpoint_tolerance_rad": 1e-10,
+    "continuation_target_spacing_m": 0.0005, "edge_membership_spacing_m": 0.00025,
+    "edge_joint_step_rad": 0.025, "retreat_distance_m": 0.02,
+    "final_tracking_samples": 3,
+    "schedule": "round_robin_source_cross_entry_off_then_candidate_rank"
+  },
+  "search": {
+    "wall_time_s": 300, "expanded_label_limit": 200000, "private_memory_gib": 6,
+    "conservative_resident_label_limit": 30000,
+    "checkpoints_s": [10, 30, 60, 120, 300],
+    "method_order_by_task": [["F", "G0", "G1", "S"], ["G1", "G0", "S", "F"], ["S", "F", "G0", "G1"], ["G0", "G1", "F", "S"]],
+    "cold_start": true
+  },
+  "validation": {
+    "deadline_s_per_unique_witness": 900, "memory_gib": 6,
+    "temporal": {"T0_joint_step_rad": 0.0125, "T0_surface_step_m": 0.000125, "T1_joint_step_rad": 0.00625, "T1_surface_step_m": 0.0000625},
+    "quadrature": {"Q1": [96, 48], "Q2": [192, 96], "Q3": [384, 192], "Q4": [768, 384], "Q4a_fraction_pairs": [[0.25, 0.75], [0.75, 0.25]]}
+  },
+  "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+  "forbidden": ["hardware", "FM", "saddle rerun", "new path families", "threshold relaxation", "Q5", "bound optimization"]
+}
