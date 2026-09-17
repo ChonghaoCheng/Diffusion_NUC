@@ -1,0 +1,31 @@
+{
+  "allowed_runtime_dependencies": {
+    "forbidden": [
+      "robot graph",
+      "per-port q",
+      "edge feasibility",
+      "teacher future q",
+      "teacher graph edge IDs"
+    ],
+    "surface_geometry": [
+      "geometry_only_library.npz",
+      "geometry_only_library.json"
+    ],
+    "task_inputs": [
+      "transform_base_from_surface",
+      "checked_q0",
+      "robot_model",
+      "physical_contract"
+    ]
+  },
+  "code_sha": "bef362cec38eac587c5ab0f15c779d68516a7ae1",
+  "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+  "config_sha256": "672b7ed6950a4b6db357ea763c14cc19b785d731e8cc5a9408ff3ba5bd3a968d",
+  "experiment": "E12 graph-free global coverage generation and candidate-only execution",
+  "geometry_json_sha256": "9cff4530d43f53dd61d56bc0280565b789211ff715486fb51e2e27ca670b9108",
+  "geometry_npz_sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd",
+  "geometry_semantic_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "gpu_recorded_at_training": null,
+  "pose_splits_sha256": "81e20894457ffb882642c0d4748e8a4e54f160816ffa7ad53d3ad37f2906d552",
+  "prepared_at": "2026-09-17T19:52:10.302232+10:00"
+}

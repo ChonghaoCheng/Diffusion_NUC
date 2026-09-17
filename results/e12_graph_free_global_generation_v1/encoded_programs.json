@@ -1,0 +1,218 @@
+{
+  "0243dd9bc5b3315eac93cb2a30771e5bbbdfca1a7637e735aba43b419ec070bc": {
+    "program_hash": "8eae5ba972ed3e55deff137680187417663509d7a3aec322b442e5bdb9c1fe77",
+    "program_json": "[{\"a\":0.0,\"b\":0.9381116030232572,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8385979553704499,\"d2\":0.09902745275923894,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.5028416675261174,
+      -1.4925014458070545,
+      1.5571182279948728,
+      -1.515064962752063,
+      -1.549423651460821,
+      1.4050160775390702e-17
+    ],
+    "scene_id": "T33",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "225be71a0099a06a93ce9a189d4a437a16baaaaca57a9a9c28a979d774d1c220": {
+    "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+    "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.5099210217062577,
+      -1.3080349115522703,
+      1.386469196991832,
+      -1.1889730917311583,
+      -1.4605947515448128,
+      3.6670470226749194e-17
+    ],
+    "scene_id": "H03",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "2e856981affabcb96b886e5c22bb0d5493d6e82ec67fc0a371d4128c5169d47a": {
+    "program_hash": "45567d6bc745a9ea491287afc7567c69bd45d77079165078bbd4c261adb32912",
+    "program_json": "[{\"a\":0.0,\"b\":0.9640741970516721,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.29163476062608473,\"d2\":-0.792465856391333,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.19668829116354355,\"d2\":-0.8211983215220594,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.10420757620760365,\"d2\":-0.7453276164919205,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.08026511012689437,\"d2\":-0.7482846964497591,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.01130210003192095,\"d2\":-0.8688700051041822,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.06057306673071422,\"d2\":-0.9434744080303177,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9190831703596644,\"b\":0.9443232823575675,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.6333934719787788,
+      -1.5249410061225115,
+      1.5406175698636142,
+      -1.2780066840864341,
+      -1.4324029724964487,
+      7.457078056285417e-17
+    ],
+    "scene_id": "H02",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "70ed32953911fa8f273284c3612649292869ead35778d0750bf855641abd7f6f": {
+    "program_hash": "db6820ff08f80cafd04e30f5ba307cd71bfee3025c7ab35258ff712bd0f37ae3",
+    "program_json": "[{\"a\":0.0,\"b\":0.9640741970516721,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.29163476062608473,\"d2\":-0.792465856391333,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.19668829116354355,\"d2\":-0.8211983215220594,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.08026511012689437,\"d2\":-0.7482846964497591,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.01130210003192095,\"d2\":-0.8688700051041822,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.06057306673071422,\"d2\":-0.9434744080303177,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9190831703596644,\"b\":0.9443232823575675,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.6333934719787788,
+      -1.5249410061225115,
+      1.5406175698636142,
+      -1.2780066840864341,
+      -1.4324029724964487,
+      7.457078056285417e-17
+    ],
+    "scene_id": "H02",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "96e90a83de462de8e1a99df58d4a205a4dcf901e1dcea2a007d45e2e10ec388b": {
+    "program_hash": "e1da4b7e0e6e0c9825650781bfdeac15725fe5960e1012d9d3f85ad85f61032f",
+    "program_json": "[{\"a\":0.0,\"b\":0.9640741970516721,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.29163476062608473,\"d2\":-0.792465856391333,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.19668829116354355,\"d2\":-0.8211983215220594,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.10420757620760365,\"d2\":-0.7453276164919205,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.08026511012689437,\"d2\":-0.7482846964497591,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.01130210003192095,\"d2\":-0.8688700051041822,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.05048812600249454,\"d2\":-0.944067796375916,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9190831703596648,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.6798282556085509,
+      -1.573628099664546,
+      1.6987012278710443,
+      -1.5270011077369137,
+      -1.4480734031011724,
+      2.7668592935497802e-17
+    ],
+    "scene_id": "H00",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "af321ba16887b91c76341ae1af1f6ed160670fb16d600bcc05ae9267e3e6bd78": {
+    "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+    "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.4904673816025327,
+      -1.328222391230056,
+      1.3950489230677985,
+      -1.3197651059614093,
+      -1.4759844194169123,
+      3.0937416152186154e-17
+    ],
+    "scene_id": "H05",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "b5f132e945eca027e7bfe1264f0f9fd9db24ef8646752bc75bc9eb24f9ed46dc": {
+    "program_hash": "696790d18a6e249a1646a5dafdb4d9519f220b5bdd8aa207f283f0a1e216a4e3",
+    "program_json": "[{\"a\":0.0,\"b\":0.9640741970516721,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.29163476062608473,\"d2\":-0.792465856391333,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.19668829116354355,\"d2\":-0.8211983215220594,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.08026511012689437,\"d2\":-0.7482846964497591,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.01130210003192095,\"d2\":-0.8688700051041822,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.05048812600249454,\"d2\":-0.944067796375916,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9190831703596648,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.6798282556085509,
+      -1.573628099664546,
+      1.6987012278710443,
+      -1.5270011077369137,
+      -1.4480734031011724,
+      2.7668592935497802e-17
+    ],
+    "scene_id": "H00",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "b7a23bb6618850fc11c2e63ebb0be8ce42d25821c688831aa19495e1d8e2442c": {
+    "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+    "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.5250784121492824,
+      -1.3389577199656248,
+      1.5176933967454729,
+      -1.4123782640367812,
+      -1.5407796274055763,
+      -1.3656373925390312e-17
+    ],
+    "scene_id": "H01",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "da8328d2f796257b0835f8ac180a092106f320e2a03165acdb2b7b46e52be903": {
+    "program_hash": "f89454ee03a0523a94280d25be12940539a071d5bdcc48208709aee7bb9dc467",
+    "program_json": "[{\"a\":0.0,\"b\":0.8863295707662299,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9190831703596648,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.06057306673071422,\"d2\":-0.9434744080303177,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.27514317929811793,\"d2\":-0.9377754718530312,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9770657078018086,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.5250784121492824,
+      -1.3389577199656248,
+      1.5176933967454729,
+      -1.4123782640367812,
+      -1.5407796274055763,
+      -1.3656373925390312e-17
+    ],
+    "scene_id": "H01",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "e9f35f7423a10921fd72018d1c9ab2be0f0cb668c5a54832246fafba47d9e9e7": {
+    "program_hash": "6d7cc18611d0d70fedd7790f065bc7cd9b1be69b2bbdd8cd726e3f451ad423eb",
+    "program_json": "[{\"a\":0.0,\"b\":0.9251449114014183,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.4831094029026632,\"d2\":0.6925736581610037,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8185520260620133,\"b\":0.831013353896666,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9381116030232572,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9821834503544223,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.5410352853571834,
+      -1.5099632769299884,
+      1.6873016714324718,
+      -1.6205584452406185,
+      -1.6099928012468316,
+      -2.0290631599706334e-17
+    ],
+    "scene_id": "T30",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534": {
+    "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+    "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.5144675062375585,
+      -1.47168633686051,
+      1.5321620022092346,
+      -1.3690526637479956,
+      -1.5521892293285964,
+      1.3382193136158187e-17
+    ],
+    "scene_id": "T27",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  },
+  "f3cdfef7182abe2c74784e94d975879c5b5283f0326678cf9189cfac5f9249f4": {
+    "program_hash": "62b939ba6e6117b3bc69c30e71f70a0437db3c8d46b3fcc4cda02af7a3a3e09a",
+    "program_json": "[{\"a\":0.0,\"b\":0.8605451672002925,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.05048812600249454,\"d2\":-0.944067796375916,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9190831703596648,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9064631143607133,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8434746817313175,\"b\":0.8808586652352762,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+    "q0": [
+      -1.6370852052478968,
+      -1.5499761597617876,
+      1.5680378021853953,
+      -1.4149641664354524,
+      -1.385587109023592,
+      7.98806951130376e-17
+    ],
+    "scene_id": "H04",
+    "start_surface_point": [
+      0.00784986261320685,
+      0.0,
+      0.13977975410249432
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "forbidden": [
+    "robot graph",
+    "per-port q",
+    "edge feasibility",
+    "teacher future q",
+    "teacher graph edge IDs"
+  ],
+  "surface_geometry": [
+    "geometry_only_library.npz",
+    "geometry_only_library.json"
+  ],
+  "task_inputs": [
+    "transform_base_from_surface",
+    "checked_q0",
+    "robot_model",
+    "physical_contract"
+  ]
+}
