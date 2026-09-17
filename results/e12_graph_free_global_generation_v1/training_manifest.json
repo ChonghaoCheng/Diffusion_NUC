@@ -1,0 +1,79 @@
+{
+  "checkpoints": {
+    "categorical": {
+      "path": "results/e12_graph_free_global_generation_v1/models/categorical_final.pt",
+      "sha256": "86ca63500dc8a7c4c582929a9f9382d413b2e411268a4114c77af6e5b521a17f"
+    },
+    "fm": {
+      "path": "results/e12_graph_free_global_generation_v1/models/fm_final.pt",
+      "sha256": "b698a7d2f466b409970b613f2c3abdf84796f627b633be6cc7a9d07f8169b4a4"
+    },
+    "reg": {
+      "path": "results/e12_graph_free_global_generation_v1/models/reg_final.pt",
+      "sha256": "b3016eb180fe96f7c1312073aa3b24532f1a3926db28d7ecd8cab8c0fc03bd26"
+    }
+  },
+  "cuda": "11.8",
+  "elapsed_s_critical_path": 34.48316866904497,
+  "elapsed_s_sum": 96.76253534853458,
+  "gpu_inventory": [
+    "NVIDIA RTX A5500, GPU-15e054b6-9212-f4a4-8e74-a206281dc9d2, 24564 MiB, 570.144",
+    "NVIDIA RTX A5500, GPU-2fe7d75c-24c0-4afa-c661-6fe111dae959, 24564 MiB, 570.144"
+  ],
+  "model_stream_seeds": {
+    "categorical": 2968811710,
+    "fm": 3141116543,
+    "reg": 3964924996
+  },
+  "parallel_model_training": true,
+  "parameter_counts": {
+    "categorical": 807050,
+    "fm": 823170,
+    "reg": 823170
+  },
+  "qualified_labels": 27,
+  "qualified_train_tasks": 13,
+  "qualified_validation_tasks": 1,
+  "root_training_seed": 0,
+  "status": "complete",
+  "torch": "2.5.1+cu118",
+  "workers": {
+    "categorical": {
+      "checkpoint_sha256": "86ca63500dc8a7c4c582929a9f9382d413b2e411268a4114c77af6e5b521a17f",
+      "device": "cuda",
+      "elapsed_s": 34.249303087592125,
+      "gpu_name": "NVIDIA RTX A5500",
+      "model": "categorical",
+      "model_stream_seed": 2968811710,
+      "parameter_count": 807050,
+      "root_training_seed": 0,
+      "status": "complete",
+      "visible_devices": "0"
+    },
+    "fm": {
+      "checkpoint_sha256": "b698a7d2f466b409970b613f2c3abdf84796f627b633be6cc7a9d07f8169b4a4",
+      "device": "cuda",
+      "elapsed_s": 28.030063591897488,
+      "gpu_name": "NVIDIA RTX A5500",
+      "model": "fm",
+      "model_stream_seed": 3141116543,
+      "parameter_count": 823170,
+      "root_training_seed": 0,
+      "status": "complete",
+      "updates": 5000,
+      "visible_devices": "0"
+    },
+    "reg": {
+      "checkpoint_sha256": "b3016eb180fe96f7c1312073aa3b24532f1a3926db28d7ecd8cab8c0fc03bd26",
+      "device": "cuda",
+      "elapsed_s": 34.48316866904497,
+      "gpu_name": "NVIDIA RTX A5500",
+      "model": "reg",
+      "model_stream_seed": 3964924996,
+      "parameter_count": 823170,
+      "root_training_seed": 0,
+      "status": "complete",
+      "visible_devices": "1"
+    }
+  }
+}

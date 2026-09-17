@@ -1,0 +1,45 @@
+{
+  "aborted_at": "2026-09-18T00:57:49.840965+10:00",
+  "expanded_train_scenes": "TR20-TR39",
+  "expansion_commits": {
+    "ara": [
+      "4125525926211d9f04c28f05154c3a7b99df801a",
+      "ce230244b0b6db03eedc71ec4e7556a2f246e0a0"
+    ],
+    "code": [
+      "a87b44fdc14a7ef9e9d0118a5b493dcffd23bfd5",
+      "66b3f0fa40ed122b711d214fb1e8cf504d2ca31a"
+    ]
+  },
+  "partial_shards": [
+    {
+      "checkpoint": null,
+      "path": "results/e12_graph_free_global_generation_v1/teacher_shards/shard4",
+      "shard": 4,
+      "worker_log_bytes": 0
+    },
+    {
+      "checkpoint": null,
+      "path": "results/e12_graph_free_global_generation_v1/teacher_shards/shard5",
+      "shard": 5,
+      "worker_log_bytes": 0
+    },
+    {
+      "checkpoint": null,
+      "path": "results/e12_graph_free_global_generation_v1/teacher_shards/shard6",
+      "shard": 6,
+      "worker_log_bytes": 0
+    },
+    {
+      "checkpoint": null,
+      "path": "results/e12_graph_free_global_generation_v1/teacher_shards/shard7",
+      "shard": 7,
+      "worker_log_bytes": 0
+    }
+  ],
+  "reason": "user reprioritized completion speed and restored original frozen 20/4/8 and 5000-update contract",
+  "status": "aborted_not_used",
+  "used_in_reported_training": false,
+  "used_in_sealed_test": false,
+  "used_in_validation": false
+}

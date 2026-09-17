@@ -1,4 +1,5 @@
 {
+  "aborted_expansion_used": false,
   "allowed_runtime_dependencies": {
     "forbidden": [
       "robot graph",
@@ -18,14 +19,23 @@
       "physical_contract"
     ]
   },
-  "code_sha": "bef362cec38eac587c5ab0f15c779d68516a7ae1",
+  "code_sha": "a3ee859c4d2a77f012c6ee0c9b971326f2e1e569",
   "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
-  "config_sha256": "672b7ed6950a4b6db357ea763c14cc19b785d731e8cc5a9408ff3ba5bd3a968d",
+  "config_sha256": "8928fb5d4b763abf89ddaac0966ff91e717f5f14758d25c8d47378aed4f3f7c3",
+  "current_frozen_code_sha": "de19868a815369f09f2f9fad2fcab3feb556b9b4",
   "experiment": "E12 graph-free global coverage generation and candidate-only execution",
   "geometry_json_sha256": "9cff4530d43f53dd61d56bc0280565b789211ff715486fb51e2e27ca670b9108",
   "geometry_npz_sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd",
   "geometry_semantic_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
-  "gpu_recorded_at_training": null,
+  "gpu_recorded_at_training": [
+    "NVIDIA RTX A5500",
+    "NVIDIA RTX A5500"
+  ],
   "pose_splits_sha256": "81e20894457ffb882642c0d4748e8a4e54f160816ffa7ad53d3ad37f2906d552",
-  "prepared_at": "2026-09-17T19:52:10.302232+10:00"
+  "prepared_at": "2026-09-17T20:28:36.298207+10:00",
+  "training_stage_code_shas": {
+    "categorical": "6ec75506b04ea901256c236c849687c670d271e6",
+    "fm": "de19868a815369f09f2f9fad2fcab3feb556b9b4",
+    "reg": "6ec75506b04ea901256c236c849687c670d271e6"
+  }
 }

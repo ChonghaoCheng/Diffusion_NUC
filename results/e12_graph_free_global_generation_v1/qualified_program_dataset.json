@@ -1,0 +1,1192 @@
+{
+  "labels": [
+    {
+      "anchor_id": "T30",
+      "program_hash": "6d7cc18611d0d70fedd7790f065bc7cd9b1be69b2bbdd8cd726e3f451ad423eb",
+      "program_json": "[{\"a\":0.0,\"b\":0.9251449114014183,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.4831094029026632,\"d2\":0.6925736581610037,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8185520260620133,\"b\":0.831013353896666,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9381116030232572,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9821834503544223,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5443670840012045,
+        -1.4101496868049936,
+        1.520566392204446,
+        -1.3888090182774373,
+        -1.6646957886574865,
+        -4.704238811831113e-17
+      ],
+      "relift_witness_hash": "7543426858be72f0b35823f01a07ac3b9991f9c4cde82ee8b78cd93b3e0b14b3",
+      "scene_id": "TR00",
+      "source_method": "P",
+      "source_witness_hash": "55c78aa377f5d781bbb3348fa6d22e60711a37e87644d931346f08dc809a26f6",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.5420882694638252,
+          -0.8299027917692476,
+          -0.1319153680331624,
+          -0.12426106612369384
+        ],
+        [
+          0.8300171200674552,
+          0.5042936272326859,
+          0.23824256111666803,
+          0.4813576559083798
+        ],
+        [
+          -0.13119408715580017,
+          -0.23864051153588797,
+          0.9622051848484534,
+          0.28170629467783176
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "8b40a878d7d64bc1ab5843303f6d41fae0a8e66f5fdb5ab56b6f84a148516071",
+      "program_json": "[{\"a\":0.0,\"b\":0.9251449114014183,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.4831094029026632,\"d2\":0.6925736581610037,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8185520260620133,\"b\":0.831013353896666,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9381116030232572,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9821834503544223,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.382556565824683,\"d2\":0.7527970782992636,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5443670840012045,
+        -1.4101496868049936,
+        1.520566392204446,
+        -1.3888090182774373,
+        -1.6646957886574865,
+        -4.704238811831113e-17
+      ],
+      "relift_witness_hash": "d9ef61a8dabb6db5ffa7876ece8908395e340be99fa7068d502819fea80f35c2",
+      "scene_id": "TR00",
+      "source_method": "P",
+      "source_witness_hash": "1f9996060945165332694d365bd6cb65e418e612a12a28059bdd9aad6fd20c9d",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.5420882694638252,
+          -0.8299027917692476,
+          -0.1319153680331624,
+          -0.12426106612369384
+        ],
+        [
+          0.8300171200674552,
+          0.5042936272326859,
+          0.23824256111666803,
+          0.4813576559083798
+        ],
+        [
+          -0.13119408715580017,
+          -0.23864051153588797,
+          0.9622051848484534,
+          0.28170629467783176
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "62b939ba6e6117b3bc69c30e71f70a0437db3c8d46b3fcc4cda02af7a3a3e09a",
+      "program_json": "[{\"a\":0.0,\"b\":0.8605451672002925,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.05048812600249454,\"d2\":-0.944067796375916,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9190831703596648,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9064631143607133,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8434746817313175,\"b\":0.8808586652352762,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.6022535316446742,
+        -1.5820945205508847,
+        1.7048601439681934,
+        -1.4877885354460503,
+        -1.3811020577091733,
+        9.248288962220731e-17
+      ],
+      "relift_witness_hash": "a2def3834e1d1a2e9ce40ddea6da3692c932ec7fab878fc084fab59d062d50f6",
+      "scene_id": "TR01",
+      "source_method": "P",
+      "source_witness_hash": "9494d23e2fc08733f3e7ab2c55b9ffaa83905cd564cce06130dfd1757f4c714e",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6221806148971705,
+          -0.766319637648325,
+          0.16014211001706816,
+          -0.16551578658759925
+        ],
+        [
+          0.7513694549657745,
+          0.6419613899780229,
+          0.1527400272421095,
+          0.4394034841504745
+        ],
+        [
+          -0.21985273387113907,
+          0.02529400585168731,
+          0.9752051008261601,
+          0.28881460096297296
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "e13411e73ce0a9eb8583f24b2b94271be6ccbd74712fdf499e39d7bd37e5687d",
+      "program_json": "[{\"a\":0.0,\"b\":0.8605451672002925,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.05048812600249454,\"d2\":-0.944067796375916,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9190831703596648,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9064631143607133,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8434746817313175,\"b\":0.8808586652352762,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.41105192176811217,\"d2\":0.7011836163246024,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.6022535316446742,
+        -1.5820945205508847,
+        1.7048601439681934,
+        -1.4877885354460503,
+        -1.3811020577091733,
+        9.248288962220731e-17
+      ],
+      "relift_witness_hash": "0a35e2c5092daa3e438d1e9bf8b611eca2b7761fcef252afdf1c4f271ed76eae",
+      "scene_id": "TR01",
+      "source_method": "P",
+      "source_witness_hash": "0259ae8cbbbc0d992c123041d8cd70473e4e3079ed25819b850f3c6625e288b5",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6221806148971705,
+          -0.766319637648325,
+          0.16014211001706816,
+          -0.16551578658759925
+        ],
+        [
+          0.7513694549657745,
+          0.6419613899780229,
+          0.1527400272421095,
+          0.4394034841504745
+        ],
+        [
+          -0.21985273387113907,
+          0.02529400585168731,
+          0.9752051008261601,
+          0.28881460096297296
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T33",
+      "program_hash": "53176e224c69b3fdf357501997ced53d0723937fed94895e7edc7e54302ef952",
+      "program_json": "[{\"a\":0.0,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4610467446145674,
+        -1.372068330733191,
+        1.3726367702887947,
+        -1.1861037195758886,
+        -1.6258666560538917,
+        -1.4355052489591428e-17
+      ],
+      "relift_witness_hash": "45f623fbbf8525511e4b590a5a393086b4dcf341d3ba17e5843f5a8992a3f580",
+      "scene_id": "TR02",
+      "source_method": "P",
+      "source_witness_hash": "6581c50275bafacb33a5804521693fcb2fffb2bb9d3411f7d2245a7f7adc8bcb",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7716422604973402,
+          -0.620616516197947,
+          -0.13929594982223487,
+          -0.17247516194076096
+        ],
+        [
+          0.6268075983851954,
+          0.7047508140455712,
+          0.332322922334118,
+          0.4624099852238958
+        ],
+        [
+          -0.10807616028125011,
+          -0.3437461707778406,
+          0.932822659273687,
+          0.31976179708594865
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T33",
+      "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+      "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4610467446145674,
+        -1.372068330733191,
+        1.3726367702887947,
+        -1.1861037195758886,
+        -1.6258666560538917,
+        -1.4355052489591428e-17
+      ],
+      "relift_witness_hash": "f564510cfeb053380fff035bbc6a17c13a8f3a48bee6fd2911d47c7631cd1da0",
+      "scene_id": "TR02",
+      "source_method": "F",
+      "source_witness_hash": "8ffbc319c69950b87e20bfdb0bbd3fb23dae9bd2cc7afbd5fa39d8e37e3e3d02",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7716422604973402,
+          -0.620616516197947,
+          -0.13929594982223487,
+          -0.17247516194076096
+        ],
+        [
+          0.6268075983851954,
+          0.7047508140455712,
+          0.332322922334118,
+          0.4624099852238958
+        ],
+        [
+          -0.10807616028125011,
+          -0.3437461707778406,
+          0.932822659273687,
+          0.31976179708594865
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "1751ad3aebff8555e48438a1ef3ba4663ae6fedce63c52e8db328ad2f25ea5ce",
+      "program_json": "[{\"a\":0.0,\"b\":0.8863295707662299,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9569433383565192,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.5609954306083604,\"d2\":0.6311395202235578,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.09902745275923867,\"d2\":0.8385979553704499,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580554,\"b\":0.8060906982273607,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.792465856391333,\"d2\":-0.29163476062608484,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.7527970782992636,\"d2\":-0.3825565658246829,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.840438680795034,\"d2\":-0.5234175036553309,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9770657078018086,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.22846032907381994,\"d2\":-0.7447909533282967,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7422379422583563,\"b\":0.7555580818333201,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.41351294529385924,\"d2\":-0.8715483649835537,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9381116030232572,\"b\":0.9640741970516721,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.558536279769571,
+        -1.549182441702772,
+        1.730285253228032,
+        -1.6980529334075034,
+        -1.5754607947946402,
+        -7.075274473615095e-18
+      ],
+      "relift_witness_hash": "e1e221c2f340ca5651e7de7a75c63212a4fbe309107899c67a2de2c805d0a414",
+      "scene_id": "TR03",
+      "source_method": "A",
+      "source_witness_hash": "4ac6dda61d361cfb331edbfe75d3c7a8c8e58207f7e93e7531e0ff04d0cd1df9",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6184172692132847,
+          -0.7848280717527961,
+          -0.04006218825241169,
+          -0.13877629838410105
+        ],
+        [
+          0.7856627169554853,
+          0.6185786766431257,
+          0.009721933375840985,
+          0.4800472845552925
+        ],
+        [
+          0.017151569167534214,
+          -0.03748757915933296,
+          0.9991498911994455,
+          0.27226428311067413
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "7f58b0f5f8bbad698c9b4342b5b9519ed380e89e620494993a3b785a34c9d430",
+      "program_json": "[{\"a\":0.0,\"b\":0.8863295707662299,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9569433383565192,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.5609954306083604,\"d2\":0.6311395202235578,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.09902745275923867,\"d2\":0.8385979553704499,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580554,\"b\":0.8060906982273607,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.792465856391333,\"d2\":-0.29163476062608484,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.7527970782992636,\"d2\":-0.3825565658246829,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.840438680795034,\"d2\":-0.5234175036553309,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9770657078018086,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.22846032907381994,\"d2\":-0.7447909533282967,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.3085029617907064,\"d2\":-0.7860527270596067,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8559360095659713,\"b\":0.868397337400624,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.41351294529385924,\"d2\":-0.8715483649835537,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9381116030232572,\"b\":0.9640741970516721,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.558536279769571,
+        -1.549182441702772,
+        1.730285253228032,
+        -1.6980529334075034,
+        -1.5754607947946402,
+        -7.075274473615095e-18
+      ],
+      "relift_witness_hash": "b873885a68b4cd8b6938c47d9493960422a43a0cfec7e2ceeb0d1178442225e3",
+      "scene_id": "TR03",
+      "source_method": "A",
+      "source_witness_hash": "ef8711c49385820a29ff071709bca2ab744d6e154ad44d39772af3ad17bb534d",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6184172692132847,
+          -0.7848280717527961,
+          -0.04006218825241169,
+          -0.13877629838410105
+        ],
+        [
+          0.7856627169554853,
+          0.6185786766431257,
+          0.009721933375840985,
+          0.4800472845552925
+        ],
+        [
+          0.017151569167534214,
+          -0.03748757915933296,
+          0.9991498911994455,
+          0.27226428311067413
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "53176e224c69b3fdf357501997ced53d0723937fed94895e7edc7e54302ef952",
+      "program_json": "[{\"a\":0.0,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5214657052007388,
+        -1.4463563114729328,
+        1.5548884757613277,
+        -1.4626842388718564,
+        -1.5579264538522162,
+        1.4207579944926427e-17
+      ],
+      "relift_witness_hash": "a313036390a5407b5d144f2b4314a78f3ea7b1fe19b571a0d041441cf3048a4d",
+      "scene_id": "TR04",
+      "source_method": "P",
+      "source_witness_hash": "757acbc5eecd86293926f3506b8484c27809950b68f3b810a0526dc6a85a417b",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.5565399510198021,
+          -0.8303147147850463,
+          -0.028995815737850827,
+          -0.16101116619462688
+        ],
+        [
+          0.8213691590731571,
+          0.5446240376747579,
+          0.1695209783781906,
+          0.4811678798352208
+        ],
+        [
+          -0.12496394456934769,
+          -0.11816146579266588,
+          0.9850999343007781,
+          0.28638709829560877
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+      "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5214657052007388,
+        -1.4463563114729328,
+        1.5548884757613277,
+        -1.4626842388718564,
+        -1.5579264538522162,
+        1.4207579944926427e-17
+      ],
+      "relift_witness_hash": "649b5cafcc74567807d3b3616df3f387fa9cf9c1098e68e249d0c92eb9cd4cf3",
+      "scene_id": "TR04",
+      "source_method": "F",
+      "source_witness_hash": "7d7e78eb63c340f548c5bc8939878c10c4e52e186aa0d4067647edd26a7fa81c",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.5565399510198021,
+          -0.8303147147850463,
+          -0.028995815737850827,
+          -0.16101116619462688
+        ],
+        [
+          0.8213691590731571,
+          0.5446240376747579,
+          0.1695209783781906,
+          0.4811678798352208
+        ],
+        [
+          -0.12496394456934769,
+          -0.11816146579266588,
+          0.9850999343007781,
+          0.28638709829560877
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "17eb200f1ea2a59d33a0edf56850f102474bae959452c7aa5aaddbc813173d14",
+      "program_json": "[{\"a\":0.0,\"b\":0.8605451672002925,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.06057306673071422,\"d2\":-0.9434744080303177,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9443232823575675,\"b\":0.9695633943554705,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8385979553704499,\"d2\":0.09902745275923894,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7936293703927069,\"b\":0.8060906982273596,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9569433383565192,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9064631143607133,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8434746817313175,\"b\":0.8938430583617614,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9121908817682199,\"b\":0.9381116030232572,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5138736352741256,
+        -1.6268636520130175,
+        1.743015875562507,
+        -1.6858799375615294,
+        -1.5183167826990414,
+        4.139927293082869e-17
+      ],
+      "relift_witness_hash": "1df61b537b25a9afd4f398d921bc6a38cb64f5a1efb71249637645ced694e043",
+      "scene_id": "TR07",
+      "source_method": "P",
+      "source_witness_hash": "63d709032594836f4c818c39c49c5b20d05e1e94323eebe8514203833b88ddc6",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7201617928085815,
+          -0.6937032644745521,
+          0.011948767136384547,
+          -0.17282290310255494
+        ],
+        [
+          0.6936305032999497,
+          0.7194851633732534,
+          -0.03489734341783321,
+          0.45619301955644104
+        ],
+        [
+          0.015611440375209854,
+          0.03341976276266784,
+          0.9993194696323586,
+          0.3021269106148876
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "9ca2b6117b0391b1195aa5ace9647f83922342a6294c4d578e69daa48f26a9bf",
+      "program_json": "[{\"a\":0.0,\"b\":0.8605451672002925,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.06057306673071422,\"d2\":-0.9434744080303177,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9443232823575675,\"b\":0.9695633943554705,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8385979553704499,\"d2\":0.09902745275923894,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7936293703927069,\"b\":0.8060906982273596,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9569433383565192,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9064631143607133,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8434746817313175,\"b\":0.8938430583617614,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9121908817682199,\"b\":0.9381116030232572,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5138736352741256,
+        -1.6268636520130175,
+        1.743015875562507,
+        -1.6858799375615294,
+        -1.5183167826990414,
+        4.139927293082869e-17
+      ],
+      "relift_witness_hash": "37baff861c55172818d3c5df8ef894eb11b28ea0f8dd9bb8510107544ff0b97c",
+      "scene_id": "TR07",
+      "source_method": "P",
+      "source_witness_hash": "51c1d6429fa3ba49afed58eabb556c7bc15e45dfe8622b2ff2a1a15af30e0521",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7201617928085815,
+          -0.6937032644745521,
+          0.011948767136384547,
+          -0.17282290310255494
+        ],
+        [
+          0.6936305032999497,
+          0.7194851633732534,
+          -0.03489734341783321,
+          0.45619301955644104
+        ],
+        [
+          0.015611440375209854,
+          0.03341976276266784,
+          0.9993194696323586,
+          0.3021269106148876
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "53176e224c69b3fdf357501997ced53d0723937fed94895e7edc7e54302ef952",
+      "program_json": "[{\"a\":0.0,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5230760400820764,
+        -1.2834528754219034,
+        1.3316563905294416,
+        -1.0973517561604822,
+        -1.5280926281079685,
+        1.0022669032412749e-17
+      ],
+      "relift_witness_hash": "52c5dbcf3e6614b084107579a282b7d61e8842634e0d9aaed37e819c9050bf49",
+      "scene_id": "TR10",
+      "source_method": "P",
+      "source_witness_hash": "affeeae35608a0fa61f67a6dbb0973af059aa7cd558e10ec7bd7d159dc74bedf",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7732764202906359,
+          -0.6335954331770792,
+          -0.02450316060529705,
+          -0.16694075574935066
+        ],
+        [
+          0.5688678707912529,
+          0.6761737335222773,
+          0.4681649577616537,
+          0.47178070297894953
+        ],
+        [
+          -0.28005878562174424,
+          -0.3759599834446398,
+          0.8833012891671673,
+          0.29396574816698956
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+      "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5230760400820764,
+        -1.2834528754219034,
+        1.3316563905294416,
+        -1.0973517561604822,
+        -1.5280926281079685,
+        1.0022669032412749e-17
+      ],
+      "relift_witness_hash": "32b202a4286d0c0d3b761cf98abdf7dc61c4609becdea9ff99ce25b7fd227ff7",
+      "scene_id": "TR10",
+      "source_method": "F",
+      "source_witness_hash": "c96bf8c2e46665792c8accb3368ee19fdf431d48f8e4326f199a82e4c14cf654",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7732764202906359,
+          -0.6335954331770792,
+          -0.02450316060529705,
+          -0.16694075574935066
+        ],
+        [
+          0.5688678707912529,
+          0.6761737335222773,
+          0.4681649577616537,
+          0.47178070297894953
+        ],
+        [
+          -0.28005878562174424,
+          -0.3759599834446398,
+          0.8833012891671673,
+          0.29396574816698956
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "4719f32644e38150c79f61f659fe4f2a7720f802e8fdbba55da763474d7aba7a",
+      "program_json": "[{\"a\":0.0,\"b\":0.8605451672002925,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.06057306673071422,\"d2\":-0.9434744080303177,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9443232823575675,\"b\":0.982183450354422,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9569433383565192,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.9316327106306459,\"d2\":-0.16085256449406407,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9064631143607133,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8434746817313175,\"b\":0.8808586652352762,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.55064855219076,
+        -1.5810686237923004,
+        1.6675103555656534,
+        -1.6194917471986658,
+        -1.440686817933618,
+        7.150845881097115e-17
+      ],
+      "relift_witness_hash": "82244b372a9ad0e2261ac9f4a2aaa911d429f5bfa5dfbfba6ab982b3c393b1be",
+      "scene_id": "TR13",
+      "source_method": "A",
+      "source_witness_hash": "2530634f472218e79778eb2b623561884c207e4ce7ce2c295469691d054d3c62",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6454703927304714,
+          -0.7581124080686503,
+          0.09291689211722153,
+          -0.1747169931039064
+        ],
+        [
+          0.7615657771596113,
+          0.648082078210518,
+          -0.0026808509121864993,
+          0.4736952978323584
+        ],
+        [
+          -0.05818538620348062,
+          0.07249273504764843,
+          0.995670258769269,
+          0.3125589444262167
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T33",
+      "program_hash": "03c9e15974bb2228f857407e29af79780a7630de9324fa7d4662ad9c21f915ad",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7504728632989797,\"d2\":0.05624016621971933,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8060906982273607,\"b\":0.831013353896666,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.16085256449406407,\"d2\":0.9316327106306459,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617614,\"b\":0.9317032263586159,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.5945703616685516,\"d2\":-0.6493305430265373,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.44365397263232514,\"d2\":-0.607901001325172,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.3085029617907064,\"d2\":-0.7860527270596067,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.27514317929811793,\"d2\":-0.9377754718530312,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9510887632822494,\"b\":0.9770657078018086,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.744450031289601,\"d2\":-0.3985562922152838,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7172815711539848,\"d2\":-0.2424391670636917,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8395516559419541,\"d2\":-0.10720883085532026,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7504728632989797,\"d2\":0.05624016621971933,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8385979553704499,\"d2\":0.09902745275923894,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4965718106288897,
+        -1.5595241525645211,
+        1.6385071078317863,
+        -1.7381399415849839,
+        -1.5585682327235788,
+        1.7243241083859604e-17
+      ],
+      "relift_witness_hash": "c75379a04ea2baeb827e5d58430dc520cd724505d66ad8f4e974e22954efb366",
+      "scene_id": "TR14",
+      "source_method": "A",
+      "source_witness_hash": "27d287f72a3abbb8f09f56a27c7e6fc1db4b9d0dce1333984937749d92b9aaf9",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.8910642100944359,
+          -0.45279848665217337,
+          -0.03127465386348352,
+          -0.17484787959977469
+        ],
+        [
+          0.4470166576234009,
+          0.8874447104693708,
+          -0.1123298431724078,
+          0.5047817798298259
+        ],
+        [
+          0.07861730913725108,
+          0.08611281173807023,
+          0.9931786860170638,
+          0.32682756017243025
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T33",
+      "program_hash": "4697a0d70675675b9d57e03e9f9605bd12b1c3e07741f4b7b114744a5fb3cf19",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7504728632989797,\"d2\":0.05624016621971933,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8060906982273607,\"b\":0.831013353896666,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.16085256449406407,\"d2\":0.9316327106306459,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617614,\"b\":0.9317032263586159,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.5945703616685516,\"d2\":-0.6493305430265373,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.44365397263232514,\"d2\":-0.607901001325172,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.3985562922152835,\"d2\":-0.7444500312896013,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.3085029617907064,\"d2\":-0.7860527270596067,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.27514317929811793,\"d2\":-0.9377754718530312,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9510887632822494,\"b\":0.9770657078018086,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.744450031289601,\"d2\":-0.3985562922152838,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7172815711539848,\"d2\":-0.2424391670636917,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8395516559419541,\"d2\":-0.10720883085532026,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.7504728632989797,\"d2\":0.05624016621971933,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8385979553704499,\"d2\":0.09902745275923894,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4965718106288897,
+        -1.5595241525645211,
+        1.6385071078317863,
+        -1.7381399415849839,
+        -1.5585682327235788,
+        1.7243241083859604e-17
+      ],
+      "relift_witness_hash": "4dec03b1084a044378b046dc1bd947c6d45f0ebae0323b282e738da049bb92b8",
+      "scene_id": "TR14",
+      "source_method": "A",
+      "source_witness_hash": "160e633ceac904120cbf1f07920d826caf98d3a9c0273b02b4aecfe8be809b40",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.8910642100944359,
+          -0.45279848665217337,
+          -0.03127465386348352,
+          -0.17484787959977469
+        ],
+        [
+          0.4470166576234009,
+          0.8874447104693708,
+          -0.1123298431724078,
+          0.5047817798298259
+        ],
+        [
+          0.07861730913725108,
+          0.08611281173807023,
+          0.9931786860170638,
+          0.32682756017243025
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "22de4fbb7c4a755f13c1fab063c5cf905a4868e597857d86dfbda7113b6a66bf",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5235012482502943,
+        -1.4144487962917347,
+        1.6155975693434652,
+        -1.468313430946156,
+        -1.7583867453003657,
+        -6.705029019465567e-17
+      ],
+      "relift_witness_hash": "b4f2272b00c9ba826ee75abd49d518c4a136c827e7186477f97f1d72fd8ee35f",
+      "scene_id": "TR15",
+      "source_method": "P",
+      "source_witness_hash": "520e65091f875752b57f324de269a595db9b5e14642254f601c02cac7e8c3442",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7376816828004864,
+          -0.6303185113146302,
+          -0.24191798022212258,
+          -0.1116088233877636
+        ],
+        [
+          0.6750348365726231,
+          0.6951629686062081,
+          0.24713643295147117,
+          0.47045290824169067
+        ],
+        [
+          0.01239775278084942,
+          -0.34561108398417034,
+          0.9382959417759794,
+          0.24959368348539684
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "4e12bdf3b583374083118269a77d18ffd4ffbdc9f695c459bc58b788e4d678b1",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5235012482502943,
+        -1.4144487962917347,
+        1.6155975693434652,
+        -1.468313430946156,
+        -1.7583867453003657,
+        -6.705029019465567e-17
+      ],
+      "relift_witness_hash": "52f7f3cc732f28248e765a0902227dddb0a130d75592b68e7b015f351fa1e68b",
+      "scene_id": "TR15",
+      "source_method": "P",
+      "source_witness_hash": "03bcdec7c6e7e26541a8054f2ad8f1fdc0289ed11bd008609b715937cc58a4a1",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7376816828004864,
+          -0.6303185113146302,
+          -0.24191798022212258,
+          -0.1116088233877636
+        ],
+        [
+          0.6750348365726231,
+          0.6951629686062081,
+          0.24713643295147117,
+          0.47045290824169067
+        ],
+        [
+          0.01239775278084942,
+          -0.34561108398417034,
+          0.9382959417759794,
+          0.24959368348539684
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "08e262ec637aeee60e114828f63ccf805de7ec4f9e611cdc93a9e58fb91196e3",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8211983215220596,\"d2\":0.1966882911635431,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4049523819461982,
+        -1.3822068991974512,
+        1.3718578292088826,
+        -1.246584173815628,
+        -1.744191086865077,
+        -8.956357552886114e-17
+      ],
+      "relift_witness_hash": "7b5a9e26e1fd250c507afc31e74a2b0a4ba47c48aeeef0b149207d4bffe0f73c",
+      "scene_id": "TR16",
+      "source_method": "P",
+      "source_witness_hash": "1364e0a6bd41ea58807297e05389ff8366e161fb5658c6ec70402f14b985079d",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7358559348565352,
+          -0.6243825314094205,
+          -0.26203529839923995,
+          -0.17283936393394025
+        ],
+        [
+          0.6761249738172852,
+          0.6986713171523716,
+          0.23390897881258446,
+          0.47172390002140596
+        ],
+        [
+          0.03702786676261765,
+          -0.34929191954486244,
+          0.9362820579417697,
+          0.32879537321427493
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "22de4fbb7c4a755f13c1fab063c5cf905a4868e597857d86dfbda7113b6a66bf",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8894593145035079,\"d2\":0.3036710823964954,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4049523819461982,
+        -1.3822068991974512,
+        1.3718578292088826,
+        -1.246584173815628,
+        -1.744191086865077,
+        -8.956357552886114e-17
+      ],
+      "relift_witness_hash": "3ba4e33d8da2c06493802c2671d0f634038868b0cd74e2b29236cd354a45d05e",
+      "scene_id": "TR16",
+      "source_method": "P",
+      "source_witness_hash": "344f4c8c2a5374b88eb42df8cd3b5d88b848cfba3a1427db0a12214e9fb888fc",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7358559348565352,
+          -0.6243825314094205,
+          -0.26203529839923995,
+          -0.17283936393394025
+        ],
+        [
+          0.6761249738172852,
+          0.6986713171523716,
+          0.23390897881258446,
+          0.47172390002140596
+        ],
+        [
+          0.03702786676261765,
+          -0.34929191954486244,
+          0.9362820579417697,
+          0.32879537321427493
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "965482892936c349952a93bad65339557a2596379792cdcd77c51030ac677928",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6735829210341512,\"d2\":0.3214829265912486,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5304827548103366,
+        -1.4884957196281048,
+        1.7085058969604328,
+        -1.7324859222136642,
+        -1.656464667277834,
+        -2.804187806281497e-17
+      ],
+      "relift_witness_hash": "7aa70ad09f1a706e4d89985e659b0694ba5297658a1cc46aec0b767b6dc98bee",
+      "scene_id": "TR18",
+      "source_method": "P",
+      "source_witness_hash": "7bc4cd0c8bd59e588bf88c28f9b6bdeb4f2c68fba90e9310091a0bc177d06f52",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7094236124682748,
+          -0.6930958605218224,
+          -0.12781340383534767,
+          -0.13366024207962013
+        ],
+        [
+          0.700158251161031,
+          0.7138227963534999,
+          0.015344013073402935,
+          0.4983997628224105
+        ],
+        [
+          0.08060124939223876,
+          -0.10037501448858954,
+          0.9916795324412143,
+          0.25646989220464317
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T30",
+      "program_hash": "d2e3cac74f57751ced61c645aaa6cf745f3ff2bc37a511a2147e0a71a41a62ef",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6735829210341512,\"d2\":0.3214829265912486,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6172717921973427,\"d2\":0.2429104117049355,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5304827548103366,
+        -1.4884957196281048,
+        1.7085058969604328,
+        -1.7324859222136642,
+        -1.656464667277834,
+        -2.804187806281497e-17
+      ],
+      "relift_witness_hash": "8de269994f73999aa5af40460ec38f391cb52f036575d1bcf628aca3c263d3f6",
+      "scene_id": "TR18",
+      "source_method": "P",
+      "source_witness_hash": "7427d11767ef404c9194f3717abcd7af9e5663aefa791e8a82ee90c7797cf57e",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.7094236124682748,
+          -0.6930958605218224,
+          -0.12781340383534767,
+          -0.13366024207962013
+        ],
+        [
+          0.700158251161031,
+          0.7138227963534999,
+          0.015344013073402935,
+          0.4983997628224105
+        ],
+        [
+          0.08060124939223876,
+          -0.10037501448858954,
+          0.9916795324412143,
+          0.25646989220464317
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "53176e224c69b3fdf357501997ced53d0723937fed94895e7edc7e54302ef952",
+      "program_json": "[{\"a\":0.0,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5389269665970124,
+        -1.4389765350396873,
+        1.4518444495788927,
+        -1.2176299668976989,
+        -1.5485995612303152,
+        1.0580231457763322e-17
+      ],
+      "relift_witness_hash": "58d0a93380c59f0203789390321f24b09524fc25e6b7b45baaf92ec8a8c9c225",
+      "scene_id": "TR19",
+      "source_method": "P",
+      "source_witness_hash": "f95cab865db70acbc39a5592572ffe285ce011f1878a208f11157033adb46d6f",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6876913750176599,
+          -0.7254698966728733,
+          -0.027820886897627982,
+          -0.1537639422324522
+        ],
+        [
+          0.6936944226797562,
+          0.6453004607640301,
+          0.31996150281046354,
+          0.4506551148646771
+        ],
+        [
+          -0.21416960724930093,
+          -0.23933395989533343,
+          0.9470219823063765,
+          0.31943275490669915
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "fa2e9a44fcf95a12a1cfbad4994c7448b2036180a36c9173e7a6c94ee5c9a9c4",
+      "program_json": "[{\"a\":0.0,\"b\":0.9900610979724297,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.5389269665970124,
+        -1.4389765350396873,
+        1.4518444495788927,
+        -1.2176299668976989,
+        -1.5485995612303152,
+        1.0580231457763322e-17
+      ],
+      "relift_witness_hash": "f07b689e933659b1f7b01c2b814976327facb598bb9587a26517f79698658014",
+      "scene_id": "TR19",
+      "source_method": "F",
+      "source_witness_hash": "aa566c795cc1c26ffb822ee72570946aa29a09fe2cf64fe7988796f86492f5c2",
+      "split": "TRAIN",
+      "transform": [
+        [
+          0.6876913750176599,
+          -0.7254698966728733,
+          -0.027820886897627982,
+          -0.1537639422324522
+        ],
+        [
+          0.6936944226797562,
+          0.6453004607640301,
+          0.31996150281046354,
+          0.4506551148646771
+        ],
+        [
+          -0.21416960724930093,
+          -0.23933395989533343,
+          0.9470219823063765,
+          0.31943275490669915
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "965482892936c349952a93bad65339557a2596379792cdcd77c51030ac677928",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6735829210341512,\"d2\":0.3214829265912486,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4718185750276729,
+        -1.5519671666584667,
+        1.5980421135193073,
+        -1.4006358748313497,
+        -1.735226561675251,
+        -5.670853476268957e-17
+      ],
+      "relift_witness_hash": "cbc33210859296abe43c1bb460aec9a472cd2033317fce539c112ed208b4cc68",
+      "scene_id": "VA01",
+      "source_method": "P",
+      "source_witness_hash": "5ce4ccd65834205805cc86defb393d86857c0be1646dc0e55278da43926f956f",
+      "split": "VALIDATION",
+      "transform": [
+        [
+          0.5769970741972851,
+          -0.7875356331671266,
+          -0.2164763332556837,
+          -0.13837208308900398
+        ],
+        [
+          0.8167390861226738,
+          0.5574634056332358,
+          0.14890203685408115,
+          0.43491521088624396
+        ],
+        [
+          0.003411974101955106,
+          -0.2627207221972556,
+          0.9648658873443915,
+          0.3171625742930698
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "anchor_id": "T27",
+      "program_hash": "d2e3cac74f57751ced61c645aaa6cf745f3ff2bc37a511a2147e0a71a41a62ef",
+      "program_json": "[{\"a\":0.0,\"b\":0.8220509070950613,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.982183450354422,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":0.19535460072613445,\"d2\":0.8945848773269587,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8348551160887598,\"b\":0.9121908817682199,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"spiral_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.9434744080303177,\"d2\":-0.06057306673071471,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.8938430583617617,\"b\":0.9443232823575678,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":1.0,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":0.9454168683820496,\"d2\":0.0,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.9695633943554708,\"b\":1.0,\"d1\":null,\"d2\":null,\"direction\":-1,\"family\":\"raster_u_phase_0.00\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":5.170609642589306e-17,\"d2\":0.844424636750659,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":0.7811680425580542,\"b\":0.7936293703927069,\"d1\":null,\"d2\":null,\"direction\":1,\"family\":\"raster_u_phase_0.25\",\"kind\":\"SCAN\"},{\"a\":null,\"b\":null,\"d1\":-0.7454131150216406,\"d2\":0.5815258747253266,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.8084663930200876,\"d2\":0.49009707852466455,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6887218169330994,\"d2\":0.47258284872593,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6735829210341512,\"d2\":0.3214829265912486,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":-0.6172717921973427,\"d2\":0.2429104117049355,\"direction\":null,\"family\":null,\"kind\":\"VIA\"},{\"a\":null,\"b\":null,\"d1\":null,\"d2\":null,\"direction\":null,\"family\":null,\"kind\":\"END\"}]",
+      "q0": [
+        -1.4718185750276729,
+        -1.5519671666584667,
+        1.5980421135193073,
+        -1.4006358748313497,
+        -1.735226561675251,
+        -5.670853476268957e-17
+      ],
+      "relift_witness_hash": "0006e4c1a2f56089c4552e97b4f8f0c496d8edf9a0e43097ff1badbdcd091a23",
+      "scene_id": "VA01",
+      "source_method": "P",
+      "source_witness_hash": "b19c7a19c3f5ff379b06103e43eadaa010cfd7e14fe60d52ab1d1ff0ec1aa088",
+      "split": "VALIDATION",
+      "transform": [
+        [
+          0.5769970741972851,
+          -0.7875356331671266,
+          -0.2164763332556837,
+          -0.13837208308900398
+        ],
+        [
+          0.8167390861226738,
+          0.5574634056332358,
+          0.14890203685408115,
+          0.43491521088624396
+        ],
+        [
+          0.003411974101955106,
+          -0.2627207221972556,
+          0.9648658873443915,
+          0.3171625742930698
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ]
+}

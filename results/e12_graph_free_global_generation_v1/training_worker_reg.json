@@ -1,0 +1,12 @@
+{
+  "checkpoint_sha256": "b3016eb180fe96f7c1312073aa3b24532f1a3926db28d7ecd8cab8c0fc03bd26",
+  "device": "cuda",
+  "elapsed_s": 34.48316866904497,
+  "gpu_name": "NVIDIA RTX A5500",
+  "model": "reg",
+  "model_stream_seed": 3964924996,
+  "parameter_count": 823170,
+  "root_training_seed": 0,
+  "status": "complete",
+  "visible_devices": "1"
+}
