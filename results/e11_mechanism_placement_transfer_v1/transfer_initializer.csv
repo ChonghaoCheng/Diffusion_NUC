@@ -1,0 +1,13 @@
+phase,scene_id,k,search_seconds,termination,expanded,archive_prefixes,graph_goal,validation_status,validated_fallback,plan_files_json
+TRANSFER,H00,1,0.010278373956680298,queue_exhausted,97,16,False,NO_GRAPH_PLAN,False,[]
+TRANSFER,H00,2,0.1621382161974907,queue_exhausted,1923,25,False,NO_GRAPH_PLAN,False,[]
+TRANSFER,H01,1,0.017911121249198914,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/b7a23bb6618850fc11c2e63ebb0be8ce42d25821c688831aa19495e1d8e2442c.npz""]"
+TRANSFER,H01,2,0.05299670249223709,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/b7a23bb6618850fc11c2e63ebb0be8ce42d25821c688831aa19495e1d8e2442c.npz""]"
+TRANSFER,H02,1,0.010010011494159698,queue_exhausted,97,16,False,NO_GRAPH_PLAN,False,[]
+TRANSFER,H02,2,0.04958505928516388,queue_exhausted,550,19,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/6ed3f14a67015f615eddc272668a7ebdb404d257a279c1d742e049942eff7c4d.npz""]"
+TRANSFER,H03,1,0.019038580358028412,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/225be71a0099a06a93ce9a189d4a437a16baaaaca57a9a9c28a979d774d1c220.npz""]"
+TRANSFER,H03,2,0.05258938670158386,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/225be71a0099a06a93ce9a189d4a437a16baaaaca57a9a9c28a979d774d1c220.npz""]"
+TRANSFER,H04,1,0.009355530142784119,queue_exhausted,90,15,False,NO_GRAPH_PLAN,False,[]
+TRANSFER,H04,2,0.06716423481702805,queue_exhausted,797,17,False,NO_GRAPH_PLAN,False,[]
+TRANSFER,H05,1,0.017118193209171295,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/af321ba16887b91c76341ae1af1f6ed160670fb16d600bcc05ae9267e3e6bd78.npz""]"
+TRANSFER,H05,2,0.044299863278865814,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/af321ba16887b91c76341ae1af1f6ed160670fb16d600bcc05ae9267e3e6bd78.npz""]"

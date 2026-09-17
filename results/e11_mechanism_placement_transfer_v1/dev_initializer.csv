@@ -1,0 +1,4 @@
+phase,scene_id,k,search_seconds,termination,expanded,archive_prefixes,graph_goal,validation_status,validated_fallback,plan_files_json
+DEV,T30,1,0.008216671645641327,queue_exhausted,93,15,False,NO_GRAPH_PLAN,False,[]
+DEV,T27,1,0.015973813831806183,queue_exhausted,196,28,True,accepted_under_E09_R1_refined_sampled_checks,True,"[""results/e11_mechanism_placement_transfer_v1/selected_plan_witnesses/ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534.npz""]"
+DEV,T33,1,0.009347602725028992,queue_exhausted,90,15,False,NO_GRAPH_PLAN,False,[]

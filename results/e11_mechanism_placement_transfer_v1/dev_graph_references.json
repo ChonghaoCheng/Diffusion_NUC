@@ -1,0 +1,26 @@
+{
+  "geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "graphs": [
+    {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T30.npz",
+      "scene_id": "T30",
+      "semantic_hash": "b7003fb6c2c77cec38501c86ce7f05d92a8e9763b5bd7ce0d551586c37c48daf",
+      "sha256": "b2d4c06891582609d32874769bbdcd64b55e6db375e3cfff36c48ab3bb233406",
+      "start_node": 0
+    },
+    {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T27.npz",
+      "scene_id": "T27",
+      "semantic_hash": "1a938aadb2b5273289c0acce3b9053fc935a9a39e794a53a32c8f7d83509eec7",
+      "sha256": "637fffd5913666107b4bfa4a7c1ea3c016fb1f28ce5237be605efb884a2550bd",
+      "start_node": 0
+    },
+    {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T33.npz",
+      "scene_id": "T33",
+      "semantic_hash": "d964e51c1118d79a09f5368a356c14a4852f4efa0bc6cb1f8ecd3a76508cbdbd",
+      "sha256": "02c435e38439bc91242640962d52414af7e5bcd8f3b6f08250ad6ad363951bce",
+      "start_node": 0
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "classifications": {
+    "missing_sampled_transition": 5,
+    "remaining_footprint_cannot_meet_coverage": 1
+  },
+  "status": "OBSERVED",
+  "switches": 6
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "witness_hash": "0243dd9bc5b3315eac93cb2a30771e5bbbdfca1a7637e735aba43b419ec070bc",
+    "scene_id": "T33",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/0243dd9bc5b3.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/0243dd9bc5b3_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "225be71a0099a06a93ce9a189d4a437a16baaaaca57a9a9c28a979d774d1c220",
+    "scene_id": "H03",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/225be71a0099.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/225be71a0099_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "2e856981affabcb96b886e5c22bb0d5493d6e82ec67fc0a371d4128c5169d47a",
+    "scene_id": "H02",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/2e856981affa.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/2e856981affa_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "6ed3f14a67015f615eddc272668a7ebdb404d257a279c1d742e049942eff7c4d",
+    "scene_id": "H02",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/6ed3f14a6701.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/6ed3f14a6701_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "70ed32953911fa8f273284c3612649292869ead35778d0750bf855641abd7f6f",
+    "scene_id": "H02",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/70ed32953911.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/70ed32953911_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "885c68f071af8d739ca7f782e4f173f3661a12a0e0dbe5cd33d8a8646e158095",
+    "scene_id": "H00",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/885c68f071af.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/885c68f071af_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "96e90a83de462de8e1a99df58d4a205a4dcf901e1dcea2a007d45e2e10ec388b",
+    "scene_id": "H00",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/96e90a83de46.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/96e90a83de46_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "9c8bdacbcf50126599325742cceb88e97d3653597deac7d272898e72542dde36",
+    "scene_id": "H02",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/9c8bdacbcf50.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/9c8bdacbcf50_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "af321ba16887b91c76341ae1af1f6ed160670fb16d600bcc05ae9267e3e6bd78",
+    "scene_id": "H05",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/af321ba16887.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/af321ba16887_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "b5f132e945eca027e7bfe1264f0f9fd9db24ef8646752bc75bc9eb24f9ed46dc",
+    "scene_id": "H00",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/b5f132e945ec.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/b5f132e945ec_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "b7a23bb6618850fc11c2e63ebb0be8ce42d25821c688831aa19495e1d8e2442c",
+    "scene_id": "H01",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/b7a23bb66188.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/b7a23bb66188_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "da8328d2f796257b0835f8ac180a092106f320e2a03165acdb2b7b46e52be903",
+    "scene_id": "H01",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/da8328d2f796.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/da8328d2f796_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "e9f35f7423a10921fd72018d1c9ab2be0f0cb668c5a54832246fafba47d9e9e7",
+    "scene_id": "T30",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/e9f35f7423a1.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/e9f35f7423a1_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "ed61ae788427d29ca716b97e30affc5d69cdf60f704aa5faedf3e4e11aeb1534",
+    "scene_id": "T27",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/ed61ae788427.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/ed61ae788427_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  },
+  {
+    "witness_hash": "f3cdfef7182abe2c74784e94d975879c5b5283f0326678cf9189cfac5f9249f4",
+    "scene_id": "H04",
+    "source": "results/e11_mechanism_placement_transfer_v1/plot_source_data/f3cdfef7182a.npz",
+    "figure": "results/e11_mechanism_placement_transfer_v1/figures/f3cdfef7182a_whole_surface.png",
+    "note": "actual FK at stored graph-witness samples; verdict uses denser validation tables"
+  }
+]

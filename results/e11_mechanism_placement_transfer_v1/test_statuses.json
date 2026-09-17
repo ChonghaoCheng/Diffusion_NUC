@@ -1,0 +1,23 @@
+{
+  "commands": [
+    {
+      "exit_code": 0,
+      "name": "focused"
+    },
+    {
+      "exit_code": 1,
+      "name": "literal_repository_suite"
+    }
+  ],
+  "focused_pass": true,
+  "focused_passed": 65,
+  "literal_failed": 10,
+  "literal_passed": 219,
+  "literal_skipped": 1,
+  "literal_suite_exit": 1,
+  "literal_suite_fully_passed": false,
+  "missing_historical_fixtures": [
+    "results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz",
+    "results/nuc_robot_skeleton_coupling_v1/config.json"
+  ]
+}

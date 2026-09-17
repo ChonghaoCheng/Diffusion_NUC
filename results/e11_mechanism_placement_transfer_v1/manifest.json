@@ -1,0 +1,71 @@
+{
+  "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+  "config_sha256": "fb07e8ed063941ddba9047a32ef7e2e1685856aefd5c597b9583d7ba4ab1f864",
+  "dev_graphs": [
+    {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T30.npz",
+      "scene_id": "T30",
+      "semantic_hash": "b7003fb6c2c77cec38501c86ce7f05d92a8e9763b5bd7ce0d551586c37c48daf",
+      "sha256": "b2d4c06891582609d32874769bbdcd64b55e6db375e3cfff36c48ab3bb233406",
+      "start_node": 0
+    },
+    {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T27.npz",
+      "scene_id": "T27",
+      "semantic_hash": "1a938aadb2b5273289c0acce3b9053fc935a9a39e794a53a32c8f7d83509eec7",
+      "sha256": "637fffd5913666107b4bfa4a7c1ea3c016fb1f28ce5237be605efb884a2550bd",
+      "start_node": 0
+    },
+    {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T33.npz",
+      "scene_id": "T33",
+      "semantic_hash": "d964e51c1118d79a09f5368a356c14a4852f4efa0bc6cb1f8ecd3a76508cbdbd",
+      "sha256": "02c435e38439bc91242640962d52414af7e5bcd8f3b6f08250ad6ad363951bce",
+      "start_node": 0
+    }
+  ],
+  "experiment": "E11 mechanism attribution and frozen-policy placement transfer",
+  "geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "pre_measurement_repair": "frozen scene adapter only; no planning result existed",
+  "prepared_at": "2026-09-17T14:46:24.787149+10:00",
+  "scene_table_sha256": "6bc495c028165706feaf0caff6de5eb2132e776a4c0ccf9800e9982bd276e032",
+  "tested_code_stage_sha": "318eb48f466c7b7ce4692b58b5c754293f23ea4e",
+  "transform_audit": [
+    {
+      "exact_historical_duplicate": false,
+      "hash_matches_frozen": true,
+      "scene_id": "H00",
+      "transform_sha256": "c426464135f1849dcb0ea2fe1639e018e6e4e2677d15de7b539cd8ba6469daf8"
+    },
+    {
+      "exact_historical_duplicate": false,
+      "hash_matches_frozen": true,
+      "scene_id": "H01",
+      "transform_sha256": "4dad5e2afe7b60adac2ffbc969820afefe37a31498077834dd72c31dfa2efd2d"
+    },
+    {
+      "exact_historical_duplicate": false,
+      "hash_matches_frozen": true,
+      "scene_id": "H02",
+      "transform_sha256": "2aec152f968d4a16e88bf1c296b235b08f7cdbc7bc3c63009ce7ac9091b6e745"
+    },
+    {
+      "exact_historical_duplicate": false,
+      "hash_matches_frozen": true,
+      "scene_id": "H03",
+      "transform_sha256": "79a4d0901983f5d4ee2fcb05eb2c9ecad232be4c5676feec9c759e86bbbf4870"
+    },
+    {
+      "exact_historical_duplicate": false,
+      "hash_matches_frozen": true,
+      "scene_id": "H04",
+      "transform_sha256": "508810c8abf5d9b7015560906575bc4d88ee3a1499aa4643efeb0cd6a5d72a88"
+    },
+    {
+      "exact_historical_duplicate": false,
+      "hash_matches_frozen": true,
+      "scene_id": "H05",
+      "transform_sha256": "2e98237258067a35dc35b78673153d9b3362e6d492a4ba68b3a570db76c3aa8a"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "stage": "dev",
+    "status": "INVALIDATED_BEFORE_FIRST_PLANNER_CELL",
+    "error": "KeyError: placements in legacy scene adapter",
+    "repair_commit": "318eb48b7f18ebbe5dc36e7b55d6d88a23da6e56"
+  }
+]
