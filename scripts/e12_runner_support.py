@@ -17,6 +17,10 @@ from diffusion_coverage.robot.e09_execution import evaluate_synchronized_fk_trac
 from diffusion_coverage.robot.e12_program_execution import densify_program_trace, lift_program
 from diffusion_coverage.robot.ur5e_mujoco import UR5eKinematics
 from e09r1_runner_support import quadrature
+from e09r1_runner_support import build_placement_graph, load_bank, load_robot_graph, save_plan, save_robot_graph, validate_unique_witness
+from e10_runner_support import fixed_route_initialize
+from e11_runner_support import _Q3Screen, _root_audit
+from diffusion_coverage.solvers.structured_routing import greedy_prefix_completion, structured_anytime_search, replay_edge_sequence
 
 
 def file_hash(path: Path) -> str:
@@ -151,3 +155,60 @@ def oracle_relift(root: Path,config:dict[str,Any],output:Path)->None:
             trace=result.trace;surface=result.decoded.surface_points;h=hashlib.sha256(trace.q.tobytes()+trace.u.tobytes()+trace.activity.tobytes()).hexdigest();path=directory/f"{h}.npz";np.savez_compressed(path,q=trace.q,u=trace.u,target_position=trace.target_position,target_axis=trace.target_axis,activity=trace.activity,surface_points=surface,program_json=np.asarray(program.to_json()),witness_hash=np.asarray(h));checked=_validate_trace(root,config,trace,surface,transform);row.update({"relift_witness_hash":h,"relift_file":str(path.relative_to(root)),**checked})
         rows.append(row);write_csv(output/"oracle_relift.partial.csv",rows)
     write_csv(output/"oracle_relift.csv",rows);write_csv(output/"execution_events.csv",events);passed=sum(x.get("validation_status")=="accepted_under_E12_refined_sampled_checks" for x in rows);write_json(output/"oracle-relift.checkpoint.json",{"complete":True,"attempted":len(rows),"accepted":passed,"interface_pass":passed>0})
+
+
+def _teacher_config(root,config):
+    c=json.loads(json.dumps(config));e11=json.loads((root/"configs/e11_mechanism_placement_transfer_v1.json").read_text());c["anchor_common_start_q"]=e11["anchor_common_start_q"];c["common_start_q"]={};return c
+
+
+def _plan_program(plan,lib,config):
+    active=np.asarray(plan["activity"],bool)
+    if int(active[0])+int(np.count_nonzero(active[1:]&~active[:-1]))!=1:raise ValueError("not_single_ON")
+    return encode_edge_sequence(json.loads(str(plan["sequence_json"])),lib,int(config["program"]["maximum_tokens"]))
+
+
+def collect_train_val(root:Path,config:dict[str,Any],output:Path)->None:
+    if not json.loads((output/"oracle-relift.checkpoint.json").read_text()).get("interface_pass"):raise RuntimeError("oracle interface gate did not pass")
+    lib=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));bank=load_bank(root/"results/e11_mechanism_placement_transfer_v1");q2=np.load(root/config["inputs"]["quadrature_q2"],allow_pickle=False);scenes=[x for x in json.loads((root/config["inputs"]["pose_splits"]).read_text())["scenes"] if x["split"] in {"TRAIN","VALIDATION"}];c=_teacher_config(root,config);graphs=[];roots=[];candidates=[];labels=[];events=[];graph_dir=output/"teacher_graphs";plan_dir=output/"teacher_plans";graph_dir.mkdir(exist_ok=True);plan_dir.mkdir(exist_ok=True)
+    root_port=int(bank["arc_start"][bank["routes"]["raster_u_phase_0.00/forward"][0]])
+    for scene_order,scene0 in enumerate(scenes):
+        sid=scene0["scene_id"];scene={**scene0,"source_anchor":scene0["anchor_id"],"rng_seed":2026091700+scene_order,"name":sid};began=perf_counter();q,root_rows=_root_audit(root,c,bank,scene);roots.extend(root_rows)
+        if q is None:
+            graphs.append({"scene_id":sid,"split":scene0["split"],"status":"start_search_failed","build_seconds":perf_counter()-began});continue
+        c["common_start_q"][sid]=q.tolist();built=build_placement_graph(root,c,bank,{"candidate_id":sid,"placement_level":sid,"transform_base_from_surface":scene["transform_base_from_surface"],"rng_seed":scene["rng_seed"]},q2);path=graph_dir/f"hemisphere_{sid}.npz"
+        if built["status"] in {"ready","recombination_limited"}:save_robot_graph(path,built)
+        grow={k:v for k,v in built.items() if k not in {"nodes_q","node_ports","node_ranks","node_memberships","edges","edge_meta","witnesses","candidate_rows","attempt_rows"}};grow.update({"scene_id":sid,"split":scene0["split"],"status":built["status"],"graph_file":str(path),"graph_sha256":file_hash(path) if path.exists() else None,"build_seconds":perf_counter()-began,"root_q":q.tolist()});graphs.append(grow);write_json(output/"teacher_graph_manifest.partial.json",{"graphs":graphs});write_csv(output/"root_events.partial.csv",roots);print(json.dumps({"teacher_scene":sid,"status":built["status"],"nodes":grow.get("node_count"),"edges":grow.get("edge_count"),"ik_calls":grow.get("ik_calls"),"seconds":grow["build_seconds"]}),flush=True)
+        if not path.exists():continue
+        data=load_robot_graph(path);transform=np.asarray(scene["transform_base_from_surface"],dtype=np.float64);accepted_programs=set();validation_calls=0
+        f_result,archive=fixed_route_initialize(data,int(data["start_node"]),1,c,wall_time=float(config["teacher"]["search_seconds"]),expanded_limit=int(config["teacher"]["expanded_limit"]));method_plans=[]
+        if f_result.incumbent is not None:
+            pf,_=save_plan(output,sid,1,"TEACHER_F",f_result.incumbent,f_result.incumbent.path,data);method_plans.append(("F",pf))
+        screen=_Q3Screen(root,c,data,{"transform_base_from_surface":scene["transform_base_from_surface"]});p_result=greedy_prefix_completion(data=data,start_node=int(data["start_node"]),maximum_on_segments=1,initial_prefixes=(tuple(x["path"]) for x in archive),validated_fallback=None,config=c,wall_time_s=float(config["teacher"]["search_seconds"]),screen=screen)
+        for i,candidate in enumerate(p_result.candidates):
+            from diffusion_coverage.solvers.history_search import SearchLabel
+            label=SearchLabel(candidate.node,candidate.covered,candidate.membership,candidate.repeat_error,candidate.joint_cost,candidate.used_on_segments,candidate.edge_ids);pf,_=save_plan(output,sid,1,f"TEACHER_P{i}",label,candidate.edge_ids,data);method_plans.append(("P",pf))
+        def qualify(method_plans):
+            nonlocal validation_calls
+            for method,pf in method_plans:
+                if validation_calls>=int(config["teacher"]["full_validation_calls"]):break
+                plan=np.load(root/pf,allow_pickle=False);h=str(plan["witness_hash"]);validation_calls+=1;started=perf_counter();checked=validate_unique_witness(root,c,output,{"k":1},plan,data,{"transform_base_from_surface":scene["transform_base_from_surface"]},h);events.append({"scene_id":sid,"kind":"teacher_graph_validation","method":method,"witness_hash":h,"duration_s":perf_counter()-started,"status":checked["final"]["overall_status"],"cache_hit":False})
+                if checked["final"]["overall_status"]!="accepted_under_E09_R1_refined_sampled_checks":continue
+                try:program=_plan_program(plan,lib,config)
+                except Exception as exc:candidates.append({"scene_id":sid,"method":method,"witness_hash":h,"graph_validation":checked["final"]["overall_status"],"program_status":f"failed:{exc}"});continue
+                if program.content_hash in accepted_programs:continue
+                robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"]));lift=lift_program(program,lib,transform,q,robot,config,start_surface_point=lib.ports[root_port]);candidate_status=lift.status;relift_status=None;relift_hash=None
+                if lift.trace is not None and lift.decoded is not None:
+                    checked2=_validate_trace(root,config,lift.trace,lift.decoded.surface_points,transform);relift_status=checked2["validation_status"];relift_hash=hashlib.sha256(lift.trace.q.tobytes()+lift.trace.u.tobytes()).hexdigest()
+                candidates.append({"scene_id":sid,"split":scene0["split"],"method":method,"witness_hash":h,"graph_validation":checked["final"]["overall_status"],"program_hash":program.content_hash,"token_count":len(program.tokens),"candidate_lift":candidate_status,"candidate_validation":relift_status,"ik_calls":lift.ik_calls})
+                if relift_status=="accepted_under_E12_refined_sampled_checks":accepted_programs.add(program.content_hash);labels.append({"scene_id":sid,"split":scene0["split"],"anchor_id":scene0["anchor_id"],"transform":scene0["transform_base_from_surface"],"q0":q.tolist(),"program_hash":program.content_hash,"program_json":program.to_json(),"source_method":method,"source_witness_hash":h,"relift_witness_hash":relift_hash})
+                if len(accepted_programs)>=2:break
+        qualify(method_plans)
+        if not accepted_programs:
+            screen=_Q3Screen(root,c,data,{"transform_base_from_surface":scene["transform_base_from_surface"]});a_result=structured_anytime_search(data=data,start_node=int(data["start_node"]),maximum_on_segments=1,initial_prefixes=(tuple(x["path"]) for x in archive),validated_fallback=None,config=c,wall_time_s=float(config["teacher"]["search_seconds"]),screen=screen,use_source_runs=False)
+            extras=[]
+            from diffusion_coverage.solvers.history_search import SearchLabel
+            for i,candidate in enumerate(a_result.candidates):
+                label=SearchLabel(candidate.node,candidate.covered,candidate.membership,candidate.repeat_error,candidate.joint_cost,candidate.used_on_segments,candidate.edge_ids);pf,_=save_plan(output,sid,1,f"TEACHER_A{i}",label,candidate.edge_ids,data);extras.append(("A",pf))
+            qualify(extras)
+        write_json(output/"collect-train-val.checkpoint.json",{"complete":False,"last_scene":sid,"graphs":len(graphs),"qualified_labels":len(labels)})
+    write_json(output/"teacher_graph_manifest.json",{"graphs":graphs,"large_graphs_published":False});write_csv(output/"root_events.csv",roots);write_csv(output/"teacher_candidate_qualification.csv",candidates);write_json(output/"qualified_program_dataset.json",{"labels":labels});write_csv(output/"teacher_events.csv",events);write_json(output/"collect-train-val.checkpoint.json",{"complete":True,"attempted_tasks":len(scenes),"usable_graphs":sum(x.get("status") in {"ready","recombination_limited"} for x in graphs),"qualified_labels":len(labels),"qualified_tasks":len({x["scene_id"] for x in labels})})

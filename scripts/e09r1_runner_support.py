@@ -143,7 +143,10 @@ def build_placement_graph(root, config, bank, scene, q2):
         return {"status": "start_invalid", "reason": "published_common_start_failed_recheck", "start_q": root_q.tolist(), "node_count": 0, "edge_count": 0, "ik_calls": counter.calls, "candidate_rows": [{"scene_id": scene_id, "port_id": root_port, "seed_id": "published_root", "outcome": "invalid", **root_metrics}], "attempt_rows": [], "failure_counts": {"published_common_start_failed_recheck": 1}, "collision_scope": config["collision_scope"]}
 
     symmetry = np.load(root / "results/symmetry_preserving_global_layout_v1/symmetry_orbits.npz", allow_pickle=False)
-    rng = np.random.default_rng(int(config["seed"]) + int(scene_id[1:]))
+    # New registered scene identifiers may be non-numeric.  An explicit scene seed
+    # preserves the historical Txx behavior while avoiding identifier parsing as RNG policy.
+    scene_seed = scene.get("rng_seed")
+    rng = np.random.default_rng(int(scene_seed) if scene_seed is not None else int(config["seed"]) + int(scene_id[1:]))
     seeds = [root_q.copy(), robot.home.copy(), np.asarray(symmetry["hemisphere_source_q_start"], dtype=np.float64)]
     seeds.extend(rng.uniform(robot.lower_limits, robot.upper_limits) for _ in range(5))
     for seed in seeds:
