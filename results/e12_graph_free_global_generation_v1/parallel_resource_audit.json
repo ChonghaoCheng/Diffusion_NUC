@@ -1,0 +1,18 @@
+{
+  "audit_time": "2026-09-17T22:43:55+10:00",
+  "parallel_workers": 4,
+  "worker_owner": "chocheng",
+  "worker_pids_at_audit": [619128, 619293, 619591, 619917],
+  "worker_cpu_threads_each": 1,
+  "worker_rss_kib_at_audit": [3077108, 3318960, 3090636, 3258432],
+  "largest_observed_single_worker_rss_kib": 6316832,
+  "host_logical_cpus": 16,
+  "host_memory_total_gib": 125,
+  "host_memory_available_gib_at_launch": 102,
+  "gpu_inventory_at_launch": [
+    {"index": 0, "name": "NVIDIA RTX A5500", "memory_total_mib": 24564},
+    {"index": 1, "name": "NVIDIA RTX A5500", "memory_total_mib": 24564}
+  ],
+  "gpu_compute_processes_at_launch": [],
+  "scheduler_note": "Only task-owned chocheng PIDs were inspected or managed. Teacher graph and qualification work is CPU-only; GPUs were reserved for later neural training."
+}

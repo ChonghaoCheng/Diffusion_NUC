@@ -1,0 +1,23 @@
+E12 focused tests
+command: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q tests/test_e12_graph_free.py
+exit: 0
+result: 26 passed, 1 warning in 1.99 s
+
+Literal repository suite
+command: OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /data/chocheng/.venvs/coverage-fm/bin/python -m pytest -q
+exit: 1
+result: 245 passed, 1 skipped, 10 failed, 15 warnings in 20.49 s
+
+The ten failures are dependency-limited by two absent historical E06 fixtures; no fixture was fabricated:
+- results/riemannian_anisotropy_utility_v1/r0_scene_calibration/witnesses/saddle_T17.npz
+  - tests/test_local_deformation.py::test_archived_local_baseline_witness_reconstruction_is_exact
+  - tests/test_surface_configuration_coupling.py::test_common_Jq_matches_archived_F0_slice_exactly
+  - tests/test_surface_configuration_coupling.py::test_layered_q_replay_keeps_shared_endpoints_and_fixed_task_path
+- results/nuc_robot_skeleton_coupling_v1/config.json
+  - tests/test_symmetry_layout.py::test_theta_zero_exactly_reproduces_frozen_canonical_path
+  - tests/test_symmetry_layout.py::test_hemisphere_orbit_is_analytical_closed_and_length_invariant
+  - tests/test_symmetry_layout.py::test_saddle_symmetries_pass_analytical_surface_boundary_and_mesh_tests
+  - tests/test_symmetry_layout.py::test_transported_temporal_coverage_is_exactly_invariant
+  - tests/test_symmetry_layout.py::test_order_topology_and_activity_are_index_preserving
+  - tests/test_symmetry_layout.py::test_scene_seed_and_budget_do_not_depend_on_orbit_member
+  - tests/test_symmetry_layout.py::test_placement_is_external_to_the_object_frame_symmetry_orbit

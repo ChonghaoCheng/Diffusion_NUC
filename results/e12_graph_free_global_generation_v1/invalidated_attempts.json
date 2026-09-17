@@ -13,6 +13,20 @@
       "status": "INVALIDATED_CONFIGURATION_ERROR",
       "error": "search.checkpoints_s was absent from the E12 adapter configuration",
       "resolution": "added the inherited fixed checkpoint schedule [10, 30, 60, 120, 300] without changing search behavior"
+    },
+    {
+      "stage": "collect-train-val parallel scheduling",
+      "scope": "four shard startup checks before any sharded qualification result",
+      "status": "INVALIDATED_DEPENDENCY_PATH_ERROR",
+      "error": "shard-local graph loading lacked the read-only geometry_bank aliases",
+      "resolution": "hard-linked the already frozen geometry_bank files into each local shard directory and restarted all four workers"
+    },
+    {
+      "stage": "collect-train-val parallel scheduling",
+      "scope": "four resumed-scene qualification startups before any sharded qualification result",
+      "status": "INVALIDATED_WITNESS_PATH_ERROR",
+      "error": "save_plan returns a path relative to output.parents[1], but the shard adapter resolved it from the repository root",
+      "resolution": "resolved the returned witness path from output.parents[1], reran 26 focused tests, committed the fix, and restarted all workers"
     }
   ],
   "mixed_with_valid_results": false
