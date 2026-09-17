@@ -36,6 +36,7 @@ from diffusion_coverage.robot.e09_execution import (
     sphere_episode_counts_indexed,
 )
 from diffusion_coverage.robot.ur5e_mujoco import UR5eKinematics
+from diffusion_coverage.coverage.episode_summary import EpisodeState, apply_edge_summary
 from diffusion_coverage.solvers.history_search import SearchLabel
 from diffusion_coverage.solvers.structured_routing import (
     fixed_route_initialize, greedy_prefix_completion,
@@ -498,17 +499,56 @@ def dev_e11(root,config,output):
 
 def _mechanism_diagnostics(root,config,output,refs):
     e10_final=_csv(root/"results/e10_structured_anytime_routing_v1/final_validation.csv");records=[]
+    prefix_dir=output/"mechanism_prefixes";prefix_dir.mkdir(exist_ok=True)
     for sid in ("T30","T33"):
-        chosen=next(x for x in e10_final if x["scene_id"]==sid and x["method"]=="A" and x["k"]=="1" and x["overall_status"]==ACCEPTED);plan=np.load(root/chosen["selected_plan_file"],allow_pickle=False);edge_ids=[int(x) for x in plan["edge_ids"]];ref=next(x for x in refs if x["scene_id"]==sid);data=load_robot_graph(Path(ref["path"]));cross=[(i,e) for i,e in enumerate(edge_ids) if data["edge_meta"][e]["kind"]=="cross_port"]
+        chosen=next(x for x in e10_final if x["scene_id"]==sid and x["method"]=="A" and x["k"]=="1" and x["overall_status"]==ACCEPTED);plan=np.load(root/chosen["selected_plan_file"],allow_pickle=False);edge_ids=[int(x) for x in plan["edge_ids"]];ref=next(x for x in refs if x["scene_id"]==sid);data=load_robot_graph(Path(ref["path"]));scene=_scene(root,config,sid);cross=[(i,e) for i,e in enumerate(edge_ids) if data["edge_meta"][e]["kind"]=="cross_port"]
         for order,(position,eid) in enumerate(cross):
-            prefix=tuple(edge_ids[:position]);state=replay_edge_sequence(data["graph"],int(data["start_node"]),prefix);previous=data["edge_meta"][edge_ids[position-1]] if position else {};route_name=None
-            family=previous.get("family");forward=previous.get("forward")
+            prefix=tuple(edge_ids[:position]);state=replay_edge_sequence(data["graph"],int(data["start_node"]),prefix)
+            last_source=next((data["edge_meta"][x] for x in reversed(prefix) if data["edge_meta"][x]["kind"]=="source"),{})
+            family=last_source.get("family");forward=last_source.get("forward");route_name=None
             for name in data["routes"]:
                 if family and name.startswith(str(family)) and (("forward" in name)==bool(forward)):route_name=name;break
-            outgoing=[e for e in data["graph"].edges if e.start==state.node and data["edge_meta"][e.edge_id]["kind"]=="source"]
-            classification="ambiguous" if outgoing else "missing_sampled_transition"
-            records.append({"scene_id":sid,"switch_index":order,"selected_edge_id":eid,"prefix_edges_json":json.dumps(list(prefix)),"node":state.node,"covered_fraction":float(data["graph"].weights[state.covered].sum()/data["graph"].weights.sum()),"R":state.repeat_error,"J_q":state.joint_cost,"used_on":state.used_on_segments,"min_prefix_task_margin":"stored_edge_checks","prior_family":family,"fixed_route":route_name,"available_source_children":len(outgoing),"classification":classification,"diagnostic_limit_s":config["mechanism_diagnostic"]["seconds"],"physical_infeasibility_claim":False})
+            diagnostic=_fixed_suffix_diagnostic(data,state,route_name,last_source.get("geom_arc_id"),config)
+            trace=concatenate_edges(data,prefix,None,None,transform=np.asarray(scene["transform_base_from_surface"]),sphere_radius=float(config["surface"]["radius_m"]))
+            prefix_file=prefix_dir/f"{sid}_switch{order}.npz"
+            np.savez_compressed(prefix_file,q=trace.q,u=trace.u,target_position=trace.target_position,target_axis=trace.target_axis,activity=trace.activity,covered=state.covered,membership=state.membership,edge_ids=np.asarray(prefix,np.int64),node=np.asarray(state.node),R=np.asarray(state.repeat_error),J_q=np.asarray(state.joint_cost),used_on=np.asarray(state.used_on_segments))
+            records.append({"scene_id":sid,"switch_index":order,"selected_edge_id":eid,"prefix_edges_json":json.dumps(list(prefix)),"prefix_file":str(prefix_file.relative_to(root)),"node":state.node,"covered_fraction":float(data["graph"].weights[state.covered].sum()/data["graph"].weights.sum()),"R":state.repeat_error,"J_q":state.joint_cost,"used_on":state.used_on_segments,"min_prefix_sigma5":min(float(data["edge_meta"][x].get("min_sigma5",np.inf)) for x in prefix),"prior_family":family,"fixed_route":route_name,**diagnostic,"physical_infeasibility_claim":False})
     write_csv(output/"mechanism_diagnostics.csv",records);write_json(output/"mechanism_example.json",{"status":"OBSERVED","switches":len(records),"classifications":{x:sum(r["classification"]==x for r in records) for x in sorted({r["classification"] for r in records})}})
+
+
+def _fixed_suffix_diagnostic(data,state,route_name,last_geom,config):
+    """Bounded whole-suffix search from the exact selected-route prefix."""
+    import heapq
+    began=perf_counter();deadline=began+float(config["mechanism_diagnostic"]["seconds"]);limit=int(config["mechanism_diagnostic"]["expanded_labels"]);graph=data["graph"];weights=np.asarray(graph.weights);total=float(weights.sum());required=(1-float(config["coverage"]["missed_tolerance"]))*total
+    if route_name is None:return {"available_source_children":0,"classification":"ambiguous","diagnostic_termination":"no_prior_fixed_route","diagnostic_expanded":0,"best_covered_fraction":float(weights[state.covered].sum()/total),"best_fixed_J_q":None}
+    sequence=[int(x) for x in data["routes"][route_name]]
+    occurrences=[i for i,x in enumerate(sequence) if int(x)==int(last_geom)]
+    start_index=(occurrences[-1]+1) if occurrences else 0
+    outgoing={}
+    for edge in graph.edges:outgoing.setdefault(edge.start,[]).append(edge)
+    def candidates(node,index):
+        if index>=len(sequence):return []
+        return [edge for edge in outgoing.get(node,()) if data["edge_meta"][edge.edge_id]["kind"]=="source" and int(data["edge_meta"][edge.edge_id]["geom_arc_id"])==sequence[index]]
+    initial=candidates(state.node,start_index)
+    if not initial:return {"available_source_children":0,"classification":"missing_sampled_transition","diagnostic_termination":"no_exact_next_source_edge","diagnostic_expanded":0,"best_covered_fraction":float(weights[state.covered].sum()/total),"best_fixed_J_q":None}
+    queue=[];serial=0;heapq.heappush(queue,(-float(weights[state.covered].sum()),state.joint_cost,serial,start_index,state));pareto={};expanded=0;repeat_pruned=0;best=float(weights[state.covered].sum());goal=None;termination="suffix_exhausted"
+    while queue:
+        if perf_counter()>=deadline:termination="diagnostic_budget_exhausted";break
+        if expanded>=limit:termination="diagnostic_label_limit";break
+        _,_,_,index,label=heapq.heappop(queue);key=(index,label.node,np.packbits(label.covered).tobytes(),np.packbits(label.membership).tobytes(),label.used_on_segments);records=pareto.setdefault(key,[])
+        if any(r<=label.repeat_error+1e-12 and c<=label.joint_cost+1e-12 for r,c in records):continue
+        pareto[key]=[(r,c) for r,c in records if not (label.repeat_error<=r+1e-12 and label.joint_cost<=c+1e-12)]+[(label.repeat_error,label.joint_cost)];expanded+=1;covered=float(weights[label.covered].sum());best=max(best,covered)
+        if covered>=required-1e-15 and label.repeat_error<=float(config["coverage"]["repeat_tolerance"])+1e-12:goal=label;termination="feasible_fixed_suffix";break
+        for edge in candidates(label.node,index):
+            episode=apply_edge_summary(EpisodeState(label.covered,label.membership,label.repeat_error),edge.summary,weights)
+            if episode.repeat_error>float(config["coverage"]["repeat_tolerance"])+1e-12:repeat_pruned+=1;continue
+            serial+=1;child=SearchLabel(edge.end,episode.covered,episode.membership,episode.repeat_error,label.joint_cost+edge.joint_cost,label.used_on_segments,label.path+(edge.edge_id,));heapq.heappush(queue,(-float(weights[child.covered].sum()),child.joint_cost,serial,index+1,child))
+    if goal is not None:classification="feasible_fixed_continuation_different_objective"
+    elif termination in {"diagnostic_budget_exhausted","diagnostic_label_limit"}:classification="diagnostic_budget_exhausted"
+    elif best<required-1e-15:classification="remaining_footprint_cannot_meet_coverage"
+    elif repeat_pruned:classification="repeat_budget_blocks_completion"
+    else:classification="ambiguous"
+    return {"available_source_children":len(initial),"classification":classification,"diagnostic_termination":termination,"diagnostic_expanded":expanded,"best_covered_fraction":best/total,"repeat_pruned":repeat_pruned,"best_fixed_J_q":None if goal is None else goal.joint_cost}
 
 
 def freeze_transfer_e11(root,config,output):
