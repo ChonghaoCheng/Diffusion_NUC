@@ -14,6 +14,11 @@ from diffusion_coverage.planning.e12_programs import (
     validate_program,
 )
 from diffusion_coverage.robot.e12_program_execution import lift_program
+from diffusion_coverage.models.e12_generator import (
+    END, VIA, ContinuousProgramHead, GeneratorConfig, ProgramDecoder,
+    heun_generate, scan_symbol, sequence_key, unpack_scan_symbol,
+)
+from diffusion_coverage.learning.e12_inference import controls_to_program
 
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -111,3 +116,34 @@ def test_lifter_module_has_no_graph_loader_or_teacher_q_dependency():
     assert "load_robot_graph" not in source
     assert "teacher" not in source.lower()
     assert list(inspect.signature(lift_program).parameters)[:5]==["program","library","transform_base_from_surface","q0","robot"]
+
+
+def test_e12_generator_symbols_and_shapes():
+    torch=pytest.importorskip("torch")
+    for family in range(3):
+        for direction in (-1,1):
+            assert unpack_scan_symbol(scan_symbol(family,direction))==(family,direction)
+    config=GeneratorConfig(width=16,layers=1,heads=2,ffn=32,maximum_tokens=8)
+    decoder=ProgramDecoder(config);head=ContinuousProgramHead(config)
+    condition=torch.zeros(2,config.condition_dim)
+    tokens=torch.tensor([[scan_symbol(0,1),VIA,END],[scan_symbol(2,-1),END,0]])
+    decoder_input=torch.cat((torch.ones(2,1,dtype=torch.long),tokens[:,:-1]),1)
+    assert decoder(decoder_input,condition).shape==(2,3,10)
+    controls=torch.zeros(2,3,2)
+    assert head(tokens,condition,controls,torch.zeros(2)).shape==controls.shape
+    sample,nfe=heun_generate(head,tokens,condition,controls,steps=3)
+    assert sample.shape==controls.shape and nfe==6
+    assert sequence_key([0,scan_symbol(0,1),END,VIA])==f"{scan_symbol(0,1)},{END}"
+
+
+def test_generated_controls_are_decoded_without_oracle_structure(library):
+    symbols=np.asarray([scan_symbol(1,-1),VIA,END])
+    program,corrections,error=controls_to_program(symbols,np.asarray([[1.2,-.1],[2.,0.],[0.,0.]]),library,64)
+    assert error is None and program is not None
+    assert program.tokens[0].direction==-1 and program.tokens[0].a==0. and program.tokens[0].b==1.
+    assert {x["kind"] for x in corrections}=={"scan_clamp","via_radial_projection"}
+
+
+def test_missing_end_is_rejected(library):
+    program,_,error=controls_to_program(np.asarray([scan_symbol(0,1)]),np.asarray([[0.,1.]]),library,64)
+    assert program is None and error=="END_not_generated"
