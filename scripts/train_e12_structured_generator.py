@@ -99,7 +99,7 @@ def train(args):
         elapsed=time.perf_counter()-began;torch.save({"state_dict":model.state_dict(),"generator_config":gcfg.__dict__,"dataset_metadata":dataset.metadata(),"training_config":learning,"root_training_seed":int(learning["seed"]),"model_stream_seed":stream_seed,"final_update":int(learning["updates"])},model_dir/f"{name}_final.pt")
         with (out/f"training_curve_{name}.csv").open("w",newline="") as stream:
             writer=csv.DictWriter(stream,fieldnames=list(logs[0]));writer.writeheader();writer.writerows(logs)
-        atomic_json(out/f"training_worker_{name}.json",{"status":"complete","model":name,"device":str(device),"visible_devices":os.environ.get("CUDA_VISIBLE_DEVICES"),"gpu_name":torch.cuda.get_device_name(device),"root_training_seed":int(learning["seed"]),"model_stream_seed":stream_seed,"elapsed_s":elapsed,"parameter_count":parameter_count(model),"checkpoint_sha256":hashlib.sha256((model_dir/f'{name}_final.pt').read_bytes()).hexdigest()})
+        atomic_json(out/f"training_worker_{name}.json",{"status":"complete","model":name,"device":str(device),"visible_devices":os.environ.get("CUDA_VISIBLE_DEVICES"),"gpu_name":torch.cuda.get_device_name(device),"root_training_seed":int(learning["seed"]),"model_stream_seed":stream_seed,"updates":int(learning["updates"]),"elapsed_s":elapsed,"parameter_count":parameter_count(model),"checkpoint_sha256":hashlib.sha256((model_dir/f'{name}_final.pt').read_bytes()).hexdigest()})
     if set(requested)==set(MODEL_ORDER):finalize(out,labels,models)
 
 
