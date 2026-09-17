@@ -104,3 +104,13 @@ def test_registered_transfer_transform_hashes_and_formula():
         assert np.allclose(matrix[:3, :3].T @ matrix[:3, :3], np.eye(3), atol=1e-14)
         assert np.linalg.det(matrix[:3, :3]) > 0.999999999999
         assert hashlib.sha256(matrix.tobytes()).hexdigest() == row["transform_sha256"]
+
+
+def test_e11_scene_adapter_uses_candidate_id_without_legacy_placements_key():
+    import sys
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root / "scripts"))
+    from e11_runner_support import _scene
+    config = json.loads((root / "configs/e11_mechanism_placement_transfer_v1.json").read_text())
+    assert "placements" not in config
+    assert _scene(root, config, "T30")["candidate_id"] == "T30"

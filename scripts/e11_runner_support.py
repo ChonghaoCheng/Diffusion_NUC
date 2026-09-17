@@ -55,7 +55,13 @@ def _csv(path: Path) -> list[dict[str, str]]:
 
 
 def _scene(root: Path, config: dict[str, Any], scene_id: str) -> dict[str, Any]:
-    return next(item for item in selected_scenes(root, config) if item["candidate_id"] == scene_id)
+    document = json.loads((root / config["inputs"]["placements"]).read_text())
+    return next(
+        item
+        for surface in document["selected"].values()
+        for item in surface.values()
+        if item["candidate_id"] == scene_id
+    )
 
 
 def prepare(root: Path, config: dict[str, Any], output: Path) -> None:
