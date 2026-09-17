@@ -442,20 +442,34 @@ def _search_call(root,config,data,scene,k,archive,fallback,method,seconds):
 
 def _validate_plans(root,config,output,records,graph_refs,phase):
     cache={};events=[];resolution=[];composition=[];final=[]
+    initializer={
+        (row["scene_id"],int(row["k"])):row
+        for row in _csv(output/f"{phase.lower()}_initializer.csv")
+    }
     for record in records:
         scene_id=record["scene_id"];k=int(record["k"]);method=record["method"]
         ref=next(x for x in graph_refs if x["scene_id"]==scene_id);data=load_robot_graph(Path(ref["path"]));scene=_scene_any(root,config,scene_id)
-        accepted=[]
-        for order,plan_file in enumerate(json.loads(record.get("plan_files_json") or "[]")):
+        novel_files=json.loads(record.get("plan_files_json") or "[]");fallback_files=[]
+        init=initializer.get((scene_id,k))
+        if method!="F" and record.get("validated_fallback") in {True,"True"} and init:
+            fallback_files=json.loads(init.get("plan_files_json") or "[]")
+        plan_files=list(dict.fromkeys(novel_files+fallback_files));accepted=[]
+        for order,plan_file in enumerate(plan_files):
             plan=np.load(root/plan_file,allow_pickle=False);h=str(plan["witness_hash"]);key=(h,int(k),config["expected_geometry_hash"],file_hash(Path(config["inputs"]["robot_model"])))
             start=perf_counter();hit=key in cache
             if not hit:cache[key]=validate_unique_witness(root,config,output,{"k":k},plan,data,scene,h)
             duration=perf_counter()-start;checked=cache[key]
-            events.append({"phase":phase,"scene_id":scene_id,"k":k,"method":method,"event_id":len(events),"plan_file":plan_file,"witness_hash":h,"cache_hit":hit,"duration_s":duration,"status":checked["final"]["overall_status"],"selected_input_order":order})
+            role="novel_finalist" if plan_file in novel_files else "validated_F_fallback"
+            events.append({"phase":phase,"scene_id":scene_id,"k":k,"method":method,"event_id":len(events),"plan_file":plan_file,"witness_hash":h,"role":role,"cache_hit":hit,"duration_s":duration,"status":checked["final"]["overall_status"],"selected_input_order":order})
             composition.append({"phase":phase,"scene_id":scene_id,"k":k,"method":method,"witness_hash":h,**checked["composition"]});resolution.extend({"phase":phase,"scene_id":scene_id,"k":k,"method":method,"witness_hash":h,**x} for x in checked["resolution"])
-            if checked["final"]["overall_status"]==ACCEPTED:accepted.append((int(checked["final"]["on_segments_checked"]),float(checked["final"]["J_q_recorded"]),plan_file,h,checked["final"]))
+            if checked["final"]["overall_status"]==ACCEPTED:accepted.append((int(checked["final"]["on_segments_checked"]),float(checked["final"]["J_q_recorded"]),plan_file,h,checked["final"],role))
         chosen=min(accepted,key=lambda x:(x[0]-1,x[1])) if accepted else None
-        final.append({"phase":phase,"scene_id":scene_id,"k":k,"method":method,"overall_status":"NO_ACCEPTED_PLAN" if chosen is None else ACCEPTED,"outcome":("accepted" if chosen else "failure_or_limit"),"selected_plan_file":None if chosen is None else chosen[2],"witness_hash":None if chosen is None else chosen[3],**({} if chosen is None else chosen[4])})
+        outcome="failure_or_limit"
+        if chosen:
+            if chosen[5]=="validated_F_fallback":outcome="retained_F"
+            elif fallback_files:outcome="improved_F"
+            else:outcome="new_global_plan"
+        final.append({"phase":phase,"scene_id":scene_id,"k":k,"method":method,"overall_status":"NO_ACCEPTED_PLAN" if chosen is None else ACCEPTED,"outcome":outcome,"selected_plan_file":None if chosen is None else chosen[2],"witness_hash":None if chosen is None else chosen[3],**({} if chosen is None else chosen[4])})
     return final,events,resolution,composition,cache
 
 

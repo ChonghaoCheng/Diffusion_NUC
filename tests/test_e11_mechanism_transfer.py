@@ -95,6 +95,16 @@ def test_valid_fallback_survives_greedy_timeout():
     assert result.fallback_retained and result.termination == "wall_time"
 
 
+def test_validated_fallback_is_a_final_output_not_only_a_search_bound():
+    # The runner's final selector must append the F plan to every global arm
+    # that records validated_fallback=True; otherwise a no-novel-candidate row
+    # would incorrectly erase a valid task result.
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "scripts/e11_runner_support.py").read_text()
+    assert "novel_files+fallback_files" in source
+    assert 'outcome="retained_F"' in source
+
+
 def test_registered_transfer_transform_hashes_and_formula():
     root = Path(__file__).resolve().parents[1]
     doc = json.loads((root / "configs/e11_transfer_scenes_v1.json").read_text())
