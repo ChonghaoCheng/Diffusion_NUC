@@ -284,6 +284,11 @@ def freeze_generated_candidates(root:Path,config:dict[str,Any],output:Path,split
     path=output/f"{split.lower()}_candidate_programs.json";write_json(path,{"split":split,"generated_before_evaluation":True,"device":str(device),"rows":rows});write_json(output/f"freeze-{split.lower()}-candidates.checkpoint.json",{"complete":True,"rows":len(rows),"sha256":file_hash(path)})
 
 
+def _apply_cached_lazy_motion(state:dict[str,Any],motion:dict[str,Any],weights:np.ndarray)->dict[str,Any]:
+    episode=apply_edge_summary(state["episode"],motion["summary"],weights)
+    return {"q":motion["q"].copy(),"port":motion["port"],"episode":episode,"J_q":state["J_q"]+motion["cost"],"sequence":state["sequence"]+(motion["edge"],),"visited":state["visited"].copy()}
+
+
 def run_p_lazy(root:Path,config:dict[str,Any],output:Path)->None:
     """On-demand geometry-arc continuation without loading any robot graph."""
     split="SEALED_TEST";frozen_path=output/"sealed_test_candidate_programs.json";frozen=json.loads(frozen_path.read_text());roots={x["scene_id"]:x for x in graph_free_roots(root,config,output,split)};library=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));q2=np.load(root/config["inputs"]["quadrature_q2"],allow_pickle=False);sample_points=np.asarray(q2["points"]);weights=np.asarray(q2["weights"]);total=float(weights.sum());radius=float(config["surface"]["radius_m"]);footprint=float(config["coverage"]["footprint_radius_m"]);required=(1.-float(config["coverage"]["missed_tolerance"]))*total;rows=[];events=[]
@@ -309,11 +314,14 @@ def run_p_lazy(root:Path,config:dict[str,Any],output:Path)->None:
             nonlocal calls
             key=hashlib.sha256(state["q"].tobytes()+np.asarray([arc_id],np.int64).tobytes()).hexdigest()
             if key in cache:
-                events.append({"scene_id":sid,"kind":"P_lazy_arc_query","arc_id":arc_id,"start_port":state["port"],"end_port":int(library.arc_end[arc_id]),"ik_calls":0,"duration_s":0.,"status":"CACHE_HIT_valid" if cache[key] else "CACHE_HIT_failed","failure_reason":None,"cache_hit":True});return cache[key]
+                events.append({"scene_id":sid,"kind":"P_lazy_arc_query","arc_id":arc_id,"start_port":state["port"],"end_port":int(library.arc_end[arc_id]),"ik_calls":0,"duration_s":0.,"status":"CACHE_HIT_valid" if cache[key] else "CACHE_HIT_failed","failure_reason":None,"cache_hit":True})
+                motion=cache[key]
+                if not motion:return False
+                return _apply_cached_lazy_motion(state,motion,weights)
             if calls>=call_limit or perf_counter()>=deadline:return None
             local=json.loads(json.dumps(config));local["lifter"]["max_ik_calls"]=min(int(local["lifter"]["max_ik_calls"]),call_limit-calls);local["lifter"]["deadline_s"]=min(float(local["lifter"]["deadline_s"]),max(0.,deadline-perf_counter()));program=arc_program(arc_id);started=perf_counter();lift=lift_program(program,library,transform,state["q"],robot,local,start_surface_point=library.ports[state["port"]],allow_via_only=str(library.arc_kind[arc_id])=="cross_port");calls+=lift.ik_calls;event={"scene_id":sid,"kind":"P_lazy_arc_query","arc_id":arc_id,"start_port":state["port"],"end_port":int(library.arc_end[arc_id]),"ik_calls":lift.ik_calls,"duration_s":perf_counter()-started,"status":lift.status,"failure_reason":lift.failure_reason,"cache_hit":False};events.append(event)
             if lift.trace is None or lift.decoded is None:cache[key]=False;return False
-            membership=sphere_membership_stream(sample_points,lift.decoded.surface_points,radius=radius,footprint_radius=footprint);summary=summarize_ordered_membership(membership,weights);episode=apply_edge_summary(state["episode"],summary,weights);cost=float(np.linalg.norm(np.diff(lift.trace.q,axis=0),axis=1).sum());value={"q":lift.trace.q[-1].copy(),"port":int(library.arc_end[arc_id]),"episode":episode,"J_q":state["J_q"]+cost,"sequence":state["sequence"]+(edge_record(arc_id),),"visited":state["visited"].copy()};cache[key]=value;return value
+            membership=sphere_membership_stream(sample_points,lift.decoded.surface_points,radius=radius,footprint_radius=footprint);summary=summarize_ordered_membership(membership,weights);cost=float(np.linalg.norm(np.diff(lift.trace.q,axis=0),axis=1).sum());edge=edge_record(arc_id);motion={"q":lift.trace.q[-1].copy(),"port":int(library.arc_end[arc_id]),"summary":summary,"cost":cost,"edge":edge};cache[key]=motion;return _apply_cached_lazy_motion(state,motion,weights)
 
         root_state={"q":q0,"port":root_port,"episode":initial,"J_q":0.,"sequence":tuple(),"visited":{}}
         for route_name in sorted(library.routes):
