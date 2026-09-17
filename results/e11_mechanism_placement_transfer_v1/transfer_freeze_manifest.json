@@ -1,0 +1,13 @@
+{
+  "code_sha": "899af0342a05da983459ead3cafb7c4ce4ea2ee9",
+  "config_sha256": "fb07e8ed063941ddba9047a32ef7e2e1685856aefd5c597b9583d7ba4ab1f864",
+  "frozen_at": "2026-09-17T15:13:24.982073+10:00",
+  "policy": {
+    "A": "E10 atomic unchanged except event logging",
+    "P": "registered greedy",
+    "bound_calls": 0,
+    "source_runs": false
+  },
+  "scene_table_sha256": "6bc495c028165706feaf0caff6de5eb2132e776a4c0ccf9800e9982bd276e032",
+  "transfer_outcomes_observed_before_freeze": false
+}
