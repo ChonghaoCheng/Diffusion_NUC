@@ -1,0 +1,19 @@
+{
+  "attempts": [
+    {
+      "stage": "collect-train-val",
+      "scope": "TR00 graph archive load before any teacher search result",
+      "status": "INVALIDATED_IMPLEMENTATION_ERROR",
+      "error": "inherited graph loader could not find the historical geometry_bank.json sibling",
+      "resolution": "prepare now writes byte-identical historical-name aliases beside the geometry-only export; the completed TR00 graph was retained by verified SHA256"
+    },
+    {
+      "stage": "collect-train-val",
+      "scope": "TR00 teacher search before any teacher search result",
+      "status": "INVALIDATED_CONFIGURATION_ERROR",
+      "error": "search.checkpoints_s was absent from the E12 adapter configuration",
+      "resolution": "added the inherited fixed checkpoint schedule [10, 30, 60, 120, 300] without changing search behavior"
+    }
+  ],
+  "mixed_with_valid_results": false
+}

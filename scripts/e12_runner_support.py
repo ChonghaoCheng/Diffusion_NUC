@@ -98,6 +98,10 @@ def prepare(root: Path, config: dict[str,Any], output: Path) -> None:
     output.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(root/config["inputs"]["geometry_bank_npz"],output/"geometry_only_library.npz")
     shutil.copyfile(root/config["inputs"]["geometry_bank_json"],output/"geometry_only_library.json")
+    # The inherited graph archive loader resolves its immutable geometry sibling by
+    # historical filename.  These byte-identical aliases are not runtime robot data.
+    shutil.copyfile(root/config["inputs"]["geometry_bank_npz"],output/"geometry_bank.npz")
+    shutil.copyfile(root/config["inputs"]["geometry_bank_json"],output/"geometry_bank.json")
     splits=root/config["inputs"]["pose_splits"]
     shutil.copyfile(splits,output/"pose_splits.json")
     allowed={"surface_geometry":["geometry_only_library.npz","geometry_only_library.json"],"task_inputs":["transform_base_from_surface","checked_q0","robot_model","physical_contract"],"forbidden":["robot graph","per-port q","edge feasibility","teacher future q","teacher graph edge IDs"]}
@@ -169,16 +173,22 @@ def _plan_program(plan,lib,config):
 
 def collect_train_val(root:Path,config:dict[str,Any],output:Path)->None:
     if not json.loads((output/"oracle-relift.checkpoint.json").read_text()).get("interface_pass"):raise RuntimeError("oracle interface gate did not pass")
-    lib=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));bank=load_bank(root/"results/e11_mechanism_placement_transfer_v1");q2=np.load(root/config["inputs"]["quadrature_q2"],allow_pickle=False);scenes=[x for x in json.loads((root/config["inputs"]["pose_splits"]).read_text())["scenes"] if x["split"] in {"TRAIN","VALIDATION"}];c=_teacher_config(root,config);graphs=[];roots=[];candidates=[];labels=[];events=[];graph_dir=output/"teacher_graphs";plan_dir=output/"teacher_plans";graph_dir.mkdir(exist_ok=True);plan_dir.mkdir(exist_ok=True)
+    lib=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));bank=load_bank(root/"results/e11_mechanism_placement_transfer_v1");q2=np.load(root/config["inputs"]["quadrature_q2"],allow_pickle=False);scenes=[x for x in json.loads((root/config["inputs"]["pose_splits"]).read_text())["scenes"] if x["split"] in {"TRAIN","VALIDATION"}];c=_teacher_config(root,config);existing=json.loads((output/"teacher_graph_manifest.partial.json").read_text()).get("graphs",[]) if (output/"teacher_graph_manifest.partial.json").exists() else [];graphs=[];roots=read_csv(output/"root_events.partial.csv") if (output/"root_events.partial.csv").exists() else [];candidates=read_csv(output/"teacher_candidate_qualification.partial.csv") if (output/"teacher_candidate_qualification.partial.csv").exists() else [];labels=json.loads((output/"qualified_program_dataset.partial.json").read_text()).get("labels",[]) if (output/"qualified_program_dataset.partial.json").exists() else [];events=read_csv(output/"teacher_events.partial.csv") if (output/"teacher_events.partial.csv").exists() else [];checkpoint_state=json.loads((output/"collect-train-val.checkpoint.json").read_text()) if (output/"collect-train-val.checkpoint.json").exists() else {};completed_scenes=set(checkpoint_state.get("completed_scenes",[]));graph_dir=output/"teacher_graphs";plan_dir=output/"teacher_plans";graph_dir.mkdir(exist_ok=True);plan_dir.mkdir(exist_ok=True)
     root_port=int(bank["arc_start"][bank["routes"]["raster_u_phase_0.00/forward"][0]])
     for scene_order,scene0 in enumerate(scenes):
-        sid=scene0["scene_id"];scene={**scene0,"source_anchor":scene0["anchor_id"],"rng_seed":2026091700+scene_order,"name":sid};began=perf_counter();q,root_rows=_root_audit(root,c,bank,scene);roots.extend(root_rows)
-        if q is None:
-            graphs.append({"scene_id":sid,"split":scene0["split"],"status":"start_search_failed","build_seconds":perf_counter()-began});continue
-        c["common_start_q"][sid]=q.tolist();built=build_placement_graph(root,c,bank,{"candidate_id":sid,"placement_level":sid,"transform_base_from_surface":scene["transform_base_from_surface"],"rng_seed":scene["rng_seed"]},q2);path=graph_dir/f"hemisphere_{sid}.npz"
-        if built["status"] in {"ready","recombination_limited"}:save_robot_graph(path,built)
-        grow={k:v for k,v in built.items() if k not in {"nodes_q","node_ports","node_ranks","node_memberships","edges","edge_meta","witnesses","candidate_rows","attempt_rows"}};grow.update({"scene_id":sid,"split":scene0["split"],"status":built["status"],"graph_file":str(path),"graph_sha256":file_hash(path) if path.exists() else None,"build_seconds":perf_counter()-began,"root_q":q.tolist()});graphs.append(grow);write_json(output/"teacher_graph_manifest.partial.json",{"graphs":graphs});write_csv(output/"root_events.partial.csv",roots);print(json.dumps({"teacher_scene":sid,"status":built["status"],"nodes":grow.get("node_count"),"edges":grow.get("edge_count"),"ik_calls":grow.get("ik_calls"),"seconds":grow["build_seconds"]}),flush=True)
+        sid=scene0["scene_id"];scene={**scene0,"source_anchor":scene0["anchor_id"],"rng_seed":2026091700+scene_order,"name":sid};began=perf_counter();path=graph_dir/f"hemisphere_{sid}.npz";prior=next((x for x in existing if x.get("scene_id")==sid and path.exists() and x.get("graph_sha256")==file_hash(path)),None)
+        if prior is not None:
+            q=np.asarray(prior["root_q"],dtype=np.float64);grow=prior;graphs.append(grow);print(json.dumps({"teacher_scene":sid,"status":"resumed_graph","nodes":grow.get("node_count"),"edges":grow.get("edge_count"),"ik_calls":grow.get("ik_calls"),"seconds":0.0}),flush=True)
+        else:
+            q,root_rows=_root_audit(root,c,bank,scene);roots.extend(root_rows)
+            if q is None:
+                graphs.append({"scene_id":sid,"split":scene0["split"],"status":"start_search_failed","build_seconds":perf_counter()-began});continue
+            c["common_start_q"][sid]=q.tolist();built=build_placement_graph(root,c,bank,{"candidate_id":sid,"placement_level":sid,"transform_base_from_surface":scene["transform_base_from_surface"],"rng_seed":scene["rng_seed"]},q2)
+            if built["status"] in {"ready","recombination_limited"}:save_robot_graph(path,built)
+            grow={k:v for k,v in built.items() if k not in {"nodes_q","node_ports","node_ranks","node_memberships","edges","edge_meta","witnesses","candidate_rows","attempt_rows"}};grow.update({"scene_id":sid,"split":scene0["split"],"status":built["status"],"graph_file":str(path),"graph_sha256":file_hash(path) if path.exists() else None,"build_seconds":perf_counter()-began,"root_q":q.tolist()});graphs.append(grow);write_json(output/"teacher_graph_manifest.partial.json",{"graphs":graphs});write_csv(output/"root_events.partial.csv",roots);print(json.dumps({"teacher_scene":sid,"status":built["status"],"nodes":grow.get("node_count"),"edges":grow.get("edge_count"),"ik_calls":grow.get("ik_calls"),"seconds":grow["build_seconds"]}),flush=True)
         if not path.exists():continue
+        if sid in completed_scenes:
+            print(json.dumps({"teacher_scene":sid,"status":"resumed_complete","qualified_labels":sum(x["scene_id"]==sid for x in labels)}),flush=True);continue
         data=load_robot_graph(path);transform=np.asarray(scene["transform_base_from_surface"],dtype=np.float64);accepted_programs=set();validation_calls=0
         f_result,archive=fixed_route_initialize(data,int(data["start_node"]),1,c,wall_time=float(config["teacher"]["search_seconds"]),expanded_limit=int(config["teacher"]["expanded_limit"]));method_plans=[]
         if f_result.incumbent is not None:
@@ -210,5 +220,5 @@ def collect_train_val(root:Path,config:dict[str,Any],output:Path)->None:
             for i,candidate in enumerate(a_result.candidates):
                 label=SearchLabel(candidate.node,candidate.covered,candidate.membership,candidate.repeat_error,candidate.joint_cost,candidate.used_on_segments,candidate.edge_ids);pf,_=save_plan(output,sid,1,f"TEACHER_A{i}",label,candidate.edge_ids,data);extras.append(("A",pf))
             qualify(extras)
-        write_json(output/"collect-train-val.checkpoint.json",{"complete":False,"last_scene":sid,"graphs":len(graphs),"qualified_labels":len(labels)})
+        completed_scenes.add(sid);write_csv(output/"teacher_candidate_qualification.partial.csv",candidates);write_json(output/"qualified_program_dataset.partial.json",{"labels":labels});write_csv(output/"teacher_events.partial.csv",events);write_json(output/"collect-train-val.checkpoint.json",{"complete":False,"last_scene":sid,"completed_scenes":sorted(completed_scenes),"graphs":len(graphs),"qualified_labels":len(labels)})
     write_json(output/"teacher_graph_manifest.json",{"graphs":graphs,"large_graphs_published":False});write_csv(output/"root_events.csv",roots);write_csv(output/"teacher_candidate_qualification.csv",candidates);write_json(output/"qualified_program_dataset.json",{"labels":labels});write_csv(output/"teacher_events.csv",events);write_json(output/"collect-train-val.checkpoint.json",{"complete":True,"attempted_tasks":len(scenes),"usable_graphs":sum(x.get("status") in {"ready","recombination_limited"} for x in graphs),"qualified_labels":len(labels),"qualified_tasks":len({x["scene_id"] for x in labels})})
