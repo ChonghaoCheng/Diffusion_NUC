@@ -371,13 +371,17 @@ def evaluate_frozen_candidates(root:Path,config:dict[str,Any],output:Path,split:
             if root_row["status"]!="admitted":
                 rows.append({"scene_id":sid,"split":split,"method":method,"overall_status":"NOT_RUN_root_failed","candidate_slots":len(cell),"evaluated_slots":0});continue
             q0=np.asarray(root_row["q0"],float);transform=np.asarray(root_row["transform"],float)
-            for item in sorted(cell,key=lambda x:(-1 if x.get("slot") is None else int(x["slot"]))):
+            ordered_cell=sorted(cell,key=lambda x:(-1 if x.get("slot") is None else int(x["slot"])));halt_at=None
+            for item_index,item in enumerate(ordered_cell):
                 slot=item.get("slot");started=perf_counter();program_text=item.get("program_json");event={"event_id":len(events),"scene_id":sid,"split":split,"method":method,"slot":slot,"kind":"candidate_lift_and_full_validation","started_since_cell_s":started-began,"program_hash":item.get("program_hash")}
                 if perf_counter()>=deadline:event.update({"status":"NOT_RUN_cell_deadline","duration_s":0.});events.append(event);continue
                 if not program_text:event.update({"status":item.get("status","syntactic_rejection"),"duration_s":0.});events.append(event);attempted+=1;continue
                 program=GeometryProgram.from_json(program_text);key=hashlib.sha256((sid+program.content_hash+contract_hash).encode()).hexdigest()
                 if key in cache:
-                    result=cache[key].copy();event.update({"status":result["status"],"cache_hit":True,"duration_s":perf_counter()-started});events.append(event);rowslot={**item,**result,"cache_hit":True};rows.append(rowslot);attempted+=1;continue
+                    result=cache[key].copy();event.update({"status":result["status"],"cache_hit":True,"duration_s":perf_counter()-started});events.append(event);rowslot={**item,**result,"cache_hit":True};rows.append(rowslot);attempted+=1
+                    if result.get("validation_status")=="accepted_under_E12_refined_sampled_checks":halt_at=item_index
+                    if halt_at is not None:break
+                    continue
                 local=json.loads(json.dumps(config));local["lifter"]["deadline_s"]=max(0.,min(float(config["lifter"]["deadline_s"]),deadline-perf_counter()));robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"]));lift=lift_program(program,library,transform,q0,robot,local,start_surface_point=library.ports[root_port]);result={"status":lift.status,"lift_status":lift.status,"ik_calls":lift.ik_calls,"lift_seconds":lift.elapsed_s,"spacing_m":lift.spacing_m,"failure_reason":lift.failure_reason,"validation_status":None,"witness_hash":None}
                 if lift.trace is not None and lift.decoded is not None and perf_counter()<deadline:
                     checked=_validate_trace(root,config,lift.trace,lift.decoded.surface_points,transform,lift.decoded.segment_ids);h=hashlib.sha256(lift.trace.q.tobytes()+lift.trace.u.tobytes()+lift.trace.activity.tobytes()).hexdigest();result.update({"status":checked["validation_status"],"validation_status":checked["validation_status"],"witness_hash":h,**checked})
@@ -388,9 +392,14 @@ def evaluate_frozen_candidates(root:Path,config:dict[str,Any],output:Path,split:
                         objective=(int(lift.trace.activity[0])+int(np.count_nonzero(lift.trace.activity[1:]&~lift.trace.activity[:-1]))-1,float(checked["J_q"]));result["on_segments_minus_one"]=objective[0];best=result if best is None or objective<(best["on_segments_minus_one"],best["J_q"]) else best
                         if first is None:first=perf_counter()-began
                 cache[key]=result.copy();event.update({"status":result["status"],"cache_hit":False,"duration_s":perf_counter()-started,"ik_calls":lift.ik_calls,"witness_hash":result.get("witness_hash")});events.append(event);rows.append({**item,**result,"cache_hit":False});attempted+=1
+                if result.get("validation_status")=="accepted_under_E12_refined_sampled_checks":halt_at=item_index;break
+            if halt_at is not None:
+                for item in ordered_cell[halt_at+1:]:rows.append({**item,"status":"NOT_RUN_after_first_accepted","validation_status":"NOT_RUN"})
             summaries=[x for x in rows if x.get("scene_id")==sid and x.get("method")==method and x.get("split")==split];accepted=[x for x in summaries if x.get("validation_status")=="accepted_under_E12_refined_sampled_checks"]
             bestrow=min(accepted,key=lambda x:(int(x.get("on_segments_minus_one",0)),float(x["J_q"]))) if accepted else None
-            rows.append({"row_type":"cell_summary","scene_id":sid,"split":split,"method":method,"overall_status":"accepted_under_E12_refined_sampled_checks" if bestrow else ("time_budget_limited" if perf_counter()>=deadline else "no_accepted_candidate"),"candidate_slots":len(cell),"evaluated_slots":attempted,"unique_candidates":len(cache),"first_accepted_s":first,"best_witness_hash":None if bestrow is None else bestrow["witness_hash"],"best_J_q":None if bestrow is None else bestrow["J_q"],"root_seconds_charged":root_charge,"cell_seconds":perf_counter()-began,"cold_seconds":root_charge+perf_counter()-began})
+            first_slot=None if not accepted else min(int(x["slot"]) for x in accepted if x.get("slot") not in (None,""));fixed_k={}
+            for kslot in (1,4,8):fixed_k[f"success_at_K{kslot}"]="True" if first_slot is not None and first_slot<kslot else ("False" if attempted>=min(kslot,len(cell)) else "CENSORED")
+            rows.append({"row_type":"cell_summary","scene_id":sid,"split":split,"method":method,"overall_status":"accepted_under_E12_refined_sampled_checks" if bestrow else ("time_budget_limited" if perf_counter()>=deadline else "no_accepted_candidate"),"candidate_slots":len(cell),"evaluated_slots":attempted,"unique_candidates":len(cache),"first_accepted_s":first,"first_accepted_slot":first_slot,"best_witness_hash":None if bestrow is None else bestrow["witness_hash"],"best_J_q":None if bestrow is None else bestrow["J_q"],"root_seconds_charged":root_charge,"cell_seconds":perf_counter()-began,"cold_seconds":root_charge+perf_counter()-began,**fixed_k})
             write_csv(output/f"{split.lower()}_method_outcomes.partial.csv",rows);write_csv(output/f"{split.lower()}_execution_events.partial.csv",events)
     write_csv(output/f"{split.lower()}_method_outcomes.csv",rows);write_csv(output/f"{split.lower()}_execution_events.csv",events);write_json(output/f"evaluate-{split.lower()}.checkpoint.json",{"complete":True,"cells":len([x for x in rows if x.get('row_type')=='cell_summary']),"accepted_cells":sum(x.get('overall_status')=='accepted_under_E12_refined_sampled_checks' for x in rows if x.get('row_type')=='cell_summary')})
 
