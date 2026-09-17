@@ -171,11 +171,11 @@ def _sample_family(lib: GeometryLibrary, family: str, start: float, end: float, 
     return out
 
 
-def validate_program(program: GeometryProgram, families: Iterable[str], maximum_tokens: int = 64) -> None:
+def validate_program(program: GeometryProgram, families: Iterable[str], maximum_tokens: int = 64, *, require_scan: bool = True) -> None:
     allowed = set(families)
     if not program.tokens or len(program.tokens) > maximum_tokens or program.tokens[-1].kind != "END":
         raise ValueError("program must end within the registered token cap")
-    if sum(x.kind == "SCAN" for x in program.tokens) == 0:
+    if require_scan and sum(x.kind == "SCAN" for x in program.tokens) == 0:
         raise ValueError("program must contain a SCAN")
     for i, token in enumerate(program.tokens):
         if token.kind == "SCAN":
@@ -238,8 +238,8 @@ def encode_edge_sequence(sequence: list[dict[str, Any]], lib: GeometryLibrary, m
     return program
 
 
-def decode_program(program: GeometryProgram, lib: GeometryLibrary, start_point: np.ndarray, *, maximum_step: float, maximum_tokens: int = 64) -> DecodedProgram:
-    validate_program(program, lib.families, maximum_tokens)
+def decode_program(program: GeometryProgram, lib: GeometryLibrary, start_point: np.ndarray, *, maximum_step: float, maximum_tokens: int = 64, require_scan: bool = True) -> DecodedProgram:
+    validate_program(program, lib.families, maximum_tokens, require_scan=require_scan)
     current = np.asarray(start_point, dtype=np.float64)
     points = [current.copy()]; segment_ids = [0]; corrections: list[dict[str, Any]] = []
     segment = 0

@@ -147,3 +147,16 @@ def test_generated_controls_are_decoded_without_oracle_structure(library):
 def test_missing_end_is_rejected(library):
     program,_,error=controls_to_program(np.asarray([scan_symbol(0,1)]),np.asarray([[0.,1.]]),library,64)
     assert program is None and error=="END_not_generated"
+
+
+def test_via_only_is_reserved_for_lazy_geometry_arc(library):
+    program=GeometryProgram((ProgramToken("VIA",d1=0.,d2=0.),ProgramToken("END")))
+    with pytest.raises(ValueError,match="SCAN"):decode_program(program,library,library.ports[0],maximum_step=.001)
+    decoded=decode_program(program,library,library.ports[0],maximum_step=.001,require_scan=False)
+    assert len(decoded.surface_points)>=1
+
+
+def test_p_lazy_does_not_load_robot_graph():
+    source=(ROOT/"scripts/e12_runner_support.py").read_text().split("def run_p_lazy",1)[1].split("\ndef ",1)[0]
+    assert "load_robot_graph" not in source
+    assert "build_placement_graph" not in source

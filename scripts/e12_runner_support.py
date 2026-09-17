@@ -11,8 +11,8 @@ from typing import Any
 
 import numpy as np
 
-from diffusion_coverage.coverage.episode_summary import summarize_ordered_membership
-from diffusion_coverage.planning.e12_programs import GeometryProgram, decode_program, encode_edge_sequence, load_geometry_library
+from diffusion_coverage.coverage.episode_summary import apply_edge_summary,initial_episode_state,summarize_ordered_membership
+from diffusion_coverage.planning.e12_programs import GeometryProgram,ProgramToken,decode_program,encode_edge_sequence,load_geometry_library,sphere_to_stereographic
 from diffusion_coverage.robot.e09_execution import evaluate_synchronized_fk_trace, sphere_episode_counts_indexed, sphere_membership_stream
 from diffusion_coverage.robot.e12_program_execution import densify_program_trace, lift_program
 from diffusion_coverage.robot.ur5e_mujoco import UR5eKinematics
@@ -222,3 +222,195 @@ def collect_train_val(root:Path,config:dict[str,Any],output:Path)->None:
             qualify(extras)
         completed_scenes.add(sid);write_csv(output/"teacher_candidate_qualification.partial.csv",candidates);write_json(output/"qualified_program_dataset.partial.json",{"labels":labels});write_csv(output/"teacher_events.partial.csv",events);write_json(output/"collect-train-val.checkpoint.json",{"complete":False,"last_scene":sid,"completed_scenes":sorted(completed_scenes),"graphs":len(graphs),"qualified_labels":len(labels)})
     write_json(output/"teacher_graph_manifest.json",{"graphs":graphs,"large_graphs_published":False});write_csv(output/"root_events.csv",roots);write_csv(output/"teacher_candidate_qualification.csv",candidates);write_json(output/"qualified_program_dataset.json",{"labels":labels});write_csv(output/"teacher_events.csv",events);write_json(output/"collect-train-val.checkpoint.json",{"complete":True,"attempted_tasks":len(scenes),"usable_graphs":sum(x.get("status") in {"ready","recombination_limited"} for x in graphs),"qualified_labels":len(labels),"qualified_tasks":len({x["scene_id"] for x in labels})})
+
+
+def _rotation_log_angle(matrix:np.ndarray)->float:
+    return float(np.arccos(np.clip((np.trace(matrix)-1.)/2.,-1.,1.)))
+
+
+def graph_free_roots(root:Path,config:dict[str,Any],output:Path,split:str)->list[dict[str,Any]]:
+    target=output/f"graph_free_roots_{split.lower()}.json"
+    if target.exists():return json.loads(target.read_text())["roots"]
+    scenes=[x for x in json.loads((root/config["inputs"]["pose_splits"]).read_text())["scenes"] if x["split"]==split];c=_teacher_config(root,config);bank=load_bank(root/"results/e11_mechanism_placement_transfer_v1");roots=[];events=[]
+    teacher={x["scene_id"]:x for x in json.loads((output/"teacher_graph_manifest.json").read_text()).get("graphs",[])} if (output/"teacher_graph_manifest.json").exists() else {}
+    for scene in scenes:
+        sid=scene["scene_id"]
+        if split=="VALIDATION" and sid in teacher and teacher[sid].get("root_q") is not None:
+            q=np.asarray(teacher[sid]["root_q"],dtype=np.float64);rows=[{"scene_id":sid,"kind":"root_cache","status":"CACHE_HIT_teacher_graph_root"}]
+        else:
+            prepared={**scene,"source_anchor":scene["anchor_id"],"rng_seed":2026091700+int(scene["scene_index"]),"name":sid};q,rows=_root_audit(root,c,bank,prepared)
+        events.extend(rows);roots.append({"scene_id":sid,"split":split,"status":"admitted" if q is not None else "start_search_failed","q0":None if q is None else q.tolist(),"transform":scene["transform_base_from_surface"],"transform_sha256":scene["transform_sha256"],"anchor_id":scene["anchor_id"]})
+        write_json(target,{"roots":roots});write_csv(output/f"root_events_{split.lower()}.csv",events)
+    return roots
+
+
+def _retrieval_programs(labels:list[dict[str,Any]],transform:np.ndarray,q0:np.ndarray)->list[dict[str,Any]]:
+    ranked=[]
+    for item in labels:
+        source=np.asarray(item["transform"],dtype=np.float64);translation=float(np.sum(((transform[:3,3]-source[:3,3])/.05)**2));rotation=(_rotation_log_angle(source[:3,:3].T@transform[:3,:3])/np.deg2rad(20.))**2;joint=float(np.sum(((q0[:5]-np.asarray(item["q0"])[:5])/(np.pi/2))**2));ranked.append((translation+rotation+joint,item["scene_id"],item["program_hash"],item))
+    ranked.sort(key=lambda x:(x[0],x[1],x[2]));selected=[];seen_programs=set();seen_tasks=set()
+    for distinct_tasks in (True,False):
+        for distance,task,program_hash,item in ranked:
+            if program_hash in seen_programs or (distinct_tasks and task in seen_tasks):continue
+            selected.append({"program_json":item["program_json"],"source_scene_id":task,"source_program_hash":program_hash,"retrieval_distance":distance});seen_programs.add(program_hash);seen_tasks.add(task)
+            if len(selected)>=8:return selected
+    return selected
+
+
+def freeze_generated_candidates(root:Path,config:dict[str,Any],output:Path,split:str)->None:
+    import torch
+    from diffusion_coverage.learning.e12_inference import continuous_program,generate_symbol_slots,load_models,normalized_condition
+    if not (output/"train.checkpoint.json").exists():raise RuntimeError("trained checkpoints are not frozen")
+    roots=graph_free_roots(root,config,output,split);labels=json.loads((output/"qualified_program_dataset.json").read_text())["labels"];training=[x for x in labels if x["split"]=="TRAIN"]
+    metadata=json.loads((output/"dataset_normalization_and_prototypes.json").read_text());library=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));device=torch.device("cuda" if torch.cuda.is_available() else "cpu");models=load_models(output/"models",device);decoder=models["categorical"][0];rows=[]
+    for root_row in roots:
+        sid=root_row["scene_id"]
+        if root_row["status"]!="admitted":
+            for method in ("RETRIEVE","REG","FM"):rows.append({"scene_id":sid,"split":split,"method":method,"slot":None,"status":"NOT_RUN_root_failed"})
+            continue
+        transform=np.asarray(root_row["transform"],float);q0=np.asarray(root_row["q0"],float);condition=normalized_condition(transform,q0,metadata,device)
+        for slot,item in enumerate(_retrieval_programs(training,transform,q0)):
+            rows.append({"scene_id":sid,"split":split,"method":"RETRIEVE","slot":slot,"status":"frozen","program_json":item["program_json"],**{k:v for k,v in item.items() if k!="program_json"}})
+        sequences=generate_symbol_slots(decoder,condition,seed=202609170000+int(next(x["scene_index"] for x in json.loads((root/config["inputs"]["pose_splits"]).read_text())["scenes"] if x["scene_id"]==sid))*100)
+        for slot,symbols in enumerate(sequences):
+            for method in ("REG","FM"):
+                program,detail=continuous_program(method,models[method.lower()][0],symbols,condition,metadata,library,seed=202609170000+slot,maximum_tokens=int(config["program"]["maximum_tokens"]),fm_steps=int(config["learning"]["fm_ode_steps"]));rows.append({"scene_id":sid,"split":split,"method":method,"slot":slot,"status":"frozen" if program is not None else "syntactic_rejection","program_json":None if program is None else program.to_json(),"program_hash":None if program is None else program.content_hash,**detail})
+    path=output/f"{split.lower()}_candidate_programs.json";write_json(path,{"split":split,"generated_before_evaluation":True,"device":str(device),"rows":rows});write_json(output/f"freeze-{split.lower()}-candidates.checkpoint.json",{"complete":True,"rows":len(rows),"sha256":file_hash(path)})
+
+
+def run_p_lazy(root:Path,config:dict[str,Any],output:Path)->None:
+    """On-demand geometry-arc continuation without loading any robot graph."""
+    split="SEALED_TEST";frozen_path=output/"sealed_test_candidate_programs.json";frozen=json.loads(frozen_path.read_text());roots={x["scene_id"]:x for x in graph_free_roots(root,config,output,split)};library=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));q2=np.load(root/config["inputs"]["quadrature_q2"],allow_pickle=False);sample_points=np.asarray(q2["points"]);weights=np.asarray(q2["weights"]);total=float(weights.sum());radius=float(config["surface"]["radius_m"]);footprint=float(config["coverage"]["footprint_radius_m"]);required=(1.-float(config["coverage"]["missed_tolerance"]))*total;rows=[];events=[]
+    outgoing={port:[] for port in range(len(library.ports))}
+    for arc_id,(start,kind) in enumerate(zip(library.arc_start,library.arc_kind,strict=True)):
+        if str(kind) in {"source","cross_port"}:outgoing[int(start)].append(int(arc_id))
+    for values in outgoing.values():values.sort()
+
+    def arc_program(arc_id:int)->GeometryProgram:
+        if str(library.arc_kind[arc_id])=="source":
+            family,direction,a,b=library.arc_intervals[arc_id];return GeometryProgram((ProgramToken("SCAN",family,direction,min(a,b),max(a,b)),ProgramToken("END")))
+        d1,d2=sphere_to_stereographic(library.ports[int(library.arc_end[arc_id])],library.radius);return GeometryProgram((ProgramToken("VIA",d1=d1,d2=d2),ProgramToken("END")))
+
+    def edge_record(arc_id:int)->dict[str,Any]:
+        return {"kind":str(library.arc_kind[arc_id]),"geom_arc_id":arc_id,"start_port":int(library.arc_start[arc_id]),"end_port":int(library.arc_end[arc_id])}
+
+    for sid,root_row in sorted(roots.items()):
+        began=perf_counter();deadline=began+float(config["deployment"]["p_lazy_query_deadline_s"]);call_limit=int(config["deployment"]["p_lazy_max_ik_calls"]);calls=0;cache={};complete=[];prefixes=[]
+        if root_row["status"]!="admitted":rows.append({"scene_id":sid,"status":"NOT_RUN_root_failed"});continue
+        transform=np.asarray(root_row["transform"],float);q0=np.asarray(root_row["q0"],float);root_port=int(library.arc_start[library.routes["raster_u_phase_0.00/forward"][0]]);initial_membership=sphere_membership_stream(sample_points,library.ports[root_port][None,:],radius=radius,footprint_radius=footprint)[:,0];initial=initial_episode_state(initial_membership);robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"]))
+
+        def attempt(state:dict[str,Any],arc_id:int):
+            nonlocal calls
+            key=hashlib.sha256(state["q"].tobytes()+np.asarray([arc_id],np.int64).tobytes()).hexdigest()
+            if key in cache:
+                events.append({"scene_id":sid,"kind":"P_lazy_arc_query","arc_id":arc_id,"start_port":state["port"],"end_port":int(library.arc_end[arc_id]),"ik_calls":0,"duration_s":0.,"status":"CACHE_HIT_valid" if cache[key] else "CACHE_HIT_failed","failure_reason":None,"cache_hit":True});return cache[key]
+            if calls>=call_limit or perf_counter()>=deadline:return None
+            local=json.loads(json.dumps(config));local["lifter"]["max_ik_calls"]=min(int(local["lifter"]["max_ik_calls"]),call_limit-calls);local["lifter"]["deadline_s"]=min(float(local["lifter"]["deadline_s"]),max(0.,deadline-perf_counter()));program=arc_program(arc_id);started=perf_counter();lift=lift_program(program,library,transform,state["q"],robot,local,start_surface_point=library.ports[state["port"]],allow_via_only=str(library.arc_kind[arc_id])=="cross_port");calls+=lift.ik_calls;event={"scene_id":sid,"kind":"P_lazy_arc_query","arc_id":arc_id,"start_port":state["port"],"end_port":int(library.arc_end[arc_id]),"ik_calls":lift.ik_calls,"duration_s":perf_counter()-started,"status":lift.status,"failure_reason":lift.failure_reason,"cache_hit":False};events.append(event)
+            if lift.trace is None or lift.decoded is None:cache[key]=False;return False
+            membership=sphere_membership_stream(sample_points,lift.decoded.surface_points,radius=radius,footprint_radius=footprint);summary=summarize_ordered_membership(membership,weights);episode=apply_edge_summary(state["episode"],summary,weights);cost=float(np.linalg.norm(np.diff(lift.trace.q,axis=0),axis=1).sum());value={"q":lift.trace.q[-1].copy(),"port":int(library.arc_end[arc_id]),"episode":episode,"J_q":state["J_q"]+cost,"sequence":state["sequence"]+(edge_record(arc_id),),"visited":state["visited"].copy()};cache[key]=value;return value
+
+        root_state={"q":q0,"port":root_port,"episode":initial,"J_q":0.,"sequence":tuple(),"visited":{}}
+        for route_name in sorted(library.routes):
+            state={**root_state,"visited":{}};route_prefix=[]
+            for arc_id in library.routes[route_name]:
+                child=attempt(state,int(arc_id))
+                if not child:break
+                state=child;route_prefix.append(state);covered=float(weights[state["episode"].covered].sum());progress=min(9,int(10*covered/total));prefixes.append({**state,"route":route_name,"progress":progress})
+                if covered>=required-1e-15 and state["episode"].repeat_error<=float(config["coverage"]["repeat_tolerance"])+1e-12:
+                    complete.append(state);break
+        selected=[]
+        for route_name in sorted(library.routes):
+            for progress in range(10):
+                choices=[x for x in prefixes if x["route"]==route_name and x["progress"]==progress]
+                if choices:
+                    low_j=min(choices,key=lambda x:(x["J_q"],x["episode"].repeat_error,len(x["sequence"])));low_r=min(choices,key=lambda x:(x["episode"].repeat_error,x["J_q"],len(x["sequence"])));selected.append(low_j)
+                    if low_r["sequence"]!=low_j["sequence"]:selected.append(low_r)
+        rollouts=[root_state]+selected;active=[True]*len(rollouts)
+        while any(active) and calls<call_limit and perf_counter()<deadline and len(complete)<8:
+            for index,state in enumerate(rollouts):
+                if not active[index]:continue
+                alternatives=[]
+                for arc_id in outgoing[state["port"]]:
+                    child=attempt(state,arc_id)
+                    if not child:continue
+                    if child["episode"].repeat_error>float(config["coverage"]["repeat_tolerance"])+1e-12:continue
+                    key=(child["port"],child["episode"].covered.tobytes(),child["episode"].membership.tobytes())
+                    prior=state["visited"].get(key)
+                    if prior is not None and prior[0]<=child["episode"].repeat_error+1e-12 and prior[1]<=child["J_q"]+1e-12:continue
+                    covered=float(weights[child["episode"].covered].sum());alternatives.append((max(0.,required-covered),child["episode"].repeat_error,child["J_q"],arc_id,key,child))
+                if not alternatives:active[index]=False;continue
+                _,_,_,_,key,chosen=min(alternatives,key=lambda x:x[:4]);chosen["visited"][key]=(chosen["episode"].repeat_error,chosen["J_q"]);rollouts[index]=chosen;covered=float(weights[chosen["episode"].covered].sum())
+                if covered>=required-1e-15:
+                    complete.append(chosen);active[index]=False
+                if calls>=call_limit or perf_counter()>=deadline:break
+        unique=set()
+        for slot,state in enumerate(sorted(complete,key=lambda x:(x["episode"].repeat_error,x["J_q"],len(x["sequence"])))):
+            try:program=encode_edge_sequence(list(state["sequence"]),library,int(config["program"]["maximum_tokens"]))
+            except Exception as exc:rows.append({"scene_id":sid,"status":f"candidate_encoding_failed:{exc}"});continue
+            if program.content_hash in unique:continue
+            unique.add(program.content_hash);frozen["rows"].append({"scene_id":sid,"split":split,"method":"P_LAZY","slot":len(unique)-1,"status":"frozen","program_json":program.to_json(),"program_hash":program.content_hash,"Q2_miss":float(weights[~state["episode"].covered].sum()/total),"Q2_repeat":state["episode"].repeat_error,"query_J_q":state["J_q"]})
+            if len(unique)>=8:break
+        rows.append({"scene_id":sid,"status":"complete" if perf_counter()<deadline and calls<call_limit else "query_budget_limited","ik_calls":calls,"query_seconds":perf_counter()-began,"prefixes":len(prefixes),"rollouts":len(rollouts),"complete_candidates":len(unique),"cache_entries":len(cache)})
+        write_json(frozen_path,frozen);write_csv(output/"p_lazy_query_results.partial.csv",rows);write_csv(output/"p_lazy_query_events.partial.csv",events)
+    write_json(frozen_path,frozen);write_csv(output/"p_lazy_query_results.csv",rows);write_csv(output/"p_lazy_query_events.csv",events);write_json(output/"p-lazy.checkpoint.json",{"complete":True,"scenes":len(rows),"candidate_rows":sum(x.get('method')=='P_LAZY' for x in frozen['rows']),"frozen_candidates_sha256":file_hash(frozen_path)})
+
+
+def evaluate_frozen_candidates(root:Path,config:dict[str,Any],output:Path,split:str)->None:
+    frozen=json.loads((output/f"{split.lower()}_candidate_programs.json").read_text());roots={x["scene_id"]:x for x in graph_free_roots(root,config,output,split)};library=load_geometry_library(output/"geometry_only_library.npz",output/"geometry_only_library.json",radius=float(config["surface"]["radius_m"]));bank=load_bank(root/"results/e11_mechanism_placement_transfer_v1");root_port=int(bank["arc_start"][bank["routes"]["raster_u_phase_0.00/forward"][0]]);rows=[];events=[];accepted_dir=output/"graph_free_accepted_witnesses";accepted_dir.mkdir(exist_ok=True);contract_hash=file_hash(root/"configs/e12_graph_free_global_generation_v1.json")
+    for sid in sorted(roots):
+        root_row=roots[sid]
+        methods=("RETRIEVE","REG","FM","P_LAZY") if split=="SEALED_TEST" else ("RETRIEVE","REG","FM")
+        for method in methods:
+            cell=[x for x in frozen["rows"] if x["scene_id"]==sid and x["method"]==method];began=perf_counter();deadline=began+float(config["deployment"]["cell_deadline_s"]);cache={};best=None;first=None;attempted=0
+            if root_row["status"]!="admitted":
+                rows.append({"scene_id":sid,"split":split,"method":method,"overall_status":"NOT_RUN_root_failed","candidate_slots":len(cell),"evaluated_slots":0});continue
+            q0=np.asarray(root_row["q0"],float);transform=np.asarray(root_row["transform"],float)
+            for item in sorted(cell,key=lambda x:(-1 if x.get("slot") is None else int(x["slot"]))):
+                slot=item.get("slot");started=perf_counter();program_text=item.get("program_json");event={"event_id":len(events),"scene_id":sid,"split":split,"method":method,"slot":slot,"kind":"candidate_lift_and_full_validation","started_since_cell_s":started-began,"program_hash":item.get("program_hash")}
+                if perf_counter()>=deadline:event.update({"status":"NOT_RUN_cell_deadline","duration_s":0.});events.append(event);continue
+                if not program_text:event.update({"status":item.get("status","syntactic_rejection"),"duration_s":0.});events.append(event);attempted+=1;continue
+                program=GeometryProgram.from_json(program_text);key=hashlib.sha256((sid+program.content_hash+contract_hash).encode()).hexdigest()
+                if key in cache:
+                    result=cache[key].copy();event.update({"status":result["status"],"cache_hit":True,"duration_s":perf_counter()-started});events.append(event);rowslot={**item,**result,"cache_hit":True};rows.append(rowslot);attempted+=1;continue
+                local=json.loads(json.dumps(config));local["lifter"]["deadline_s"]=max(0.,min(float(config["lifter"]["deadline_s"]),deadline-perf_counter()));robot=UR5eKinematics(config["inputs"]["robot_model"],site_name=config["robot"]["site_name"],tool_axis_index=int(config["robot"]["tool_axis_index"]),tool_axis_sign=float(config["robot"]["tool_axis_sign"]));lift=lift_program(program,library,transform,q0,robot,local,start_surface_point=library.ports[root_port]);result={"status":lift.status,"lift_status":lift.status,"ik_calls":lift.ik_calls,"lift_seconds":lift.elapsed_s,"spacing_m":lift.spacing_m,"failure_reason":lift.failure_reason,"validation_status":None,"witness_hash":None}
+                if lift.trace is not None and lift.decoded is not None and perf_counter()<deadline:
+                    checked=_validate_trace(root,config,lift.trace,lift.decoded.surface_points,transform);h=hashlib.sha256(lift.trace.q.tobytes()+lift.trace.u.tobytes()+lift.trace.activity.tobytes()).hexdigest();result.update({"status":checked["validation_status"],"validation_status":checked["validation_status"],"witness_hash":h,**checked})
+                    if perf_counter()>deadline:result.update({"status":"validation_budget_limited","validation_status":"validation_budget_limited"})
+                    if checked["validation_status"]=="accepted_under_E12_refined_sampled_checks":
+                        path=accepted_dir/f"{h}.npz"
+                        if not path.exists():np.savez_compressed(path,q=lift.trace.q,u=lift.trace.u,target_position=lift.trace.target_position,target_axis=lift.trace.target_axis,activity=lift.trace.activity,surface_points=lift.decoded.surface_points,program_json=np.asarray(program.to_json()),witness_hash=np.asarray(h))
+                        objective=(int(lift.trace.activity[0])+int(np.count_nonzero(lift.trace.activity[1:]&~lift.trace.activity[:-1]))-1,float(checked["J_q"]));result["on_segments_minus_one"]=objective[0];best=result if best is None or objective<(best["on_segments_minus_one"],best["J_q"]) else best
+                        if first is None:first=perf_counter()-began
+                cache[key]=result.copy();event.update({"status":result["status"],"cache_hit":False,"duration_s":perf_counter()-started,"ik_calls":lift.ik_calls,"witness_hash":result.get("witness_hash")});events.append(event);rows.append({**item,**result,"cache_hit":False});attempted+=1
+            summaries=[x for x in rows if x.get("scene_id")==sid and x.get("method")==method and x.get("split")==split];accepted=[x for x in summaries if x.get("validation_status")=="accepted_under_E12_refined_sampled_checks"]
+            bestrow=min(accepted,key=lambda x:(int(x.get("on_segments_minus_one",0)),float(x["J_q"]))) if accepted else None
+            rows.append({"row_type":"cell_summary","scene_id":sid,"split":split,"method":method,"overall_status":"accepted_under_E12_refined_sampled_checks" if bestrow else ("time_budget_limited" if perf_counter()>=deadline else "no_accepted_candidate"),"candidate_slots":len(cell),"evaluated_slots":attempted,"unique_candidates":len(cache),"first_accepted_s":first,"best_witness_hash":None if bestrow is None else bestrow["witness_hash"],"best_J_q":None if bestrow is None else bestrow["J_q"],"cell_seconds":perf_counter()-began})
+            write_csv(output/f"{split.lower()}_method_outcomes.partial.csv",rows);write_csv(output/f"{split.lower()}_execution_events.partial.csv",events)
+    write_csv(output/f"{split.lower()}_method_outcomes.csv",rows);write_csv(output/f"{split.lower()}_execution_events.csv",events);write_json(output/f"evaluate-{split.lower()}.checkpoint.json",{"complete":True,"cells":len([x for x in rows if x.get('row_type')=='cell_summary']),"accepted_cells":sum(x.get('overall_status')=='accepted_under_E12_refined_sampled_checks' for x in rows if x.get('row_type')=='cell_summary')})
+
+
+def test_graph_reference(root:Path,config:dict[str,Any],output:Path)->None:
+    if not (output/"evaluate-sealed_test.checkpoint.json").exists():raise RuntimeError("graph-free sealed outputs must be frozen first")
+    roots={x["scene_id"]:x for x in graph_free_roots(root,config,output,"SEALED_TEST")};scenes={x["scene_id"]:x for x in json.loads((root/config["inputs"]["pose_splits"]).read_text())["scenes"] if x["split"]=="SEALED_TEST"};bank=load_bank(root/"results/e11_mechanism_placement_transfer_v1");q2=np.load(root/config["inputs"]["quadrature_q2"],allow_pickle=False);c=_teacher_config(root,config);graph_dir=output/"test_graphs";graph_dir.mkdir(exist_ok=True);rows=[];events=[]
+    for sid in sorted(scenes):
+        cell_start=perf_counter();deadline=cell_start+float(config["deployment"]["cell_deadline_s"]);root_row=roots[sid];scene=scenes[sid];path=graph_dir/f"hemisphere_{sid}.npz"
+        if root_row["status"]!="admitted":rows.append({"scene_id":sid,"method":"P_GRAPH","overall_status":"NOT_RUN_root_failed","cell_seconds":perf_counter()-cell_start});continue
+        q=np.asarray(root_row["q0"],float);c["common_start_q"][sid]=q.tolist();began=perf_counter();built=build_placement_graph(root,c,bank,{"candidate_id":sid,"placement_level":sid,"transform_base_from_surface":scene["transform_base_from_surface"],"rng_seed":2026091700+int(scene["scene_index"])},q2);build_seconds=perf_counter()-began
+        if built["status"] in {"ready","recombination_limited"}:save_robot_graph(path,built)
+        graph_row={"scene_id":sid,"status":built["status"],"graph_file":str(path.relative_to(root)) if path.exists() else None,"graph_sha256":file_hash(path) if path.exists() else None,"build_seconds":build_seconds,"nodes":built.get("node_count"),"edges":built.get("edge_count"),"ik_calls":built.get("ik_calls")};manifest_path=output/"test_graph_manifest.partial.json";prior_graphs=json.loads(manifest_path.read_text()).get("graphs",[]) if manifest_path.exists() else [];write_json(manifest_path,{"graphs":[*prior_graphs,graph_row]})
+        if not path.exists() or perf_counter()>=deadline:rows.append({"scene_id":sid,"method":"P_GRAPH","overall_status":"graph_build_failed" if not path.exists() else "time_budget_limited_after_graph_build",**graph_row,"cell_seconds":perf_counter()-cell_start});continue
+        data=load_robot_graph(path);remaining=max(0.,deadline-perf_counter());f_result,archive=fixed_route_initialize(data,int(data["start_node"]),1,c,wall_time=min(float(config["teacher"]["search_seconds"]),remaining),expanded_limit=int(config["teacher"]["expanded_limit"]));plans=[]
+        if f_result.incumbent is not None:
+            pf,_=save_plan(output,sid,1,"P_GRAPH_F",f_result.incumbent,f_result.incumbent.path,data);plans.append(("F",pf,f_result.incumbent))
+        fallback=None;accepted=[]
+        for method,pf,label in plans:
+            if perf_counter()>=deadline:break
+            plan=np.load(root/pf,allow_pickle=False);started=perf_counter();local=json.loads(json.dumps(c));local["validation"]["deadline_s_per_unique_witness"]=max(0.,min(float(c["validation"]["deadline_s_per_unique_witness"]),deadline-perf_counter()));checked=validate_unique_witness(root,local,output,{"k":1},plan,data,{"transform_base_from_surface":scene["transform_base_from_surface"]},str(plan["witness_hash"]));status=checked["final"]["overall_status"] if perf_counter()<=deadline else "validation_budget_limited";events.append({"scene_id":sid,"method":"P_GRAPH_F","kind":"full_validation","status":status,"duration_s":perf_counter()-started,"witness_hash":str(plan["witness_hash"])});accepted.append((method,pf,label,status,checked))
+            if status=="accepted_under_E09_R1_refined_sampled_checks":fallback=label
+        remaining=max(0.,deadline-perf_counter());screen=_Q3Screen(root,c,data,{"transform_base_from_surface":scene["transform_base_from_surface"]});p_result=greedy_prefix_completion(data=data,start_node=int(data["start_node"]),maximum_on_segments=1,initial_prefixes=(tuple(x["path"]) for x in archive),validated_fallback=fallback,config=c,wall_time_s=remaining,screen=screen)
+        for index,candidate in enumerate(p_result.candidates):
+            if perf_counter()>=deadline:break
+            from diffusion_coverage.solvers.history_search import SearchLabel
+            label=SearchLabel(candidate.node,candidate.covered,candidate.membership,candidate.repeat_error,candidate.joint_cost,candidate.used_on_segments,candidate.edge_ids);pf,_=save_plan(output,sid,1,f"P_GRAPH_P{index}",label,candidate.edge_ids,data);plan=np.load(root/pf,allow_pickle=False);started=perf_counter();local=json.loads(json.dumps(c));local["validation"]["deadline_s_per_unique_witness"]=max(0.,min(float(c["validation"]["deadline_s_per_unique_witness"]),deadline-perf_counter()));checked=validate_unique_witness(root,local,output,{"k":1},plan,data,{"transform_base_from_surface":scene["transform_base_from_surface"]},str(plan["witness_hash"]));status=checked["final"]["overall_status"] if perf_counter()<=deadline else "validation_budget_limited";events.append({"scene_id":sid,"method":"P_GRAPH_P","kind":"full_validation","status":status,"duration_s":perf_counter()-started,"witness_hash":str(plan["witness_hash"])});accepted.append(("P",pf,label,status,checked))
+        valid=[x for x in accepted if x[3]=="accepted_under_E09_R1_refined_sampled_checks"];best=min(valid,key=lambda x:(x[2].used_on_segments-1,x[2].joint_cost)) if valid else None;rows.append({"scene_id":sid,"method":"P_GRAPH","overall_status":"accepted_under_E12_refined_sampled_checks" if best else ("time_budget_limited" if perf_counter()>=deadline else "no_accepted_candidate"),**graph_row,"F_termination":f_result.termination,"P_termination":p_result.termination,"best_witness_hash":None if best is None else str(np.load(root/best[1],allow_pickle=False)["witness_hash"]),"best_J_q":None if best is None else best[2].joint_cost,"cell_seconds":perf_counter()-cell_start});write_csv(output/"test_graph_reference_results.partial.csv",rows);write_csv(output/"test_graph_reference_events.partial.csv",events)
+    write_csv(output/"test_graph_reference_results.csv",rows);write_csv(output/"test_graph_reference_events.csv",events);write_json(output/"test-graph-reference.checkpoint.json",{"complete":True,"cells":len(rows),"accepted":sum(x["overall_status"]=='accepted_under_E12_refined_sampled_checks' for x in rows)})

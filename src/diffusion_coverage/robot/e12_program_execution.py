@@ -42,6 +42,7 @@ def lift_program(
     config: dict[str, Any],
     *,
     start_surface_point: np.ndarray,
+    allow_via_only: bool = False,
 ) -> ProgramLiftResult:
     """Continuously lift a geometry-only program from q0 without graph or future q access."""
 
@@ -64,7 +65,7 @@ def lift_program(
         spacing = initial_spacing / (2**halving)
         if spacing < float(settings["minimum_spacing_m"]) - 1e-15:
             break
-        decoded = decode_program(program, library, start_surface_point, maximum_step=spacing, maximum_tokens=int(config["program"]["maximum_tokens"]))
+        decoded = decode_program(program, library, start_surface_point, maximum_step=spacing, maximum_tokens=int(config["program"]["maximum_tokens"]),require_scan=not allow_via_only)
         positions, axes = _targets(decoded.surface_points, transform)
         q_values = [initial.copy()]
         last_reason = None; last_index = None
