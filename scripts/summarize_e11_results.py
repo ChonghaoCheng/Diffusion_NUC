@@ -44,7 +44,8 @@ def main():
     write("timing_accounting.csv",timing)
     status=json.loads((OUT/"test_statuses.json").read_text());status.update({"focused_passed":65,"literal_passed":219,"literal_skipped":1,"literal_failed":10});(OUT/"test_statuses.json").write_text(json.dumps(status,indent=2,sort_keys=True)+"\n")
     commands=(OUT/"reproduction_commands.txt").read_text().rstrip().splitlines()
-    render="OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e11-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/render_e11_selected_plots.py"
+    commands=[x for x in commands if "scripts/render_e11_selected_plots.py" not in x]
+    render="OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 MPLCONFIGDIR=/tmp/e11-mpl /data/chocheng/.venvs/coverage-fm/bin/python scripts/render_e11_selected_plots.py --output results/e11_mechanism_placement_transfer_v1_reproduction"
     if render not in commands:commands.insert(-1,render)
     (OUT/"reproduction_commands.txt").write_text("\n".join(commands)+"\n")
 

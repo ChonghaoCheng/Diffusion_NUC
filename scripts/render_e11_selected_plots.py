@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import csv
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -27,7 +28,8 @@ def rows(path: Path):
 
 
 def main() -> None:
-    output = ROOT / "results/e11_mechanism_placement_transfer_v1"
+    parser=argparse.ArgumentParser();parser.add_argument("--output",type=Path,default=ROOT/"results/e11_mechanism_placement_transfer_v1");args=parser.parse_args()
+    output = args.output.resolve()
     config = json.loads((ROOT / "configs/e11_mechanism_placement_transfer_v1.json").read_text())
     scene_docs = json.loads((ROOT / config["inputs"]["transfer_scenes"]).read_text())["scenes"]
     old = json.loads((ROOT / config["inputs"]["placements"]).read_text())["selected"]
