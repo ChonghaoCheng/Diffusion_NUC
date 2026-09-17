@@ -1,0 +1,241 @@
+{
+  "anchor_common_start_q": {
+    "T27": [
+      -1.5144675062375585,
+      -1.47168633686051,
+      1.5321620022092346,
+      -1.3690526637479956,
+      -1.5521892293285964,
+      1.3382193136158187e-17
+    ],
+    "T30": [
+      -1.5410352853571834,
+      -1.5099632769299884,
+      1.6873016714324718,
+      -1.6205584452406185,
+      -1.6099928012468316,
+      -2.0290631599706334e-17
+    ],
+    "T33": [
+      -1.5028416675261174,
+      -1.4925014458070545,
+      1.5571182279948728,
+      -1.515064962752063,
+      -1.549423651460821,
+      1.4050160775390702e-17
+    ]
+  },
+  "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
+  "construction": {
+    "continuation_target_spacing_m": 0.0005,
+    "edge_joint_step_rad": 0.025,
+    "edge_membership_spacing_m": 0.00025,
+    "effective_dedup_tolerance_rad": 0.001,
+    "endpoint_tolerance_rad": 1e-10,
+    "final_tracking_samples": 3,
+    "max_ik_calls": 1000000,
+    "max_nodes": 2048,
+    "max_off_attempts": 4000,
+    "max_on_attempts": 8000,
+    "max_q_candidates_per_port": 4,
+    "max_seeds_per_port": 8,
+    "retreat_distance_m": 0.02,
+    "schedule": "round_robin_source_cross_entry_off_then_candidate_rank"
+  },
+  "coverage": {
+    "footprint_radius_m": 0.008,
+    "missed_tolerance": 0.02,
+    "repeat_tolerance": 0.1,
+    "resolution_tolerance": 0.002,
+    "soft_q2_reserve": 0.002
+  },
+  "dev_on_segment_budgets": [
+    1
+  ],
+  "dev_placements": [
+    "T30",
+    "T27",
+    "T33"
+  ],
+  "expected_geometry_hash": "01050368f57eca9a904a04106dc705aec89cab65248c508462ad232328976047",
+  "experiment": "E11 mechanism attribution and frozen-policy placement transfer",
+  "forbidden": [
+    "source-run B",
+    "prospective-repeat bound",
+    "FM",
+    "hardware",
+    "non-spherical geometry",
+    "parameter sweep",
+    "threshold relaxation",
+    "Q5"
+  ],
+  "graph_sources": {
+    "T27": {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T27.npz",
+      "sha256": "637fffd5913666107b4bfa4a7c1ea3c016fb1f28ce5237be605efb884a2550bd"
+    },
+    "T30": {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T30.npz",
+      "sha256": "b2d4c06891582609d32874769bbdcd64b55e6db375e3cfff36c48ab3bb233406"
+    },
+    "T33": {
+      "path": "/data/chocheng/worktrees/e09-continuous-routing-repair-v1/results/e09_continuous_routing_repair_v1/graphs/hemisphere_T33.npz",
+      "sha256": "02c435e38439bc91242640962d52414af7e5bcd8f3b6f08250ad6ad363951bce"
+    }
+  },
+  "inputs": {
+    "geometry_bank_json": "results/e09_continuous_routing_repair_v1/geometry_bank.json",
+    "geometry_bank_npz": "results/e09_continuous_routing_repair_v1/geometry_bank.npz",
+    "placements": "configs/riemannian_anisotropy_scenes_v1.json",
+    "quadrature_q1": "results/e08_path_semantics_v1/quadrature_hemisphere_Q1.npz",
+    "quadrature_q2": "results/e08_path_semantics_v1/quadrature_hemisphere_Q2.npz",
+    "robot_model": "/data/chocheng/Code/ur_contact_motion_sb3/third_party/mujoco_menagerie/universal_robots_ur5e/ur5e.xml",
+    "transfer_scenes": "configs/e11_transfer_scenes_v1.json"
+  },
+  "mechanism_diagnostic": {
+    "expanded_labels": 20000,
+    "seconds": 5
+  },
+  "parent_ara_sha": "629a83e4f0cea2082cb08b552b33cc838df761be",
+  "parent_code_sha": "defd63315996bceb113a06a57a295b8eaec9a635",
+  "registered_at": "2026-09-17T05:03:00+10:00",
+  "robot": {
+    "axis_opposes_surface_normal": true,
+    "axis_tolerance_degrees": 0.1,
+    "characteristic_length_m": 0.1,
+    "constant_q6": true,
+    "ik_axis_tolerance_degrees": 0.05,
+    "ik_backend": "task5",
+    "ik_damping": 0.002,
+    "ik_max_iterations": 120,
+    "ik_max_update_rad": 0.25,
+    "ik_position_tolerance_m": 5e-05,
+    "joint_metric": "identity",
+    "position_tolerance_m": 0.0001,
+    "sigma_safe": 0.07237417172157597,
+    "site_name": "attachment_site",
+    "tool_axis_index": 2,
+    "tool_axis_sign": 1.0
+  },
+  "search": {
+    "bucket_live_limit": 32,
+    "candidate_reservoir": 8,
+    "checkpoints_s": [
+      10,
+      30,
+      60,
+      120,
+      300
+    ],
+    "endpoint_diversity_limit": 2,
+    "expanded_label_limit": 200000,
+    "method_order_by_task": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "B",
+        "A"
+      ]
+    ],
+    "method_order_dev": [
+      [
+        "A",
+        "A_root",
+        "P"
+      ],
+      [
+        "P",
+        "A",
+        "A_root"
+      ],
+      [
+        "A_root",
+        "P",
+        "A"
+      ]
+    ],
+    "method_order_transfer": [
+      [
+        "A",
+        "P"
+      ],
+      [
+        "P",
+        "A"
+      ]
+    ],
+    "online_screen_limit": 4,
+    "pipeline_core_seconds": 300,
+    "prefix_progress_bins": 10,
+    "prefix_representatives": 2,
+    "private_memory_gib": 6,
+    "progress_bins": 21,
+    "retained_record_limit": 30000,
+    "run_branch_cap": 8,
+    "run_cache_mib": 64,
+    "run_lengths": [
+      2,
+      4,
+      8,
+      16
+    ]
+  },
+  "surface": {
+    "complete_domain": true,
+    "id": "hemisphere",
+    "radius_m": 0.14
+  },
+  "transfer_on_segment_budgets": [
+    1,
+    2
+  ],
+  "transfer_placements": [
+    "H00",
+    "H01",
+    "H02",
+    "H03",
+    "H04",
+    "H05"
+  ],
+  "transfer_scene_seed_base": 2026091700,
+  "validation": {
+    "deadline_s_per_unique_witness": 900,
+    "memory_gib": 6,
+    "quadrature": {
+      "Q1": [
+        96,
+        48
+      ],
+      "Q2": [
+        192,
+        96
+      ],
+      "Q3": [
+        384,
+        192
+      ],
+      "Q4": [
+        768,
+        384
+      ],
+      "Q4a_fraction_pairs": [
+        [
+          0.25,
+          0.75
+        ],
+        [
+          0.75,
+          0.25
+        ]
+      ]
+    },
+    "temporal": {
+      "T0_joint_step_rad": 0.0125,
+      "T0_surface_step_m": 0.000125,
+      "T1_joint_step_rad": 0.00625,
+      "T1_surface_step_m": 6.25e-05
+    }
+  }
+}

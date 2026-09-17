@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import OrderedDict, defaultdict
 from dataclasses import dataclass, field
+import hashlib
 from time import perf_counter
 from typing import Any, Callable, Iterable
 
@@ -77,6 +78,7 @@ class AnytimeResult:
     first_q3_pass_seconds: float | None
     fallback_retained: bool
     run_catalog: dict[str, Any]
+    screen_events: tuple[dict[str, Any], ...] = ()
 
 
 @dataclass
@@ -239,7 +241,7 @@ def structured_anytime_search(
     use_source_runs:bool, config:dict[str,Any], wall_time_s:float,
     screen:Callable[[tuple[int,...]],dict[str,Any]]|None=None,
 ) -> AnytimeResult:
-    graph=data["graph"];weights=np.asarray(graph.weights);total=float(weights.sum());began=perf_counter();deadline=began+max(0.0,wall_time_s);cfg=config["search"];metrics=AnytimeMetrics();labels={};buckets=defaultdict(list);pareto=defaultdict(list);child_refs=defaultdict(int);expanded_records=set();serial=0;next_id=0;live=set();candidates={};first_q2=None;first_q3=None;checkpoints=[];cp_index=0
+    graph=data["graph"];weights=np.asarray(graph.weights);total=float(weights.sum());began=perf_counter();deadline=began+max(0.0,wall_time_s);cfg=config["search"];metrics=AnytimeMetrics();labels={};buckets=defaultdict(list);pareto=defaultdict(list);child_refs=defaultdict(int);expanded_records=set();serial=0;next_id=0;live=set();candidates={};screen_events=[];first_q2=None;first_q3=None;checkpoints=[];cp_index=0
     outgoing=defaultdict(list)
     for edge in graph.edges:outgoing[edge.start].append(edge)
     for values in outgoing.values():values.sort(key=lambda e:(e.joint_cost,e.edge_id))
@@ -340,8 +342,13 @@ def structured_anytime_search(
         if first_q2 is None:first_q2=elapsed
         q2_miss=float(weights[~label.covered].sum()/total);status="SCREEN_NOT_RUN";q3m=q3r=None;screen_s=0.0
         if screen is not None and metrics.screen_calls<int(cfg["online_screen_limit"]) and perf_counter()<deadline:
-            s=perf_counter();result=screen(path);screen_s=perf_counter()-s;metrics.screen_calls+=1;metrics.screen_seconds+=screen_s
+            s=perf_counter();error=None
+            try:result=screen(path)
+            except BaseException as exc:result={"status":"SCREEN_ERROR"};error=repr(exc)
+            ended=perf_counter();screen_s=ended-s;metrics.screen_calls+=1;metrics.screen_seconds+=screen_s
             status=result.get("status","SCREEN_ERROR");q3m=result.get("E_miss");q3r=result.get("E_rep")
+            identity=hashlib.sha256(np.asarray(path,dtype=np.int64).tobytes()).hexdigest()
+            screen_events.append({"event_id":len(screen_events),"edge_ids":path,"edge_identity":identity,"start_monotonic_s":s-began,"end_monotonic_s":ended-began,"duration_s":screen_s,"E_miss_Q2":q2_miss,"E_rep_Q2":label.repeat_error,"status":status,"E_miss_Q3":q3m,"E_rep_Q3":q3r,"error":error})
             if status=="Q3_PASS" and first_q3 is None:first_q3=perf_counter()-began
         candidates[path]=Candidate(label.label_id,path,label.node,label.covered.copy(),label.membership.copy(),label.repeat_error,label.joint_cost,label.used_on_segments,q2_miss,status,q3m,q3r,screen_s)
         ordered_obj=sorted(candidates.values(),key=lambda c:(c.used_on_segments-1,c.joint_cost,c.edge_ids))[:4]
@@ -388,4 +395,122 @@ def structured_anytime_search(
     remaining=[c for c in candidates.values() if c not in finalists and c.screen_status!="Q3_FAIL"]
     if remaining:finalists.append(sorted(remaining,key=lambda c:(-(float(config["coverage"]["missed_tolerance"])-c.q2_miss+float(config["coverage"]["repeat_tolerance"])-c.repeat_error),c.used_on_segments,c.joint_cost,c.edge_ids))[0])
     all_screened=tuple(sorted(candidates.values(),key=lambda c:(c.used_on_segments-1,c.joint_cost,c.edge_ids)))
-    return AnytimeResult(tuple(finalists),all_screened,termination,elapsed,metrics,tuple(checkpoints),first_q2,first_q3,validated_fallback is not None,{"cache_entries":len(run_cache.cache),"cache_bytes":run_cache.bytes,"omitted_by_cap":run_cache.omitted})
+    final_paths={c.edge_ids for c in finalists};reservoir_paths=set(candidates)
+    complete_events=tuple({**event,"reservoir_retained":event["edge_ids"] in reservoir_paths,"final_nominated":event["edge_ids"] in final_paths} for event in screen_events)
+    return AnytimeResult(tuple(finalists),all_screened,termination,elapsed,metrics,tuple(checkpoints),first_q2,first_q3,validated_fallback is not None,{"cache_entries":len(run_cache.cache),"cache_bytes":run_cache.bytes,"omitted_by_cap":run_cache.omitted},complete_events)
+
+
+def greedy_prefix_completion(
+    data:dict[str,Any], *, start_node:int, maximum_on_segments:int,
+    initial_prefixes:Iterable[Iterable[int]], validated_fallback:SearchLabel|None,
+    config:dict[str,Any], wall_time_s:float,
+    screen:Callable[[tuple[int,...]],dict[str,Any]]|None=None,
+) -> AnytimeResult:
+    """Round-robin one-continuation-per-prefix control used by E11.
+
+    Each rollout enumerates every immediate atomic child and retains exactly one
+    under A's local rank.  Different prefixes never share a beam or backtrack.
+    """
+    graph=data["graph"];weights=np.asarray(graph.weights);total=float(weights.sum());cfg=config["search"]
+    began=perf_counter();deadline=began+max(0.0,wall_time_s);metrics=AnytimeMetrics();outgoing=defaultdict(list)
+    for edge in graph.edges:outgoing[edge.start].append(edge)
+    for values in outgoing.values():values.sort(key=lambda edge:(edge.joint_cost,edge.edge_id))
+    paths=[()]+[tuple(int(x) for x in path) for path in initial_prefixes]
+    unique=[];seen_paths=set()
+    for path in paths:
+        if path not in seen_paths:unique.append(path);seen_paths.add(path)
+    rollouts=[]
+    for index,path in enumerate(unique):
+        try:label=replay_edge_sequence(graph,start_node,path)
+        except (ValueError,FloatingPointError):continue
+        rollouts.append({"id":index,"label":label,"active":True,"visited":defaultdict(list),"seed_prefix":path})
+    candidates={};screen_events=[];first_q2=None;first_q3=None;checkpoints=[];cp_index=0;cursor=0
+    reachable_cache={}
+    def state_key(label):return (label.node,np.packbits(label.covered).tobytes(),np.packbits(label.membership).tobytes(),label.used_on_segments)
+    def recur_admit(rollout,label):
+        key=state_key(label);records=rollout["visited"][key]
+        if any(r<=label.repeat_error+1e-12 and c<=label.joint_cost+1e-12 for r,c in records):return False
+        rollout["visited"][key]=[(r,c) for r,c in records if not (label.repeat_error<=r+1e-12 and label.joint_cost<=c+1e-12)]+[(label.repeat_error,label.joint_cost)];return True
+    def recur_dominated(rollout,label):
+        return any(r<=label.repeat_error+1e-12 and c<=label.joint_cost+1e-12 for r,c in rollout["visited"].get(state_key(label),()))
+    for rollout in rollouts:recur_admit(rollout,rollout["label"])
+    def reachable(label):
+        key=(label.node,maximum_on_segments-label.used_on_segments)
+        if key not in reachable_cache:
+            states={(label.node,label.used_on_segments)};stack=list(states);foot=np.zeros_like(label.covered)
+            while stack:
+                if perf_counter()>=deadline:return True
+                node,used=stack.pop()
+                for edge in outgoing.get(node,()):
+                    nu=used+edge.summary.off_to_on_count
+                    if nu>maximum_on_segments:continue
+                    foot|=edge.summary.footprint;state=(edge.end,nu)
+                    if state not in states:states.add(state);stack.append(state)
+            reachable_cache[key]=foot
+        return float(weights[label.covered|reachable_cache[key]].sum())>=(1-float(config["coverage"]["missed_tolerance"]))*total-1e-15
+    def retain(label):
+        nonlocal first_q2,first_q3
+        path=label.path
+        if path in candidates:return
+        elapsed=perf_counter()-began
+        if first_q2 is None:first_q2=elapsed
+        q2miss=float(weights[~label.covered].sum()/total);status="SCREEN_NOT_RUN";q3m=q3r=None;duration=0.0
+        if screen is not None and metrics.screen_calls<int(cfg["online_screen_limit"]) and perf_counter()<deadline:
+            started=perf_counter();error=None
+            try:answer=screen(path)
+            except BaseException as exc:answer={"status":"SCREEN_ERROR"};error=repr(exc)
+            ended=perf_counter();duration=ended-started;metrics.screen_calls+=1;metrics.screen_seconds+=duration
+            status=answer.get("status","SCREEN_ERROR");q3m=answer.get("E_miss");q3r=answer.get("E_rep")
+            identity=hashlib.sha256(np.asarray(path,dtype=np.int64).tobytes()).hexdigest()
+            screen_events.append({"event_id":len(screen_events),"edge_ids":path,"edge_identity":identity,"start_monotonic_s":started-began,"end_monotonic_s":ended-began,"duration_s":duration,"E_miss_Q2":q2miss,"E_rep_Q2":label.repeat_error,"status":status,"E_miss_Q3":q3m,"E_rep_Q3":q3r,"error":error})
+            if status=="Q3_PASS" and first_q3 is None:first_q3=ended-began
+        candidates[path]=Candidate(-1,path,label.node,label.covered.copy(),label.membership.copy(),label.repeat_error,label.joint_cost,label.used_on_segments,q2miss,status,q3m,q3r,duration)
+        objective=sorted(candidates.values(),key=lambda c:(c.used_on_segments-1,c.joint_cost,c.edge_ids))[:4]
+        slack=sorted(candidates.values(),key=lambda c:(-(float(config["coverage"]["missed_tolerance"])-c.q2_miss+float(config["coverage"]["repeat_tolerance"])-c.repeat_error),c.used_on_segments,c.joint_cost,c.edge_ids))[:4]
+        keep={c.edge_ids for c in objective+slack}
+        for old in list(candidates):
+            if old not in keep:candidates.pop(old)
+    termination="greedy_exhausted"
+    while any(r["active"] for r in rollouts):
+        elapsed=perf_counter()-began
+        while cp_index<len(cfg["checkpoints_s"]) and elapsed>=float(cfg["checkpoints_s"][cp_index]):
+            checkpoints.append({"seconds":float(cfg["checkpoints_s"][cp_index]),"expanded":metrics.expanded,"candidates":len(candidates),"active_rollouts":sum(r["active"] for r in rollouts)});cp_index+=1
+        if perf_counter()>=deadline:termination="wall_time";break
+        if metrics.expanded>=int(cfg["expanded_label_limit"]):termination="expanded_limit";break
+        rollout=None
+        for _ in range(len(rollouts)):
+            choice=rollouts[cursor%len(rollouts)];cursor+=1
+            if choice["active"]:rollout=choice;break
+        if rollout is None:break
+        label=rollout["label"];metrics.expanded+=1
+        miss=float(weights[~label.covered].sum()/total)
+        if miss<=float(config["coverage"]["missed_tolerance"])+1e-12 and label.repeat_error<=float(config["coverage"]["repeat_tolerance"])+1e-12:retain(label)
+        if not reachable(label):metrics.reachability_pruned+=1;rollout["active"]=False;continue
+        children=[]
+        for edge in outgoing.get(label.node,()):
+            metrics.generated_actions+=1;metrics.atomic_equivalent_work+=1
+            used=label.used_on_segments+edge.summary.off_to_on_count
+            if used>maximum_on_segments:metrics.segment_pruned+=1;continue
+            try:state=apply_edge_summary(EpisodeState(label.covered,label.membership,label.repeat_error),edge.summary,weights)
+            except (ValueError,FloatingPointError):continue
+            if state.repeat_error>float(config["coverage"]["repeat_tolerance"])+1e-12:metrics.repeat_pruned+=1;continue
+            cost=label.joint_cost+edge.joint_cost
+            if validated_fallback is not None and (used-1,cost)>=(validated_fallback.used_on_segments-1,validated_fallback.joint_cost):metrics.objective_pruned+=1;continue
+            child=SearchLabel(edge.end,state.covered,state.membership,state.repeat_error,cost,used,label.path+(edge.edge_id,))
+            if recur_dominated(rollout,child):metrics.dominance_pruned+=1;continue
+            if not reachable(child):metrics.reachability_pruned+=1;continue
+            remaining=max(0.0,(1-float(config["coverage"]["missed_tolerance"]))*total-float(weights[child.covered].sum()))
+            children.append(((remaining,child.repeat_error,child.joint_cost,edge.edge_id),child))
+        if not children:rollout["active"]=False
+        else:
+            selected=min(children,key=lambda item:item[0])[1]
+            recur_admit(rollout,selected);rollout["label"]=selected
+        metrics.peak_open=max(metrics.peak_open,sum(r["active"] for r in rollouts));metrics.peak_ancestry=max(metrics.peak_ancestry,len(rollouts));metrics.peak_pareto_records=max(metrics.peak_pareto_records,sum(sum(len(v) for v in r["visited"].values()) for r in rollouts))
+    elapsed=perf_counter()-began
+    finalists=sorted((c for c in candidates.values() if c.screen_status=="Q3_PASS"),key=lambda c:(c.used_on_segments-1,c.joint_cost,c.edge_ids))[:1]
+    remaining=[c for c in candidates.values() if c not in finalists and c.screen_status!="Q3_FAIL"]
+    if remaining:finalists.append(sorted(remaining,key=lambda c:(-(float(config["coverage"]["missed_tolerance"])-c.q2_miss+float(config["coverage"]["repeat_tolerance"])-c.repeat_error),c.used_on_segments,c.joint_cost,c.edge_ids))[0])
+    final_paths={c.edge_ids for c in finalists};reservoir_paths=set(candidates)
+    events=tuple({**event,"reservoir_retained":event["edge_ids"] in reservoir_paths,"final_nominated":event["edge_ids"] in final_paths} for event in screen_events)
+    all_candidates=tuple(sorted(candidates.values(),key=lambda c:(c.used_on_segments-1,c.joint_cost,c.edge_ids)))
+    return AnytimeResult(tuple(finalists),all_candidates,termination,elapsed,metrics,tuple(checkpoints),first_q2,first_q3,validated_fallback is not None,{"rollouts":len(rollouts),"active_at_stop":sum(r["active"] for r in rollouts),"one_continuation_per_rollout":True},events)
