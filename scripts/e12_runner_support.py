@@ -207,7 +207,7 @@ def collect_train_val(root:Path,config:dict[str,Any],output:Path,scene_ids:set[s
             nonlocal validation_calls
             for method,pf in method_plans:
                 if validation_calls>=int(config["teacher"]["full_validation_calls"]):break
-                plan=np.load(root/pf,allow_pickle=False);h=str(plan["witness_hash"]);validation_calls+=1;started=perf_counter();checked=validate_unique_witness(root,c,output,{"k":1},plan,data,{"transform_base_from_surface":scene["transform_base_from_surface"]},h);events.append({"scene_id":sid,"kind":"teacher_graph_validation","method":method,"witness_hash":h,"duration_s":perf_counter()-started,"status":checked["final"]["overall_status"],"cache_hit":False})
+                plan=np.load(output.parents[1]/pf,allow_pickle=False);h=str(plan["witness_hash"]);validation_calls+=1;started=perf_counter();checked=validate_unique_witness(root,c,output,{"k":1},plan,data,{"transform_base_from_surface":scene["transform_base_from_surface"]},h);events.append({"scene_id":sid,"kind":"teacher_graph_validation","method":method,"witness_hash":h,"duration_s":perf_counter()-started,"status":checked["final"]["overall_status"],"cache_hit":False})
                 if checked["final"]["overall_status"]!="accepted_under_E09_R1_refined_sampled_checks":continue
                 try:program=_plan_program(plan,lib,config)
                 except Exception as exc:candidates.append({"scene_id":sid,"method":method,"witness_hash":h,"graph_validation":checked["final"]["overall_status"],"program_status":f"failed:{exc}"});continue
