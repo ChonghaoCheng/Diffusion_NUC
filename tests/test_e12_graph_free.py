@@ -19,6 +19,10 @@ from diffusion_coverage.models.e12_generator import (
     heun_generate, scan_symbol, sequence_key, unpack_scan_symbol,
 )
 from diffusion_coverage.learning.e12_inference import controls_to_program
+from diffusion_coverage.learning.e12_program_dataset import ProgramDataset,condition_vector
+from diffusion_coverage.coverage.episode_summary import summarize_ordered_membership
+from diffusion_coverage.solvers.structured_routing import compose_episode_summaries
+from diffusion_coverage.robot.e09_execution import sphere_membership_stream
 
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -160,3 +164,19 @@ def test_p_lazy_does_not_load_robot_graph():
     source=(ROOT/"scripts/e12_runner_support.py").read_text().split("def run_p_lazy",1)[1].split("\ndef ",1)[0]
     assert "load_robot_graph" not in source
     assert "build_placement_graph" not in source
+
+
+def test_normalization_and_prototypes_are_training_only(library):
+    program=GeometryProgram((ProgramToken("SCAN",library.families[0],1,0.,1.),ProgramToken("END")))
+    transform=np.eye(4);q0=np.zeros(6)
+    labels=[{"scene_id":"train","split":"TRAIN","transform":transform.tolist(),"q0":q0.tolist(),"program_json":program.to_json()},{"scene_id":"validation","split":"VALIDATION","transform":(transform+100).tolist(),"q0":(q0+100).tolist(),"program_json":program.to_json()}]
+    dataset=ProgramDataset.from_labels(labels,library)
+    assert np.allclose(dataset.condition_mean,condition_vector(transform,q0))
+
+
+def test_program_segment_summaries_match_whole_trace(library):
+    program=GeometryProgram((ProgramToken("SCAN",library.families[0],1,0.,.05),ProgramToken("VIA",d1=0.,d2=0.),ProgramToken("SCAN",library.families[1],-1,.1,.2),ProgramToken("END")))
+    decoded=decode_program(program,library,library.ports[0],maximum_step=.001)
+    samples=library.ports[:64];weights=np.arange(1,65,dtype=float);membership=sphere_membership_stream(samples,decoded.surface_points,radius=library.radius,footprint_radius=.008);whole=summarize_ordered_membership(membership,weights)
+    boundaries=np.flatnonzero(decoded.segment_ids[1:]!=decoded.segment_ids[:-1])+1;starts=np.r_[0,boundaries];ends=np.r_[boundaries+1,len(decoded.segment_ids)];pieces=[summarize_ordered_membership(membership[:,a:b],weights) for a,b in zip(starts,ends,strict=True)];composed=compose_episode_summaries(pieces,weights)
+    assert np.array_equal(composed.episode_counts,whole.episode_counts)
