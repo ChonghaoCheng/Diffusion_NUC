@@ -1,0 +1,5 @@
+scene_id,method,witness_hash,pointwise_counts_equal,different_cells,max_count_difference
+TE01,P_GRAPH,fd5dbd5c776f20a6c6c7f4c0545d60b37b05796a58326284fa5b627e22cf7c08,True,0,0
+TE02,P_GRAPH,8423f3e5a7daf09ed2cc7b151cb636d927a51cab0526c6efac728f9ceef391b0,True,0,0
+TE03,P_GRAPH,7efa2fc5c563837cc7896c6540d36fba87f1dd03c6a558e7f26f6ca361e6f621,True,0,0
+TE07,P_GRAPH,a99aea061ebf364a3c6ce96bf286def40380f5cc34fd54fcba9b0146ddbe85fc,True,0,0

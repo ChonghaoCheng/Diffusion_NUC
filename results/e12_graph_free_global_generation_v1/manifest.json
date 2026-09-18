@@ -22,7 +22,7 @@
   "code_sha": "a3ee859c4d2a77f012c6ee0c9b971326f2e1e569",
   "collision_scope": "MuJoCo model contacts only; unmodeled workpiece, tool body beyond the XML, environment, and cables are not guaranteed absent",
   "config_sha256": "8928fb5d4b763abf89ddaac0966ff91e717f5f14758d25c8d47378aed4f3f7c3",
-  "current_frozen_code_sha": "de19868a815369f09f2f9fad2fcab3feb556b9b4",
+  "current_frozen_code_sha": "ff67802bfa5158f3f7b8675f1a442ebad76519e8",
   "experiment": "E12 graph-free global coverage generation and candidate-only execution",
   "geometry_json_sha256": "9cff4530d43f53dd61d56bc0280565b789211ff715486fb51e2e27ca670b9108",
   "geometry_npz_sha256": "9f03eea23cd6f4287f88a77e64223002562c736b9172c9bf6a8af72d1fada9dd",
@@ -33,6 +33,12 @@
   ],
   "pose_splits_sha256": "81e20894457ffb882642c0d4748e8a4e54f160816ffa7ad53d3ad37f2906d552",
   "prepared_at": "2026-09-17T20:28:36.298207+10:00",
+  "stage_code_shas": {
+    "graph_free_output_lock": "ff67802bfa5158f3f7b8675f1a442ebad76519e8",
+    "p_graph_replay_and_report_base": "ff67802bfa5158f3f7b8675f1a442ebad76519e8",
+    "sealed_candidate_freeze": "969aac0e67e9678d3af40efcce4bc236c8620491",
+    "training_freeze": "e406b9b54ca1f89664cb30e4c670b3f20825cb86"
+  },
   "training_stage_code_shas": {
     "categorical": "6ec75506b04ea901256c236c849687c670d271e6",
     "fm": "de19868a815369f09f2f9fad2fcab3feb556b9b4",

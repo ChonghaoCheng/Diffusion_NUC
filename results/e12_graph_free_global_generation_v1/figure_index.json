@@ -1,0 +1,109 @@
+{
+  "figures": [
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE01_38b480a22f57_coverage_unwrapped.png",
+      "scene_id": "TE01",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE01_38b480a22f57_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE01_38b480a22f57_whole_surface_3d.png",
+      "witness_hash": "38b480a22f57a533ea5fdba04ae5e852e91a3c5371256f4e04b5cc2391162c0b"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE01_6ef67c230f34_coverage_unwrapped.png",
+      "scene_id": "TE01",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE01_6ef67c230f34_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE01_6ef67c230f34_whole_surface_3d.png",
+      "witness_hash": "6ef67c230f34fc1ec5d5efa72578a478ef18f2e0ecacac5e2d0ae677992bedfd"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE01_08f33fd4942f_coverage_unwrapped.png",
+      "scene_id": "TE01",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE01_08f33fd4942f_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE01_08f33fd4942f_whole_surface_3d.png",
+      "witness_hash": "08f33fd4942f7ee398bb8de5c80634547f5562186eb1cb29d672e71a8f2e3827"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE01_db17ec05e0f4_coverage_unwrapped.png",
+      "scene_id": "TE01",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE01_db17ec05e0f4_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE01_db17ec05e0f4_whole_surface_3d.png",
+      "witness_hash": "db17ec05e0f4dd46e8d3f92867d705d45da0d93d21385e5a247d45a6e839bd11"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE02_e5d4c5201537_coverage_unwrapped.png",
+      "scene_id": "TE02",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE02_e5d4c5201537_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE02_e5d4c5201537_whole_surface_3d.png",
+      "witness_hash": "e5d4c520153761c682e3d0e814dcc4b3ad5086d30e53dcfd0a1a4945f93b2f13"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE02_da2c6718876b_coverage_unwrapped.png",
+      "scene_id": "TE02",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE02_da2c6718876b_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE02_da2c6718876b_whole_surface_3d.png",
+      "witness_hash": "da2c6718876b113ac79f74bb2fed7da406fceb2104c9b9acc6791dc59e47b26e"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE03_39efd8626d87_coverage_unwrapped.png",
+      "scene_id": "TE03",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE03_39efd8626d87_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE03_39efd8626d87_whole_surface_3d.png",
+      "witness_hash": "39efd8626d872e36fa2e764773852c844c460a407fc5200f01078da16bb22cf1"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE04_9632aff58bc9_coverage_unwrapped.png",
+      "scene_id": "TE04",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE04_9632aff58bc9_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE04_9632aff58bc9_whole_surface_3d.png",
+      "witness_hash": "9632aff58bc9e7c3358c8bd37d426fa4a754b79d2871c3eba8ea899fcca959c0"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE05_bd98ffcbcfdf_coverage_unwrapped.png",
+      "scene_id": "TE05",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE05_bd98ffcbcfdf_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE05_bd98ffcbcfdf_whole_surface_3d.png",
+      "witness_hash": "bd98ffcbcfdf60da1a8d20c7882a44c152bc8a9ec0acef9f4f94bc79c3f3f4ea"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE07_0444037de12a_coverage_unwrapped.png",
+      "scene_id": "TE07",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE07_0444037de12a_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE07_0444037de12a_whole_surface_3d.png",
+      "witness_hash": "0444037de12aea3cba40a91f5c3472281b983234850cfdd7c92192a363589301"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE07_c7823540b50b_coverage_unwrapped.png",
+      "scene_id": "TE07",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE07_c7823540b50b_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE07_c7823540b50b_whole_surface_3d.png",
+      "witness_hash": "c7823540b50bc0ebb7ee1af8277a2d210b32062224c900fa62dbb5fe62a63320"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE01_fd5dbd5c776f_coverage_unwrapped.png",
+      "scene_id": "TE01",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE01_fd5dbd5c776f_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE01_fd5dbd5c776f_whole_surface_3d.png",
+      "witness_hash": "fd5dbd5c776f20a6c6c7f4c0545d60b37b05796a58326284fa5b627e22cf7c08"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE02_8423f3e5a7da_coverage_unwrapped.png",
+      "scene_id": "TE02",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE02_8423f3e5a7da_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE02_8423f3e5a7da_whole_surface_3d.png",
+      "witness_hash": "8423f3e5a7daf09ed2cc7b151cb636d927a51cab0526c6efac728f9ceef391b0"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE03_7efa2fc5c563_coverage_unwrapped.png",
+      "scene_id": "TE03",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE03_7efa2fc5c563_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE03_7efa2fc5c563_whole_surface_3d.png",
+      "witness_hash": "7efa2fc5c563837cc7896c6540d36fba87f1dd03c6a558e7f26f6ca361e6f621"
+    },
+    {
+      "coverage_unwrapped": "results/e12_graph_free_global_generation_v1/figures/TE07_a99aea061ebf_coverage_unwrapped.png",
+      "scene_id": "TE07",
+      "sigma5": "results/e12_graph_free_global_generation_v1/figures/TE07_a99aea061ebf_sigma5.png",
+      "whole_surface_3d": "results/e12_graph_free_global_generation_v1/figures/TE07_a99aea061ebf_whole_surface_3d.png",
+      "witness_hash": "a99aea061ebf364a3c6ce96bf286def40380f5cc34fd54fcba9b0146ddbe85fc"
+    }
+  ]
+}

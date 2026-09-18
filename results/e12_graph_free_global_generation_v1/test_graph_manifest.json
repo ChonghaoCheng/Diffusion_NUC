@@ -1,0 +1,69 @@
+{
+  "graphs": [
+    {
+      "bytes": 66264374,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE00.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE00",
+      "sha256": "605341c519f8b77332fb3dbf9e9fa94f2894418dbd7c737d0cf51328218bbb8c"
+    },
+    {
+      "bytes": 75555709,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE01.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE01",
+      "sha256": "519d0d2324fccb7b63bbe5e86cc7dfa8a5515d311154f732749357395409ab90"
+    },
+    {
+      "bytes": 75494627,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE02.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE02",
+      "sha256": "62447f5770141f6f157819ef5ea6facc07a093a960020ff45331825f7f41571e"
+    },
+    {
+      "bytes": 98658090,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE03.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE03",
+      "sha256": "ccbcf499f85be92b32f1adf54cff1e3db6be04f05f95cae4218d7401ecc079cf"
+    },
+    {
+      "bytes": 83747358,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE04.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE04",
+      "sha256": "a3423f33f2bc86c6c01d9270673545d8a84b19ceaf2e6056726139670dfc82bc"
+    },
+    {
+      "bytes": 79719277,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE05.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE05",
+      "sha256": "19cb1cbbe59dd2091239c7a305ddf37da2e27908bb0e9057c6365092dba8efdc"
+    },
+    {
+      "bytes": 55652488,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE06.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE06",
+      "sha256": "27be531b1d968f5165545a0b59de7c8d297bfc664dccd4df1ee3fcae30e0f316"
+    },
+    {
+      "bytes": 88509681,
+      "local_path": "results/e12_graph_free_global_generation_v1/test_graphs/hemisphere_TE07.npz",
+      "published_in_git": false,
+      "reconstruction_command": "python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference",
+      "scene_id": "TE07",
+      "sha256": "e1d06ae10cd60df6a5d3fe103b7ecb2bf230382c8bde67f6a8f721495602711b"
+    }
+  ],
+  "retention": "large reconstructible graphs retained locally and excluded from Git"
+}

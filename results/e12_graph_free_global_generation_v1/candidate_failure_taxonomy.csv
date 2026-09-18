@@ -1,0 +1,15 @@
+method,candidate_status,count
+RETRIEVE,NOT_RUN,41
+RETRIEVE,accepted_under_E12_refined_sampled_checks,6
+RETRIEVE,ik_call_limit,17
+REG,NOT_RUN,7
+REG,accepted_under_E12_refined_sampled_checks,1
+REG,ik_call_limit,55
+REG,numerically_unresolved,1
+FM,NOT_RUN,7
+FM,accepted_under_E12_refined_sampled_checks,1
+FM,ik_call_limit,55
+FM,numerically_unresolved,1
+P_LAZY,NOT_RUN,12
+P_LAZY,accepted_under_E12_refined_sampled_checks,4
+P_LAZY,numerically_unresolved,1

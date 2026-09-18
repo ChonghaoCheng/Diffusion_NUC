@@ -1,0 +1,21 @@
+# Exact staged reproduction from the frozen branch/worktree
+cd /data/chocheng/worktrees/e12-graph-free-global-generation-v1
+export OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage prepare
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage repair-diagnostics
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage encode
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage oracle-relift
+# collect-train-val was sharded across four fixed scene sets and merged; a serial deterministic reconstruction is:
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage collect-train-val
+# actual model schedule: categorical GPU0 and REG GPU1 concurrently, then FM GPU0
+CUDA_VISIBLE_DEVICES=0 /data/chocheng/.venvs/coverage-fm/bin/python scripts/train_e12_structured_generator.py --models categorical
+CUDA_VISIBLE_DEVICES=1 /data/chocheng/.venvs/coverage-fm/bin/python scripts/train_e12_structured_generator.py --models reg
+CUDA_VISIBLE_DEVICES=0 /data/chocheng/.venvs/coverage-fm/bin/python scripts/train_e12_structured_generator.py --models fm
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/train_e12_structured_generator.py --finalize
+CUDA_VISIBLE_DEVICES=0 /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage freeze-validation
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage validate-pilot
+CUDA_VISIBLE_DEVICES=0 /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage freeze-test
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage p-lazy
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-free
+/data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage test-graph-reference
+MPLCONFIGDIR=/tmp/e12-matplotlib /data/chocheng/.venvs/coverage-fm/bin/python scripts/run_e12_graph_free_global_generation_v1.py --stage report

@@ -1,0 +1,12 @@
+{
+  "accepted": {
+    "FM": 1,
+    "P_GRAPH": 4,
+    "P_LAZY": 4,
+    "REG": 1,
+    "RETRIEVE": 6
+  },
+  "complete": true,
+  "main_cells": 40,
+  "validation_cells": 12
+}
