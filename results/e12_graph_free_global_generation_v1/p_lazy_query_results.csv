@@ -1,0 +1,9 @@
+scene_id,status,ik_calls,query_seconds,prefixes,rollouts,complete_candidates,cache_entries
+TE00,query_budget_limited,200000,78.35974904894829,206,31,0,1797
+TE01,query_budget_limited,200000,73.55237846821547,462,61,6,1864
+TE02,query_budget_limited,200000,73.6409156024456,232,35,3,2011
+TE03,query_budget_limited,200000,73.90622927248478,232,34,1,1979
+TE04,query_budget_limited,200000,74.91903322935104,231,35,1,1861
+TE05,query_budget_limited,200000,74.68244641274214,223,34,0,1977
+TE06,query_budget_limited,200000,73.99126639962196,194,30,0,1734
+TE07,query_budget_limited,200000,73.9834119528532,462,61,6,1846
